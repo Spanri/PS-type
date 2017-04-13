@@ -4,7 +4,7 @@ const router = express.Router();
 router.get('/', (req, res, next) => {
   res.json({
     name: "PS Type API",
-    madeBy: "Anna Kozlova"
+    madeBy: "Anna, Valya, Liza"
   });
 });
 

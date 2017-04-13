@@ -3,23 +3,11 @@ import express from 'express';
 import path from 'path';
 import logger from 'morgan';
 import bodyParser from 'body-parser';
-import Datastore from 'nedb';
 
 import index from './routes/index';
 import api from './routes/api';
 
 const app = express();
-
-// create dbs
-const usersDb = new Datastore({
-  filename: 'users.nedb',
-  autoload: true,
-  onload: err => {
-    err
-      ? console.error(err)
-      : console.log('Users db created');
-  }
-});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
