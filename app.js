@@ -3,21 +3,28 @@ import express from 'express';
 import path from 'path';
 import logger from 'morgan';
 import bodyParser from 'body-parser';
+import ejwt from 'express-jwt';
 
 import index from './routes/index';
 import api from './routes/api';
 
 const app = express();
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('salt rounds', 10);
+app.set('secret', '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3');
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(ejwt({
+  secret: app.get('secret')
+}).unless({
+  path: [/.*api\/v\d\/sign(in|up).*/, '/']
+}));
 app.use('/', index);
 app.use('/api', api);
 

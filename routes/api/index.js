@@ -1,3 +1,4 @@
+"use strict";
 import express from 'express';
 import v1 from './v1';
 const router = express.Router();
