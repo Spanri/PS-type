@@ -106,7 +106,7 @@ router.post('/signin', async(req, res, next) => {
 
   try {
     user = await findUser(username);
-    if (!user) return res.status(400).send({
+    if (!user) return res.status(404).send({
       status: 'error',
       message: 'User not found'
     });
