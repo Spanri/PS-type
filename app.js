@@ -19,7 +19,8 @@ const app = express();
 
 app.set('secret', '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3');
 
-app.use(logger('dev'));
+const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' });
+app.use(morgan('combined', { stream: accessLogStream }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
