@@ -36,6 +36,10 @@ const userSchema = mongoose.Schema({
         validator: Number.isInteger,
         message: 'Age must be an integer'
       }
+    },
+    sex: {
+      type: Boolean,
+      required: false,
     }
 });
 
