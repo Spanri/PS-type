@@ -1,143 +1,79 @@
 "use strict";
 import path from 'path';
 import express from 'express';
-import Datastore from 'nedb';
-import bcrypt from 'bcrypt';
+import User from '../../../models/user';
 import jwt from 'jsonwebtoken';
-import {
-  dberr,
-  encerr,
-  invup,
-  invage,
-  usralrex
-} from '../../../helpers';
+import { dberr } from '../../../helpers';
 const router = express.Router();
 
-
-// open db
-const usersDb = new Datastore({
-  filename: path.resolve(__dirname, '..', '..', '..', 'users.nedb'),
-  autoload: true,
-  onload: err => {
-    err
-      ?
-      console.error(err) :
-      console.log('Users db opened');
-  }
+const getToken = (req, payload) => jwt.sign(payload, req.app.get('secret'), {
+  expiresIn: '10 days'
 });
 
-
-const validateNameAndPass = (username, password) => {
-  const pattern = new RegExp(/^[a-z0-9]{6,}$/i);
-  return username && password && pattern.test(username) && pattern.test(password);
-};
-
-
-const findUser = username => new Promise((resolve, reject) => {
-  usersDb.findOne({
-    username
-  }, (err, doc) => {
-    if (err) reject(err);
-    else resolve(doc);
-  });
+const verifyPassword = (user, password) => new Promise((resolve, reject) => {
+   user.verifyPassword(password, (err, isValid) => {
+     if (err) reject(err);
+     else if (!isValid) reject(new Error('Invalid password'));
+     else resolve();
+   });
 });
 
-
-const createUser = user => new Promise((resolve, reject) => {
-  usersDb.insert(user, (err, doc) => {
-    if (err) reject(err);
-    else resolve(doc);
-  });
-});
-
-
-router.post('/signup', async(req, res, next) => {
-  const username = req.body.username;
-  const password = req.body.password;
-  const age = req.body.age;
-  if (!validateNameAndPass(username, password)) invup(res);
-  if (age && (age < 14 || age >= 110)) return invage(res);
-
+router.post('/signup', async (req, res, next) => {
   const userToCreate = {
-    username,
-    age
+    username: req.body.username,
+    password: req.body.password,
+    age: req.body.age,
+    sex: req.body.sex
   };
-
   try {
-    const user = await findUser(username);
-    if (user) throw new Error('user exists');
-  } catch (err) {
-    return err.message == 'user exists' ? usralrex(res) : dberr(res);
-  }
-
-  try {
-    userToCreate.password = await bcrypt.hash(password, req.app.get('salt rounds'));
-  } catch (err) {
-    encerr(res);
-  }
-
-  try {
-    const createdUser = await createUser(userToCreate);
-    const payload = {
-      username: createdUser.username,
-      _id: createdUser._id
-    };
-    const token = jwt.sign(payload, req.app.get('secret'), {
-      expiresIn: '10 days'
-    });
-    res.status(200).send({
+    const user = await User.create(userToCreate);
+    const payload = { username: user.username, _id: user._id };
+    return res.status(200).send({
       status: 'ok',
       message: 'User successfuly created',
       user: payload,
-      token
+      token: getToken(req, payload)
     });
   } catch (err) {
-    dberr(res);
+    if (err.name === 'ValidationError') {
+      const firstErr = err.errors[Object.keys(err.errors)[0]];
+      let message = 'Unexpected error';
+      if (firstErr.kind === 'unique') message = 'User with this username already exists';
+      else if (firstErr.message) message = firstErr.message;
+      return res.status(400).send({
+        status: 'error',
+        message
+      });
+    }
+    else return dberr(res);
   }
 });
 
 
-router.post('/signin', async(req, res, next) => {
-  const username = req.body.username;
-  const password = req.body.password;
-  if (!validateNameAndPass(username, password)) return invup(res);
-
-  let user = {};
-
+router.post('/signin', async (req, res, next) => {
+  let user = null;
   try {
-    user = await findUser(username);
+    user = await User.findOne({ username: req.body.username }).exec();
     if (!user) return res.status(404).send({
       status: 'error',
       message: 'User not found'
     });
+    await verifyPassword(user, req.body.password);
   } catch (err) {
-    dberr(res);
-  }
-
-  try {
-    const isValidPassword = await bcrypt.compare(password, user.password);
-    if (isValidPassword) {
-      const payload = {
-        username: user.username,
-        _id: user._id
-      };
-      const token = jwt.sign(payload, req.app.get('secret'), {
-        expiresIn: '10 days'
-      });
-      res.status(200).send({
-        status: 'ok',
-        message: 'User successfuly authorized',
-        token
-      });
-    } else res.status(400).send({
+    if (err.message === 'Invalid password') return res.status(400).send({
       status: 'error',
       message: 'Wrong password'
     });
-  } catch (err) {
-    encerr(res);
+    else return dberr(res);
   }
 
-});
+  const payload = { username: user.username, _id: user._id };
+  return res.status(200).send({
+    status: 'ok',
+    message: 'User successfuly authorized',
+    token: getToken(req, payload)
+  });
 
+});
 
 export default router;

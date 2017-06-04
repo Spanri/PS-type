@@ -4,9 +4,16 @@ import path from 'path';
 import logger from 'morgan';
 import bodyParser from 'body-parser';
 import ejwt from 'express-jwt';
+import mongoose from 'mongoose';
 
 import index from './routes/index';
 import api from './routes/api';
+
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://SpanriDb:nysha2161@ds046939.mlab.com:46939/spanridb');
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', () => console.log('DB connected!'));
 
 const app = express();
 

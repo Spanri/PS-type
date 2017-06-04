@@ -1,5 +1,4 @@
 .vscode/
-*.nedb
 # Logs
 logs
 *.log
