@@ -1,6 +1,7 @@
 "use strict";
 import express from 'express';
 import path from 'path';
+import fs from 'fs';
 import logger from 'morgan';
 import bodyParser from 'body-parser';
 import ejwt from 'express-jwt';
