@@ -17,7 +17,6 @@ db.once('open', () => console.log('DB connected!'));
 
 const app = express();
 
-app.set('salt rounds', 10);
 app.set('secret', '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3');
 
 app.use(logger('dev'));
@@ -30,7 +29,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(ejwt({
   secret: app.get('secret')
 }).unless({
-  path: [/.*api\/v\d\/sign(in|up).*/, '/']
+  method: 'OPTIONS',
+  path: [
+    '/',
+    /\/api\/v\d(\/sign(in|up))?\/?/i
+  ]
 }));
 app.use('/', index);
 app.use('/api', api);
