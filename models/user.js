@@ -44,6 +44,14 @@ const userSchema = mongoose.Schema({
         validator: v => typeof(v) === "boolean",
         message: "Sex must be Boolean (true for male)"
       }
+    },
+    firstEnt: {
+      type: Boolean,
+      required: false,
+      validate: {
+        validator: v => typeof(v) === "boolean",
+        message: "firstEnt must be Boolean (false for 'not to show')"
+      }
     }
 });
 

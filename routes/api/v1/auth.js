@@ -23,7 +23,8 @@ router.post('/signup', async (req, res, next) => {
     username: req.body.username,
     password: req.body.password,
     age: req.body.age,
-    sex: req.body.sex
+    sex: req.body.sex,
+    firstEnt: req.body.firstEnt
   };
   try {
     const user = await User.create(userToCreate);
@@ -66,14 +67,21 @@ router.post('/signin', async (req, res, next) => {
     });
     else return dberr(res);
   }
-
   const payload = { username: user.username, _id: user._id };
   return res.status(200).send({
     status: 'ok',
     message: 'User successfuly authorized',
-    token: getToken(req, payload)
+    token: getToken(req, payload),
+    firstEnt
   });
+});
 
+router.post('/welcome', async (req, res, next) => {
+  return res.status(200).send({
+      status: 'ok',
+      message: 'The greeting will not be displayed',
+      firstEnt: false
+    });
 });
 
 export default router;
