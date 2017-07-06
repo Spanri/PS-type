@@ -41,6 +41,19 @@
 `age` | возраст | Number
 `sex` | пол | Boolean
 
+## Регистрация через вк
+`POST` `/api/v1/vksignup`
+
+Регистрирует пользователя через вк и возвращает токен и информацию о созданном пользователе.
+
+### Параметры:
+Название | Описание | Тип
+---------|----------|------
+`usernamevk` | логин | String
+`idvk` | id | String
+`age` | возраст | Number
+`sex` | пол | Boolean
+
 ## Приветствие
 `POST` `/api/v1/welcome`
 
@@ -53,6 +66,8 @@
 `User with this username already exists` | `error` | Пользователь с таким именем уже существует
 `Username is required` | `error` | Отсутствует имя пользователя
 `Password is required` | `error` | Отсутствует пароль
+`Usernamevk is required` | `error` | Отсутствует логин
+`idvk is required` | `error` | Отсутствует id
 `Age must be >= 14` | `error` | Возраст должен быть больше либо равен 14
 `Age must be <= 110`| `error` | Возраст должен быть меньше либо равен 110
 `Age must be an integer` | `error` | Возраст должен быть целым числом
