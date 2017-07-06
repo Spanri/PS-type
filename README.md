@@ -57,6 +57,5 @@
 `Age must be <= 110`| `error` | Возраст должен быть меньше либо равен 110
 `Age must be an integer` | `error` | Возраст должен быть целым числом
 `Sex must be Boolean (true for male)` | `error` | Пол обязательно должен быть логическим (true для мужского)
-`FirstEnt must be Boolean (false for 'not to show')` | `error` | Приветствие обязательно должно быть логическим (false для "не показывать")
 `Unexpected error` | `error` | Неизвестная ошибка
 `Database error` | `error` | Возникла ошибка при работе с базой данных
