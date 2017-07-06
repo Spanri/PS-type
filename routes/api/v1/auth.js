@@ -2,6 +2,7 @@
 import path from 'path';
 import express from 'express';
 import User from '../../../models/user';
+import Uservk from '../../../models/uservk';
 import jwt from 'jsonwebtoken';
 import { dberr } from '../../../helpers';
 const router = express.Router();

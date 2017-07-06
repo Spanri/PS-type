@@ -44,7 +44,7 @@ const userSchemavk = mongoose.Schema({
     }
 });
 
-userSchema.plugin(mongooseUnique);
-userSchema.plugin(mongooseBcrypt);
+userSchemavk.plugin(mongooseUnique);
+userSchemavk.plugin(mongooseBcrypt);
 
 export default mongoose.model('Uservk', userSchemavk);
