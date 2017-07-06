@@ -24,11 +24,11 @@ router.post('/signup', async (req, res, next) => {
     password: req.body.password,
     age: req.body.age,
     sex: req.body.sex,
-    firstEnt: req.body.firstEnt
   };
   try {
     const user = await User.create(userToCreate);
     const payload = { username: user.username, _id: user._id };
+    user.firstEnt = true;
     return res.status(200).send({
       status: 'ok',
       message: 'User successfuly created',
@@ -71,16 +71,15 @@ router.post('/signin', async (req, res, next) => {
   return res.status(200).send({
     status: 'ok',
     message: 'User successfuly authorized',
-    token: getToken(req, payload),
-    firstEnt
+    token: getToken(req, payload)
   });
 });
 
 router.post('/welcome', async (req, res, next) => {
+  User.firstEnt = false;
   return res.status(200).send({
       status: 'ok',
-      message: 'The greeting will not be displayed',
-      firstEnt: false
+      message: 'The greeting will not be displayed'
     });
 });
 
