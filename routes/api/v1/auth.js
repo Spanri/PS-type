@@ -18,6 +18,38 @@ const verifyPassword = (user, password) => new Promise((resolve, reject) => {
    });
 });
 
+router.post('/vksignup', async (req, res, next) => {
+  const userToCreatevk = {
+    usernamevk: req.body.usernamevk,
+    idvk: req.body.idvk,
+    age: req.body.age,
+    sex: req.body.sex,
+  };
+  try {
+    const uservk = await Uservk.create(userToCreatevk);
+    const payload = { idvk: uservk.idvk, _id: uservk._id };
+    uservk.firstEnt = true;
+    return res.status(200).send({
+      status: 'ok',
+      message: 'User successfuly created',
+      uservk: payload,
+      token: getToken(req, payload)
+    });
+  } catch (err) {
+    if (err.name === 'ValidationError') {
+      const firstErr = err.errors[Object.keys(err.errors)[0]];
+      let message = 'Unexpected error';
+      if (firstErr.kind === 'unique') message = 'User with this username already exists';
+      else if (firstErr.message) message = firstErr.message;
+      return res.status(400).send({
+        status: 'error',
+        message
+      });
+    }
+    else return dberr(res);
+  }
+});
+
 router.post('/signup', async (req, res, next) => {
   const userToCreate = {
     username: req.body.username,
