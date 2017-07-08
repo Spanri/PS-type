@@ -35,6 +35,8 @@ app.use(ejwt({
   path: [
     '/',
     /\/api\/v\d(\/sign(in|up))?\/?/i
+    //api/v(число)/signin или signup
+    //\/ = / (\ делает / не метасимволом)
   ]
 }));
 app.use('/', index);

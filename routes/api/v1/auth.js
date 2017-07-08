@@ -27,21 +27,28 @@ router.post('/vksignup', async (req, res, next) => {
     sex: req.body.sex,
   };
   try {
-    const uservk = await Uservk.create(userToCreatevk);
-    const payload = { idvk: uservk.idvk, _id: uservk._id };
-    uservk.firstEnt = true;
-    return res.status(200).send({
-      status: 'ok',
-      message: 'User successfuly created',
-      uservk: payload,
-      token: getToken(req, payload)
-    });
+    let findUs = await Uservk.findOne({idvk: req.body.idvk}).exec();
+    if (findUs) {
+      return res.status(400).send({
+        status: 'error',
+        message: 'User with this id already exists'
+      });
+    }
+    else {
+      const uservk = await Uservk.create(userToCreatevk);
+      const payload = { idvk: uservk.idvk, _id: uservk._id }; //for token
+      return res.status(200).send({
+        status: 'ok',
+        message: 'User successfuly created',
+        uservk: payload,
+        token: getToken(req, payload)
+      });
+    }
   } catch (err) {
     if (err.name === 'ValidationError') {
       const firstErr = err.errors[Object.keys(err.errors)[0]];
       let message = 'Unexpected error';
-      if (firstErr.kind === 'unique') message = 'User with this username already exists';
-      else if (firstErr.message) message = firstErr.message;
+      if (firstErr.message) message = firstErr.message;
       return res.status(400).send({
         status: 'error',
         message
@@ -56,12 +63,11 @@ router.post('/signup', async (req, res, next) => {
     username: req.body.username,
     password: req.body.password,
     age: req.body.age,
-    sex: req.body.sex,
+    sex: req.body.sex
   };
   try {
     const user = await User.create(userToCreate);
     const payload = { username: user.username, _id: user._id };
-    user.firstEnt = true;
     return res.status(200).send({
       status: 'ok',
       message: 'User successfuly created',
@@ -83,6 +89,22 @@ router.post('/signup', async (req, res, next) => {
   }
 });
 
+router.post('/vksignin', async (req, res, next) => {
+  let uservk = null;
+  try {
+    uservk = await Uservk.findOne({ idvk: req.body.idvk }).exec();
+    if (!uservk) return res.status(404).send({
+      status: 'error',
+      message: 'User not found'
+    });
+  } catch (err) { return dberr(res); }
+  const payload = { idvk: uservk.idvk, _id: uservk._id };
+  return res.status(200).send({
+    status: 'ok',
+    message: 'User successfuly authorized',
+    token: getToken(req, payload)
+  });
+});
 
 router.post('/signin', async (req, res, next) => {
   let user = null;
@@ -106,14 +128,6 @@ router.post('/signin', async (req, res, next) => {
     message: 'User successfuly authorized',
     token: getToken(req, payload)
   });
-});
-
-router.post('/welcome', async (req, res, next) => {
-  User.firstEnt = false;
-  return res.status(200).send({
-      status: 'ok',
-      message: 'The greeting will not be displayed'
-    });
 });
 
 export default router;
