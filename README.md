@@ -26,8 +26,7 @@
 `password` | пароль | String
 
 ## Регистрация
-`POST` `/api/v1/signup`
-`POST` `/api/v1/vksignup`
+`POST` `/api/v1/signup` или `/api/v1/vksignup`
 
 Регистрирует пользователя и возвращает токен и информацию о созданном пользователе.
 Для вк вместо username и password - usernamevk и idvk.
@@ -41,8 +40,7 @@
 `sex` | пол | Boolean
 
 ## Изменение данных (не координат)
-`POST` `/api/v1/change/`
-`POST` `/api/v1/change/vk`
+`POST` `/api/v1/change/` или `/api/v1/change/vk`
 
 Изменяет данные пользователя.
 Для вк вместо username - idvk.
@@ -55,8 +53,7 @@
 `sex` | пол | Boolean
 
 ## Добавление координат пользователя
-`POST` `/api/v1/map/pos`
-`POST` `/api/v1/map/vkpos`
+`POST` `/api/v1/map/pos` или `/api/v1/map/vkpos`
 
 Добавляет местоположение в массив с местоположением пользователя.
 Для вк вместо username - idvk.
