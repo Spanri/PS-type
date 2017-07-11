@@ -7,6 +7,7 @@ import jwt from 'jsonwebtoken';
 import { dberr } from '../../../helpers';
 const router = express.Router();
 
+//https://toster.ru/q/369662
 const getToken = (req, payload) => jwt.sign(payload, req.app.get('secret'), {
   expiresIn: '10 days'
 });
@@ -17,6 +18,13 @@ const verifyPassword = (user, password) => new Promise((resolve, reject) => {
      else if (!isValid) reject(new Error('Invalid password'));
      else resolve();
    });
+});
+
+router.post('/zapros', async (req, res, next) => {
+return res.status(200).send({
+        status: 'ok',
+        message: 'ok'
+      });
 });
 
 router.post('/vksignup', async (req, res, next) => {
@@ -36,7 +44,7 @@ router.post('/vksignup', async (req, res, next) => {
     }
     else {
       const uservk = await Uservk.create(userToCreatevk);
-      const payload = { idvk: uservk.idvk, _id: uservk._id }; //for token
+      const payload = { idvk: uservk.idvk, _id: uservk._id };
       return res.status(200).send({
         status: 'ok',
         message: 'User successfuly created',
