@@ -5,6 +5,7 @@ import User from '../../../models/user';
 import Uservk from '../../../models/uservk';
 import jwt from 'jsonwebtoken';
 import { dberr } from '../../../helpers';
+import jwt_decode from 'jwt-decode';
 const router = express.Router();
 
 //https://toster.ru/q/369662
@@ -95,23 +96,6 @@ router.post('/signup', async (req, res, next) => {
     }
     else return dberr(res);
   }
-});
-
-router.post('/vksignin', async (req, res, next) => {
-  let uservk = null;
-  try {
-    uservk = await Uservk.findOne({ idvk: req.body.idvk }).exec();
-    if (!uservk) return res.status(404).send({
-      status: 'error',
-      message: 'User not found'
-    });
-  } catch (err) { return dberr(res); }
-  const payload = { idvk: uservk.idvk, _id: uservk._id };
-  return res.status(200).send({
-    status: 'ok',
-    message: 'User successfuly authorized',
-    token: getToken(req, payload)
-  });
 });
 
 router.post('/signin', async (req, res, next) => {

@@ -47,11 +47,11 @@ const userSchema = mongoose.Schema({
     },
     shirota: {
       type: Array,
-      required: [true, "Shirota is required"]
+      required: false
     },
     dolgota: {
       type: Array,
-      required: [true, "Dolgota is required"]
+      required: false
     } },  { versionKey: false }
 );
 
