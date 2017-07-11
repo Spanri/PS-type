@@ -27,7 +27,7 @@ const userSchemavk = mongoose.Schema({
       required: false,
       validate: {
         validator: Number.isInteger,
-        message: 'Age must be an integer'
+        message: "Age must be an integer"
       }
     },
     sex: {
@@ -37,8 +37,16 @@ const userSchemavk = mongoose.Schema({
         validator: v => typeof(v) === "boolean",
         message: "Sex must be Boolean (true for male)"
       }
-    }
-});
+    },
+    shirota: {
+      type: Array,
+      required: false
+    },
+    dolgota: {
+      type: Array,
+      required: false
+    } },  { versionKey: false }
+);
 
 userSchemavk.plugin(mongooseUnique);
 userSchemavk.plugin(mongooseBcrypt);

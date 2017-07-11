@@ -44,8 +44,16 @@ const userSchema = mongoose.Schema({
         validator: v => typeof(v) === "boolean",
         message: "Sex must be Boolean (true for male)"
       }
-    }
-});
+    },
+    shirota: {
+      type: Array,
+      required: [true, "Shirota is required"]
+    },
+    dolgota: {
+      type: Array,
+      required: [true, "Dolgota is required"]
+    } },  { versionKey: false }
+);
 
 userSchema.plugin(mongooseUnique);
 userSchema.plugin(mongooseBcrypt);
