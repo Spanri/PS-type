@@ -6,7 +6,6 @@ import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import ejwt from 'express-jwt';
 import mongoose from 'mongoose';
-
 import index from './routes/index';
 import api from './routes/api';
 
@@ -35,10 +34,9 @@ app.use(ejwt({
   path: [
     '/',
     /\/api\/v\d(\/sign(in|up))?\/?/i
-    //api/v(число)/signin или signup
-    //\/ = / (\ делает / не метасимволом)
   ]
 }));
+
 app.use('/', index);
 app.use('/api', api);
 
