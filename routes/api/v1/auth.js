@@ -122,4 +122,21 @@ router.post('/signin', async (req, res, next) => {
   });
 });
 
+router.post('/vksignin', async (req, res, next) => {
+  let uservk = null;
+  try {
+    uservk = await Uservk.findOne({ idvk: req.body.idvk }).exec();
+    if (!uservk) return res.status(404).send({
+      status: 'error',
+      message: 'User not found'
+    });
+  } catch (err) { return dberr(res); }
+  const payload = { idvk: uservk.idvk, _id: uservk._id };
+  return res.status(200).send({
+    status: 'ok',
+    message: 'User successfuly authorized',
+    token: getToken(req, payload)
+  });
+});
+
 export default router;
