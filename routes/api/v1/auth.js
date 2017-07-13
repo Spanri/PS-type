@@ -4,7 +4,7 @@ import express from 'express';
 import User from '../../../models/user';
 import Uservk from '../../../models/uservk';
 import jwt from 'jsonwebtoken';
-import { dberr } from '../../../helpers';
+import { dberr,notFound } from '../../../helpers';
 import jwt_decode from 'jwt-decode';
 const router = express.Router();
 
@@ -102,10 +102,7 @@ router.post('/signin', async (req, res, next) => {
   let user = null;
   try {
     user = await User.findOne({ username: req.body.username }).exec();
-    if (!user) return res.status(404).send({
-      status: 'error',
-      message: 'User not found'
-    });
+    if (!user) return notFound(res);
     await verifyPassword(user, req.body.password);
   } catch (err) {
     if (err.message === 'Invalid password') return res.status(400).send({
@@ -126,10 +123,7 @@ router.post('/vksignin', async (req, res, next) => {
   let uservk = null;
   try {
     uservk = await Uservk.findOne({ idvk: req.body.idvk }).exec();
-    if (!uservk) return res.status(404).send({
-      status: 'error',
-      message: 'User not found'
-    });
+    if (!uservk) return notFound(res);
   } catch (err) { return dberr(res); }
   const payload = { idvk: uservk.idvk, _id: uservk._id };
   return res.status(200).send({

@@ -3,7 +3,7 @@ import path from 'path';
 import express from 'express';
 import User, {validator} from '../../../models/user';
 import Uservk from '../../../models/uservk';
-import { dberr, catchErr } from '../../../helpers';
+import { dberr, ok, notFound } from '../../../helpers';
 import jwt_decode from 'jwt-decode';
 const router = express.Router();
 
@@ -17,12 +17,9 @@ router.post('/', async (req, res, next) => {
   try {
     user = await User.findOne({ _id: token._id }).exec();
     uservk = await Uservk.findOne({ _id: token._id }).exec();
-    if (!user && !uservk) return res.status(404).send({
-      status: 'error',
-      message: 'User not found'
-    });
+    if (!user && !uservk) return notFound(res);
   } catch (err) { return dberr(res); }
-
+try{
   if (req.body.age) if (req.body.age < 14)
     return res.status(400).send({
       status: 'error',
@@ -37,22 +34,16 @@ router.post('/', async (req, res, next) => {
       status: 'error',
       message: 'Sex must be boolean (true for male)'
     });
-
+}catch(err){return dberr(res);}
   if (user) try {
-    if (req.body.age) User.update(user.username, { $set: { age: req.body.age } }, function (err) { });
-    if (req.body.sex) User.update(user.username, { $set: { sex: req.body.sex } }, function (err) { });
-    return res.status(200).send({
-      status: 'ok',
-      message: 'User successfuly changed'
-    });
+    if (req.body.age) User.update({ username: user.username }, { $set: { age: req.body.age } }, function (err) { });
+    if (req.body.sex == true || req.body.sex == false) User.update({ username: user.username }, { $set: { sex: req.body.sex } }, function (err) { });
+    return ok(res);
   } catch (err) { return dberr(res); }
   else try {
-    if (req.body.age) Uservk.update(uservk.idvk, { $set: { age: req.body.age } }, function (err) { });
-    if (req.body.sex) Uservk.update(uservk.idvk, { $set: { sex: req.body.sex } }, function (err) { });
-    return res.status(200).send({
-      status: 'ok',
-      message: 'User successfuly changed'
-    });
+    if (req.body.age) Uservk.update({ idvk: uservk.idvk }, { $set: { age: req.body.age } }, function (err) { });
+    if (req.body.sex == true || req.body.sex == false) Uservk.update({ idvk: uservk.idvk }, { $set: { sex: req.body.sex } }, function (err) { });
+    return ok(res);
   } catch (err) { return dberr(res); }
 });
 
