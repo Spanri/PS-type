@@ -3,10 +3,11 @@
   "version": "0.1.1",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www --exec babel-node --presets es2015,stage-0 --exitcrash",
+    "start": "nodemon ./bin/www",
     "install": "npm i -g nodemon"
   },
   "dependencies": {
+    "babel-core": "^6.25.0",
     "bluebird": "^3.5.0",
     "body-parser": "~1.17.1",
     "debug": "~2.6.3",
