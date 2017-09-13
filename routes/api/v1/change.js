@@ -29,4 +29,28 @@ router.post('/', async (req, res, next) => {
   } catch (err) {valerr(res, err);}
 });
 
+router.post('/data', async (req, res, next) => {
+  let token = jwt_decode(req.body.token); //получаю токен
+  let user = null, uservk = null;
+  try { //выношу из токена данные в user
+    user = await User.findOne({ _id: token._id }).exec();
+    uservk = await Uservk.findOne({ _id: token._id }).exec();
+    if (!user && !uservk) return notFound(res);
+  } catch (err) { return dberr(res); }
+  if (user) return res.status(200).send({
+    status: 'ok',
+    message: 'Data successfuly received',
+    age: user.age,
+    sex: user.sex,
+    type: user.obr.type
+  }); 
+  else return res.status(200).send({
+    status: 'ok',
+    message: 'Data successfuly received',
+    age: uservk.age,
+    sex: uservk.sex,
+    type: uservk.obr.type
+  });
+});
+
 export default router;
