@@ -18,8 +18,7 @@
     "mongoose-bcrypt": "^1.4.2",
     "mongoose-unique-validator": "^1.0.5",
     "morgan": "~1.8.1",
-    "nodemon": "^1.10.0",
-    "pug": "^2.0.0-rc.2"
+    "nodemon": "^1.10.0"
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",

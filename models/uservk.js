@@ -38,14 +38,27 @@ const userSchemavk = mongoose.Schema({
         message: "Sex must be Boolean (true for male)"
       }
     },
-    shirota: {
-      type: Array,
+    latitude: {
+      type: [Number],
       required: false
     },
-    dolgota: {
-      type: Array,
+    longitude: {
+      type: [Number],
       required: false
-    } },  { versionKey: false }
+    },
+    speed: {
+        type: [Number],
+        required: false
+    },
+    obr: {
+      max: Number,
+      dist: Number,
+      type: {
+        type: String,
+        default: "Статистики пока нет"
+      }
+    } 
+  },  { versionKey: false }
 );
 
 userSchemavk.plugin(mongooseUnique);

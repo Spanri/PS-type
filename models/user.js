@@ -4,9 +4,9 @@ import mongooseUnique from 'mongoose-unique-validator';
 import mongooseBcrypt from 'mongoose-bcrypt';
 
 function validator(v) {
-  return v && (/^[a-z0-9]{6,}$/i).test(v);
+  return v && (/[^\s]{6,}/).test(v);  //любой символ, кроме пробела и минимум 6 штук
 }
-const message = name => `${name} must be longer than 6 symbols and consist only of latin symbols`;
+const message = name => `${name} must be longer than 6 symbols`;
 
 const userSchema = mongoose.Schema({
     username: {
@@ -45,14 +45,27 @@ const userSchema = mongoose.Schema({
         message: "Sex must be Boolean (true for male)"
       }
     },
-    shirota: {
-      type: Array,
+    latitude: {
+      type: [Number],
       required: false
     },
-    dolgota: {
-      type: Array,
+    longitude: {
+      type: [Number],
       required: false
-    } },  { versionKey: false }
+    },
+    speed: {
+        type: [Number],
+        required: false
+    },
+    obr: {
+      max: Number,
+      dist: Number,
+      type: {
+        type: String,
+        default: "Статистики пока нет"
+      }
+    } 
+  },  { versionKey: false }
 );
 
 userSchema.plugin(mongooseUnique);
