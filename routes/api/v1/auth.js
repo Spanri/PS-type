@@ -21,13 +21,6 @@ const verifyPassword = (user, password) => new Promise((resolve, reject) => {
    });
 });
 
-router.post('/zapros', async (req, res, next) => {
-return res.status(200).send({
-        status: 'ok',
-        message: 'ok'
-      });
-});
-
 router.post('/vksignup', async (req, res, next) => {
   const userToCreatevk = {
     usernamevk: req.body.usernamevk,

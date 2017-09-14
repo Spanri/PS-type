@@ -42,14 +42,16 @@ router.post('/data', async (req, res, next) => {
     message: 'Data successfuly received',
     age: user.age,
     sex: user.sex,
-    type: user.obr.type
+    type: user.obr.type,
+    username: user.username
   }); 
   else return res.status(200).send({
     status: 'ok',
     message: 'Data successfuly received',
     age: uservk.age,
     sex: uservk.sex,
-    type: uservk.obr.type
+    type: uservk.obr.type,
+    usernamevk: uservk.usernamevk
   });
 });
 
