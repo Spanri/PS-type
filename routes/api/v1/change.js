@@ -51,7 +51,7 @@ router.post('/data', async (req, res, next) => {
     age: uservk.age,
     sex: uservk.sex,
     type: uservk.obr.type,
-    usernamevk: uservk.usernamevk
+    username: uservk.usernamevk
   });
 });
 
