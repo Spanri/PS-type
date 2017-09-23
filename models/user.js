@@ -30,14 +30,6 @@ const userSchema = mongoose.Schema({
     age: {
       type: Date,
       required: false
-      // min: [Date.now() - Date('2014-01-01'), 'Age must be >= 18'],
-      // max: [Date('2014-01-01'), 'Age must be <= 110'],
-      // validate: {
-      //   validator: v => {
-      //     return v && (/^\d{2}-\d{2}-\d{4}/).test(v);
-      //   },
-      //   message: 'Age must be a date'
-      // }
     },
     sex: {
       type: Number,
