@@ -10,7 +10,7 @@ const router = express.Router();
 
 //https://toster.ru/q/369662
 const getToken = (req, payload) => jwt.sign(payload, req.app.get('secret'), {
-  expiresIn: '10 days'
+  expiresIn: '10m'
 });
 
 const verifyPassword = (user, password) => new Promise((resolve, reject) => {
