@@ -17,13 +17,13 @@ router.post('/', async (req, res, next) => {
   } catch (err) { return dberr(res); }
   if (user) try { //меняю age или sex, если надо
     if (req.body.age && req.body.age!=user.age) user.age = req.body.age; 
-    if ((req.body.sex == true || req.body.sex == false) && req.body.sex!=user.sex) user.sex = req.body.sex;
+    if (req.body.sex && req.body.sex!=user.sex) user.sex = req.body.sex;
     await user.save(); //сохраняю
     return ok(res);
   } catch (err) {valerr(res, err);}
   else try {
     if (req.body.age && req.body.age!=user.age) user.age = req.body.age;
-    if ((req.body.sex == true || req.body.sex == false) && req.body.sex!=user.sex) user.sex = req.body.sex;
+    if (req.body.sex && req.body.sex!=user.sex) user.sex = req.body.sex;
     await uservk.save();
     return ok(res);
   } catch (err) {valerr(res, err);}

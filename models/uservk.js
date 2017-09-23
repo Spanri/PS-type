@@ -21,21 +21,17 @@ const userSchemavk = mongoose.Schema({
       }
     },
     age: {
+      type: Date,
+      required: false
+    },
+    sex: {
       type: Number,
-      min: [14, 'Age must be >= 14'],
-      max: [110, 'Age must be <= 110'],
+      min: [0, 'Sex must be >= 0'],
+      max: [2, 'Sex must be <= 2'],
       required: false,
       validate: {
         validator: Number.isInteger,
-        message: "Age must be an integer"
-      }
-    },
-    sex: {
-      type: Boolean,
-      required: false,
-      validate: {
-        validator: v => typeof(v) === "boolean",
-        message: "Sex must be Boolean (true for male)"
+        message: 'Sex must be an integer'
       }
     },
     latitude: {

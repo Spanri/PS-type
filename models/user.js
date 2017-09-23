@@ -28,21 +28,26 @@ const userSchema = mongoose.Schema({
       }
     },
     age: {
-      type: Number,
-      min: [14, 'Age must be >= 14'],
-      max: [110, 'Age must be <= 110'],
-      required: false,
-      validate: {
-        validator: Number.isInteger,
-        message: 'Age must be an integer'
-      }
+      type: Date,
+      required: false
+      // min: [Date.now() - Date('2014-01-01'), 'Age must be >= 18'],
+      // max: [Date('2014-01-01'), 'Age must be <= 110'],
+      // validate: {
+      //   validator: v => {
+      //     return v && (/^\d{2}-\d{2}-\d{4}/).test(v);
+      //   },
+      //   message: 'Age must be a date'
+      // }
     },
     sex: {
-      type: Boolean,
+      type: Number,
+      min: [0, 'Sex must be >= 0'],
+      max: [2, 'Sex must be <= 2'],
       required: false,
+      default: 0,
       validate: {
-        validator: v => typeof(v) === "boolean",
-        message: "Sex must be Boolean (true for male)"
+        validator: Number.isInteger,
+        message: 'Sex must be an integer'
       }
     },
     latitude: {
