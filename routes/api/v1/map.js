@@ -5,38 +5,52 @@ import User from '../../../models/user';
 import Uservk from '../../../models/uservk';
 import { dberr, ok, notFound, valerr } from '../../../helpers';
 import jwt_decode from 'jwt-decode';
+import jwt from 'jsonwebtoken';
 const router = express.Router();
 
 router.post('/pos', async (req, res, next) => {
-  let token = jwt_decode(req.body.token);
-  let user = null, uservk = null;
-  try {
-    user = await User.findOne({ _id: token._id }).exec();
-    uservk = await Uservk.findOne({ _id: token._id }).exec();
-    if (!user && !uservk) return notFound(res);
-  } catch (err) { return dberr(res); }
-  if (user) try {
-    await User.update({ _id: user._id }, {$push: {
-      latitude: { $each: [req.body.latitude], $slice: 500 },
-      longitude: { $each: [req.body.longitude], $slice: 500 },
-      speed: { $each: [req.body.speed], $slice: 500 }
-    }});
-    return res.status(200).send({
-      status: 'ok',
-      message: 'Data successfuly processed'
-    }); 
-  } catch (err) { valerr(res, err); }
-  else try {
-    await User.update({ _id: uservk._id }, {$push: {
-      latitude: { $each: [req.body.latitude], $slice: 500 },
-      longitude: { $each: [req.body.longitude], $slice: 500 },
-      speed: { $each: [req.body.speed], $slice: 500 }
-    }});
-    return res.status(200).send({
-      status: 'ok',
-      message: 'Data successfuly processed'
-    }); 
-  } catch (err) { valerr(res, err); }
+  jwt.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', async (err, decoded) => {
+    if(err){
+      res.status(500).send({
+        status: 'error',
+        message: 'Verify error',
+        message2: err.message
+    });
+    } else {
+      let token = decoded;
+      let user = null, uservk = null;
+      try {
+        user = await User.findOne({ _id: token._id }).exec();
+        uservk = await Uservk.findOne({ _id: token._id }).exec();
+        if (!user && !uservk) return notFound(res);
+      } catch (err) { return dberr(res); }
+      if (user) try {
+        await User.update({ _id: user._id }, {
+          $push: {
+            latitude: { $each: [req.body.latitude] },
+            longitude: { $each: [req.body.longitude] },
+            speed: { $each: [req.body.speed] }
+          }
+        });
+        return res.status(200).send({
+          status: 'ok',
+          message: 'Data successfuly processed'
+        });
+      } catch (err) { valerr(res, err); }
+      else try {
+        await Uservk.update({ _id: uservk._id }, {
+          $push: {
+            latitude: { $each: [req.body.latitude] },
+            longitude: { $each: [req.body.longitude] },
+            speed: { $each: [req.body.speed] }
+          }
+        });
+        return res.status(200).send({
+          status: 'ok',
+          message: 'Data successfuly processed'
+        });
+      } catch (err) { valerr(res, err); }}
+  });
 });
 
 async function obr(res, user) {
@@ -64,15 +78,25 @@ async function obr(res, user) {
 }
 
 router.post('/obr', async (req, res, next) => {
-  let token = jwt_decode(req.body.token);
-  let user = null, uservk = null;
-  try {
-    user = await User.findOne({ _id: token._id }).exec();
-    uservk = await Uservk.findOne({ _id: token._id }).exec();
-    if (!user && !uservk) return notFound(res);
-  } catch (err) { return dberr(res); }
-  if (user) obr(res, user);
-  else obr(res, uservk);
+  jwt.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', async (err, decoded) => {
+    if(err){
+      res.status(500).send({
+        status: 'error',
+        message: 'Verify error',
+        message2: err.message
+    });
+    } else {
+      let token = decoded;
+      let user = null, uservk = null;
+      try {
+        user = await User.findOne({ _id: token._id }).exec();
+        uservk = await Uservk.findOne({ _id: token._id }).exec();
+        if (!user && !uservk) return notFound(res);
+      } catch (err) { return dberr(res); }
+      if (user) obr(res, user);
+      else obr(res, uservk);
+    }
+  });
 });
 
 export default router;

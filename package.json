@@ -12,7 +12,7 @@
     "debug": "~2.6.3",
     "express": "~4.15.2",
     "express-jwt": "^5.3.0",
-    "jsonwebtoken": "^7.3.0",
+    "jsonwebtoken": "^7.4.3",
     "jwt-decode": "^2.2.0",
     "mongoose": "^4.10.4",
     "mongoose-bcrypt": "^1.4.2",
