@@ -9,7 +9,7 @@ import jwt from 'jsonwebtoken';
 const router = express.Router();
 
 router.post('/', async (req, res, next) => {
-  jwt.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', async (err, decoded) => {
+  jwt.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', async (err, token) => {
     if(err){
       res.status(500).send({
         status: 'error',
@@ -17,8 +17,6 @@ router.post('/', async (req, res, next) => {
         message2: err.message
     });
     }else{
-      //let token = jwt_decode(req.body.token); //получаю токен
-      let token = decoded;
       let user = null, uservk = null;
       try { //выношу из токена данные в user
         user = await User.findOne({ _id: token._id }).exec();
@@ -43,28 +41,51 @@ router.post('/', async (req, res, next) => {
 });
 
 router.post('/data', async (req, res, next) => {
-  let token = jwt_decode(req.body.token); //получаю токен
-  let user = null, uservk = null;
-  try { //выношу из токена данные в user
-    user = await User.findOne({ _id: token._id }).exec();
-    uservk = await Uservk.findOne({ _id: token._id }).exec();
-    if (!user && !uservk) return notFound(res);
-  } catch (err) { return dberr(res); }
-  if (user) return res.status(200).send({
-    status: 'ok',
-    message: 'Data successfuly received',
-    age: user.age,
-    sex: user.sex,
-    type: user.obr.type,
-    username: user.username
-  }); 
-  else return res.status(200).send({
-    status: 'ok',
-    message: 'Data successfuly received',
-    age: uservk.age,
-    sex: uservk.sex,
-    type: uservk.obr.type,
-    username: uservk.usernamevk
+  jwt.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', async (err, token) => {
+    if (err) {
+      res.status(500).send({
+        status: 'error',
+        message: 'Verify error',
+        message2: err.message
+      });
+    } else {
+      let token = jwt_decode(req.body.token); //получаю токен
+      let user = null, uservk = null;
+      try { //выношу из токена данные в user
+        user = await User.findOne({ _id: token._id }).exec();
+        uservk = await Uservk.findOne({ _id: token._id }).exec();
+        if (!user && !uservk) return notFound(res);
+      } catch (err) { return dberr(res); }
+      if (user) {
+        var birthday = user.age;
+        var today = new Date();
+        var years = today.getFullYear() - birthday.getFullYear();
+        await birthday.setFullYear(today.getFullYear());
+        if (today < birthday) years--;
+        return res.status(200).send({
+          status: 'ok',
+          message: 'Data successfuly received',
+          age: years,
+          sex: user.sex,
+          type: user.obr.type,
+          username: user.username
+      });}
+      else {
+        var birthday = uservk.age;
+        var today = new Date();
+        var years = today.getFullYear() - birthday.getFullYear();
+        await birthday.setFullYear(today.getFullYear());
+        if (today < birthday) years--;
+        return res.status(200).send({
+          status: 'ok',
+          message: 'Data successfuly received',
+          age: years,
+          sex: uservk.sex,
+          type: uservk.obr.type,
+          username: uservk.usernamevk
+        });
+      }
+    }
   });
 });
 

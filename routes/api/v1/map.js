@@ -57,6 +57,9 @@ async function obr(res, user) {
   try{
     //max speed
     user.obr.max = await Math.max.apply( Math, user.speed );
+    if(user.obr.max > 100) user.obr.type = "Лихач";
+    else if(user.obr.max < 40) user.obr.type = "Черепашка";
+    else user.obr.type = "Обычный человек";
 
     // max distance(from book "Preparata, Sheimos "Computational geometry: Introduction")
     // var max = Math.max.apply( Math, user.latitude );

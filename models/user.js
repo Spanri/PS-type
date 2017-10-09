@@ -29,7 +29,18 @@ const userSchema = mongoose.Schema({
     },
     age: {
       type: Date,
-      required: false
+      required: false,
+      validate: {
+        validator: (v) => {
+          var birthday = new Date(v.getTime());
+          var today = new Date();
+          var years = today.getFullYear() - birthday.getFullYear();
+          birthday.setFullYear(today.getFullYear());
+          if (today < birthday) years--;
+          return years > 14 && years < 110;
+        },
+        message: 'Age must be > 14 and < 110'
+      }
     },
     sex: {
       type: Number,
