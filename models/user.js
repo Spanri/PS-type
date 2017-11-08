@@ -65,6 +65,10 @@ const userSchema = mongoose.Schema({
         type: [Number],
         required: false
     },
+    date: {
+      type: [Date],
+      required: false
+    },
     obr: {
       max: Number,
       dist: Number,

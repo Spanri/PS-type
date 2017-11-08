@@ -59,6 +59,10 @@ const userSchemavk = mongoose.Schema({
         type: [Number],
         required: false
     },
+    date: {
+      type: [Number],
+      required: false
+    },
     obr: {
       max: Number,
       dist: Number,

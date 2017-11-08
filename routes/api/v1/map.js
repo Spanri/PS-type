@@ -29,7 +29,8 @@ router.post('/pos', async (req, res, next) => {
           $push: {
             latitude: { $each: [req.body.latitude] },
             longitude: { $each: [req.body.longitude] },
-            speed: { $each: [req.body.speed] }
+            speed: { $each: [req.body.speed] },
+            date: { $each: [req.body.date] }
           }
         });
         return res.status(200).send({
@@ -42,7 +43,8 @@ router.post('/pos', async (req, res, next) => {
           $push: {
             latitude: { $each: [req.body.latitude] },
             longitude: { $each: [req.body.longitude] },
-            speed: { $each: [req.body.speed] }
+            speed: { $each: [req.body.speed] },
+            date: { $each: [req.body.date] }
           }
         });
         return res.status(200).send({
@@ -61,21 +63,27 @@ async function obr(res, user) {
     else if(user.obr.max < 40) user.obr.type = "Черепашка";
     else user.obr.type = "Обычный человек";
 
-    // max distance(from book "Preparata, Sheimos "Computational geometry: Introduction")
-    // var max = Math.max.apply( Math, user.latitude );
-    // console.log(max);
-    // var min = Math.min.apply( Math, user.latitude );
-    // console.log(min);
-    // //index of latitude
-    // var imax = user.latitude.indexOf(max);
-    // var imin = user.latitude.indexOf(min);
-    // //distance of lat and long
-    // var lat = max - min;
-    // var lon = user.longitude[imax] - user.longitude[imin];
-    // //max dist
-    // user.obr.dist = Math.sqrt( lat*lat + lon*lon );
+    //max dist
+    let ddate, dspeed;
+    user.obr.dist = 0;
+    for (let i = 1; user.date[i] != null; i++) {
+      ddate = user.date[i] - user.date[i - 1];
+      dspeed = user.speed[i] - user.speed[i - 1];
+      user.obr.dist += ddate * dspeed;
+    }
+
+    //clear arrays
+    (await function () {
+      for (let i = 0; user.date[i] != null; i++) {
+        user.date[i] = null;
+        user.speed[i] = null;
+        user.latitude[i] = null;
+        user.longitude[i] = null;
+      }
+    })();
 
     await user.save();
+
     return ok(res);
   } catch (err) { valerr(res, err); console.error(err); }
 }
