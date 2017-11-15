@@ -72,6 +72,12 @@ const userSchema = mongoose.Schema({
     obr: {
       max: Number,
       dist: Number,
+      avtime: Number,
+      radvar: Number,
+      date: {
+        type: [Number],
+        required: false
+      },
       type: {
         type: String,
         default: "Статистики пока нет"

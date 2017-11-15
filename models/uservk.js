@@ -60,12 +60,18 @@ const userSchemavk = mongoose.Schema({
         required: false
     },
     date: {
-      type: [Number],
+      type: [Date],
       required: false
     },
     obr: {
       max: Number,
       dist: Number,
+      avtime: Number,
+      radvar: Number,
+      date: {
+        type: [Number],
+        required: false
+      },
       type: {
         type: String,
         default: "Статистики пока нет"
