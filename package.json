@@ -5,7 +5,7 @@
   "scripts": {
     "sstart": "nodemon dist/bin/www.js --exec babel-node --exitcrash",
     "build": "babel ./ -d dist --delete-dir-on-start --ignore node_modules dist",
-    "start": "node dist/bin/www.js",
+    "start": "node ../dist/bin/www.js",
     "install": "npm i -g nodemon"
   },
   "dependencies": {
