@@ -1,6 +1,6 @@
 "use strict";
 
-const app = require('../app');
+const app = require('./app');
 const http = require('http');
 
 const port = normalizePort(process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || '8080');

@@ -8,13 +8,6 @@ import ejwt from 'express-jwt';
 import mongoose from 'mongoose';
 import index from './routes/index';
 import api from './routes/api';
-//import {utils} from "vue-strap";
-
-// "babel-cli": "^6.11.4",
-// "babel-preset-es2015": "^6.24.1",
-// "babel-preset-stage-0": "^6.11.0",
-// "babel-register": "^6.11.6",
-// "start": "nodemon ./bin/www --exec babel-node --presets es2015,stage-0 --exitcrash",
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://SpanriDb:nysha2161@ds046939.mlab.com:46939/spanridb');
