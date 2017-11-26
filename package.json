@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "clean": "rimraf dist",
-    "start": "node ./dist/www.js",
+    "start": "node './dist/www.js'",
     "start2": "npm-run-all --parallel watch:build watch:server",
     "watch:build": "webpack --watch",
     "watch:server": "nodemon \"./dist/www.js\" --watch \"./dist\"",
