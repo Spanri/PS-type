@@ -24,14 +24,14 @@ router.post('/', async (req, res, next) => {
         if (!user && !uservk) return notFound(res);
       } catch (err) { return dberr(res); }
       if (user) try { //меняю age или sex, если надо
-        if (req.body.age && req.body.age!=user.age) user.age = req.body.age; 
-        if (req.body.sex && req.body.sex!=user.sex) user.sex = req.body.sex;
+        if (req.body.age && req.body.age!=user.a.age) user.a.age = req.body.age; 
+        if (req.body.sex && req.body.sex!=user.a.sex) user.a.sex = req.body.sex;
         await user.save(); //сохраняю
         return ok(res);
       } catch (err) {valerr(res, err);}
       else try {
-        if (req.body.age && req.body.age!=uservk.age) uservk.age = req.body.age;
-        if (req.body.sex && req.body.sex!=uservk.sex) uservk.sex = req.body.sex;
+        if (req.body.age && req.body.age!=uservk.a.age) uservk.a.age = req.body.age;
+        if (req.body.sex && req.body.sex!=uservk.a.sex) uservk.a.sex = req.body.sex;
         await uservk.save();
         return ok(res);
       } catch (err) {valerr(res, err);}
@@ -57,31 +57,35 @@ router.post('/data', async (req, res, next) => {
         if (!user && !uservk) return notFound(res);
       } catch (err) { return dberr(res); }
       if (user) {
-        var birthday = user.age;
+        var birthday = user.a.age;
         var today = new Date();
         var years = today.getFullYear() - birthday.getFullYear();
-        await birthday.setFullYear(today.getFullYear());
-        if (today < birthday) years--;
+        var b = new Date();
+        await b.setFullYear(today.getFullYear());
+        if (today < b) years--;
         return res.status(200).send({
           status: 'ok',
           message: 'Data successfuly received',
           age: years,
-          sex: user.sex,
-          type: user.obr.type,
+          data: user.a.age,
+          sex: user.a.sex,
+          type: user.a.obr.type,
           username: user.username
       });}
       else {
-        var birthday = uservk.age;
+        var birthday = uservk.a.age;
         var today = new Date();
         var years = today.getFullYear() - birthday.getFullYear();
-        await birthday.setFullYear(today.getFullYear());
-        if (today < birthday) years--;
+        var b = new Date();
+        await b.setFullYear(today.getFullYear());
+        if (today < b) years--;
         return res.status(200).send({
           status: 'ok',
           message: 'Data successfuly received',
           age: years,
-          sex: uservk.sex,
-          type: uservk.obr.type,
+          data: uservk.a.age,
+          sex: uservk.a.sex,
+          type: uservk.a.obr.type,
           username: uservk.usernamevk
         });
       }

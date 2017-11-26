@@ -25,8 +25,8 @@ router.post('/vksignup', async (req, res, next) => {
   const userToCreatevk = {
     usernamevk: req.body.usernamevk,
     idvk: req.body.idvk,
-    age: req.body.age,
-    sex: req.body.sex,
+    'a.age': req.body.age,
+    'a.sex': req.body.sex,
   };
   try {
     let findUs = await Uservk.findOne({idvk: req.body.idvk}).exec();
@@ -64,8 +64,8 @@ router.post('/signup', async (req, res, next) => {
   const userToCreate = {
     username: req.body.username,
     password: req.body.password,
-    age: req.body.age,
-    sex: req.body.sex
+    'a.age': req.body.age,
+    'a.sex': req.body.sex
   };
   try {
     const user = await User.create(userToCreate);
