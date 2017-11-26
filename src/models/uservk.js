@@ -2,6 +2,7 @@
 import mongoose from 'mongoose';
 import mongooseUnique from 'mongoose-unique-validator';
 import mongooseBcrypt from 'mongoose-bcrypt';
+import a from './common';
 
 async function validator(v) {
   var birthday = new Date(v.getTime());
@@ -29,54 +30,7 @@ const userSchemavk = mongoose.Schema({
         message: "Usernamevk must be String"
       }
     },
-    age: {
-      type: Date,
-      required: false,
-      validate: {
-        validator,
-        message: 'Age must be > 14 and < 110'
-      }
-    },
-    sex: {
-      type: Number,
-      min: [0, 'Sex must be >= 0'],
-      max: [2, 'Sex must be <= 2'],
-      required: false,
-      validate: {
-        validator: Number.isInteger,
-        message: 'Sex must be an integer'
-      }
-    },
-    latitude: {
-      type: [Number],
-      required: false
-    },
-    longitude: {
-      type: [Number],
-      required: false
-    },
-    speed: {
-        type: [Number],
-        required: false
-    },
-    date: {
-      type: [Date],
-      required: false
-    },
-    obr: {
-      max: Number,
-      dist: Number,
-      avtime: Number,
-      radvar: Number,
-      date: {
-        type: [Number],
-        required: false
-      },
-      type: {
-        type: String,
-        default: "Статистики пока нет"
-      }
-    } 
+    a 
   },  { versionKey: false }
 );
 
