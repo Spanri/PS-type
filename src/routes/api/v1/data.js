@@ -96,7 +96,7 @@ router.post('/getDate', async (req, res, next) => {
         str += ']';
         return res.status(200).send({
           status: 'ok',
-          message: 'Date successfuly found',
+          message: 'Date successfuly received',
           str: str
         });
       } catch (err) { return dberr(res); }
@@ -118,17 +118,15 @@ router.post('/getPoints', async (req, res, next) => {
       try { //выношу из токена данные в user
         user = await User.findOne({ _id: token._id }).exec();
         if (!user) return notFound(res);
-        let str = '[';
         for (var k = 1; user.track.dateTrack[k] != null; k++);
+        let dateTrack = req.body.dateTrack, startTime = req.body.StartTime;
         for (let i = k - 1; i >= 0; i--)
-          str += `{dateTrack:/${user.track.dateTrack[i]}/,StartTime:/${user.track.startTime[i]}/,StopTime:/${user.track.stopTime[i]}/};`;
-          str = str.slice(0, -1);
-        str += ']';
-        return res.status(200).send({
-          status: 'ok',
-          message: 'Date successfuly found',
-          str: str
-        });
+          if (dateTrack == user.track.dateTrack[i] && startTime == user.track.startTime[i])
+            return res.status(200).send({
+              status: 'ok',
+              message: 'Date successfuly received',
+              points: points[i]
+            });
       } catch (err) { return dberr(res); }
     }
   });

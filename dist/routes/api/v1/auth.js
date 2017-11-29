@@ -86,7 +86,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _mongoose = __webpack_require__(4);
+var _mongoose = __webpack_require__(7);
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
 
@@ -280,28 +280,28 @@ function valerr(res, err) {
 
 /***/ }),
 /* 4 */
-/***/ (function(module, exports) {
-
-module.exports = require("mongoose");
-
-/***/ }),
-/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(10);
 
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, exports) {
 
 module.exports = require("jsonwebtoken");
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, exports) {
 
 module.exports = require("jwt-decode");
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports) {
+
+module.exports = require("mongoose");
 
 /***/ }),
 /* 8 */
@@ -332,7 +332,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _regenerator = __webpack_require__(5);
+var _regenerator = __webpack_require__(4);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
@@ -348,13 +348,13 @@ var _user = __webpack_require__(2);
 
 var _user2 = _interopRequireDefault(_user);
 
-var _jsonwebtoken = __webpack_require__(6);
+var _jsonwebtoken = __webpack_require__(5);
 
 var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
 
 var _helpers = __webpack_require__(3);
 
-var _jwtDecode = __webpack_require__(7);
+var _jwtDecode = __webpack_require__(6);
 
 var _jwtDecode2 = _interopRequireDefault(_jwtDecode);
 

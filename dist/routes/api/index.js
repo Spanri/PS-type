@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 15);
+/******/ 	return __webpack_require__(__webpack_require__.s = 16);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -86,7 +86,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _mongoose = __webpack_require__(4);
+var _mongoose = __webpack_require__(7);
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
 
@@ -280,28 +280,28 @@ function valerr(res, err) {
 
 /***/ }),
 /* 4 */
-/***/ (function(module, exports) {
-
-module.exports = require("mongoose");
-
-/***/ }),
-/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(10);
 
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, exports) {
 
 module.exports = require("jsonwebtoken");
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, exports) {
 
 module.exports = require("jwt-decode");
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports) {
+
+module.exports = require("mongoose");
 
 /***/ }),
 /* 8 */
@@ -332,7 +332,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _regenerator = __webpack_require__(5);
+var _regenerator = __webpack_require__(4);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
@@ -348,13 +348,13 @@ var _user = __webpack_require__(2);
 
 var _user2 = _interopRequireDefault(_user);
 
-var _jsonwebtoken = __webpack_require__(6);
+var _jsonwebtoken = __webpack_require__(5);
 
 var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
 
 var _helpers = __webpack_require__(3);
 
-var _jwtDecode = __webpack_require__(7);
+var _jwtDecode = __webpack_require__(6);
 
 var _jwtDecode2 = _interopRequireDefault(_jwtDecode);
 
@@ -527,7 +527,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _regenerator = __webpack_require__(5);
+var _regenerator = __webpack_require__(4);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
@@ -653,11 +653,11 @@ var _user2 = _interopRequireDefault(_user);
 
 var _helpers = __webpack_require__(3);
 
-var _jwtDecode = __webpack_require__(7);
+var _jwtDecode = __webpack_require__(6);
 
 var _jwtDecode2 = _interopRequireDefault(_jwtDecode);
 
-var _jsonwebtoken = __webpack_require__(6);
+var _jsonwebtoken = __webpack_require__(5);
 
 var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
 
@@ -962,7 +962,7 @@ var _auth = __webpack_require__(11);
 
 var _auth2 = _interopRequireDefault(_auth);
 
-var _data = __webpack_require__(23);
+var _data = __webpack_require__(14);
 
 var _data2 = _interopRequireDefault(_data);
 
@@ -989,8 +989,7 @@ router.get('/', function (req, res, next) {
 exports.default = router;
 
 /***/ }),
-/* 14 */,
-/* 15 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1000,42 +999,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _express = __webpack_require__(0);
-
-var _express2 = _interopRequireDefault(_express);
-
-var _v = __webpack_require__(13);
-
-var _v2 = _interopRequireDefault(_v);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var router = _express2.default.Router();
-
-//version
-router.use('/v1', _v2.default);
-
-exports.default = router;
-
-/***/ }),
-/* 16 */,
-/* 17 */,
-/* 18 */,
-/* 19 */,
-/* 20 */,
-/* 21 */,
-/* 22 */,
-/* 23 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _regenerator = __webpack_require__(5);
+var _regenerator = __webpack_require__(4);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
@@ -1053,11 +1017,11 @@ var _user2 = _interopRequireDefault(_user);
 
 var _helpers = __webpack_require__(3);
 
-var _jwtDecode = __webpack_require__(7);
+var _jwtDecode = __webpack_require__(6);
 
 var _jwtDecode2 = _interopRequireDefault(_jwtDecode);
 
-var _jsonwebtoken = __webpack_require__(6);
+var _jsonwebtoken = __webpack_require__(5);
 
 var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
 
@@ -1306,7 +1270,7 @@ router.post('/getDate', function () {
                         str += ']';
                         return _context5.abrupt('return', res.status(200).send({
                           status: 'ok',
-                          message: 'Date successfuly found',
+                          message: 'Date successfuly received',
                           str: str
                         }));
 
@@ -1350,7 +1314,7 @@ router.post('/getPoints', function () {
             //проверка на валидность токена
             _jsonwebtoken2.default.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', function () {
               var _ref8 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee7(err, token) {
-                var user, str, k, i;
+                var user, k, dateTrack, startTime, i;
                 return _regenerator2.default.wrap(function _callee7$(_context7) {
                   while (1) {
                     switch (_context7.prev = _context7.next) {
@@ -1365,7 +1329,7 @@ router.post('/getPoints', function () {
                           message: 'Verify error',
                           message2: err.message
                         });
-                        _context7.next = 22;
+                        _context7.next = 25;
                         break;
 
                       case 4:
@@ -1385,30 +1349,47 @@ router.post('/getPoints', function () {
                         return _context7.abrupt('return', (0, _helpers.notFound)(res));
 
                       case 11:
-                        str = '[';
-
                         for (k = 1; user.track.dateTrack[k] != null; k++) {}
-                        for (i = k - 1; i >= 0; i--) {
-                          str += '{dateTrack:/' + user.track.dateTrack[i] + '/,StartTime:/' + user.track.startTime[i] + '/,StopTime:/' + user.track.stopTime[i] + '/};';
-                        }str = str.slice(0, -1);
-                        str += ']';
+                        dateTrack = req.body.dateTrack, startTime = req.body.StartTime;
+                        i = k - 1;
+
+                      case 14:
+                        if (!(i >= 0)) {
+                          _context7.next = 20;
+                          break;
+                        }
+
+                        if (!(dateTrack == user.track.dateTrack[i] && startTime == user.track.startTime[i])) {
+                          _context7.next = 17;
+                          break;
+                        }
+
                         return _context7.abrupt('return', res.status(200).send({
                           status: 'ok',
-                          message: 'Date successfuly found',
-                          str: str
+                          message: 'Date successfuly received',
+                          points: points[i]
                         }));
 
-                      case 19:
-                        _context7.prev = 19;
+                      case 17:
+                        i--;
+                        _context7.next = 14;
+                        break;
+
+                      case 20:
+                        _context7.next = 25;
+                        break;
+
+                      case 22:
+                        _context7.prev = 22;
                         _context7.t0 = _context7['catch'](5);
                         return _context7.abrupt('return', (0, _helpers.dberr)(res));
 
-                      case 22:
+                      case 25:
                       case 'end':
                         return _context7.stop();
                     }
                   }
-                }, _callee7, undefined, [[5, 19]]);
+                }, _callee7, undefined, [[5, 22]]);
               }));
 
               return function (_x19, _x20) {
@@ -1428,6 +1409,35 @@ router.post('/getPoints', function () {
     return _ref7.apply(this, arguments);
   };
 }());
+
+exports.default = router;
+
+/***/ }),
+/* 15 */,
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _express = __webpack_require__(0);
+
+var _express2 = _interopRequireDefault(_express);
+
+var _v = __webpack_require__(13);
+
+var _v2 = _interopRequireDefault(_v);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var router = _express2.default.Router();
+
+//version
+router.use('/v1', _v2.default);
 
 exports.default = router;
 

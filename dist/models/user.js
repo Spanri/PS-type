@@ -76,7 +76,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _mongoose = __webpack_require__(4);
+var _mongoose = __webpack_require__(7);
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
 
@@ -208,15 +208,15 @@ exports.default = _mongoose2.default.model('User', userSchema);
 
 /***/ }),
 /* 3 */,
-/* 4 */
+/* 4 */,
+/* 5 */,
+/* 6 */,
+/* 7 */
 /***/ (function(module, exports) {
 
 module.exports = require("mongoose");
 
 /***/ }),
-/* 5 */,
-/* 6 */,
-/* 7 */,
 /* 8 */
 /***/ (function(module, exports) {
 

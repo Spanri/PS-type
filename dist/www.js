@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 21);
+/******/ 	return __webpack_require__(__webpack_require__.s = 22);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -86,7 +86,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _mongoose = __webpack_require__(4);
+var _mongoose = __webpack_require__(7);
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
 
@@ -280,28 +280,28 @@ function valerr(res, err) {
 
 /***/ }),
 /* 4 */
-/***/ (function(module, exports) {
-
-module.exports = require("mongoose");
-
-/***/ }),
-/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(10);
 
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, exports) {
 
 module.exports = require("jsonwebtoken");
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, exports) {
 
 module.exports = require("jwt-decode");
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports) {
+
+module.exports = require("mongoose");
 
 /***/ }),
 /* 8 */
@@ -332,7 +332,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _regenerator = __webpack_require__(5);
+var _regenerator = __webpack_require__(4);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
@@ -348,13 +348,13 @@ var _user = __webpack_require__(2);
 
 var _user2 = _interopRequireDefault(_user);
 
-var _jsonwebtoken = __webpack_require__(6);
+var _jsonwebtoken = __webpack_require__(5);
 
 var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
 
 var _helpers = __webpack_require__(3);
 
-var _jwtDecode = __webpack_require__(7);
+var _jwtDecode = __webpack_require__(6);
 
 var _jwtDecode2 = _interopRequireDefault(_jwtDecode);
 
@@ -527,7 +527,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _regenerator = __webpack_require__(5);
+var _regenerator = __webpack_require__(4);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
@@ -653,11 +653,11 @@ var _user2 = _interopRequireDefault(_user);
 
 var _helpers = __webpack_require__(3);
 
-var _jwtDecode = __webpack_require__(7);
+var _jwtDecode = __webpack_require__(6);
 
 var _jwtDecode2 = _interopRequireDefault(_jwtDecode);
 
-var _jsonwebtoken = __webpack_require__(6);
+var _jsonwebtoken = __webpack_require__(5);
 
 var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
 
@@ -962,7 +962,7 @@ var _auth = __webpack_require__(11);
 
 var _auth2 = _interopRequireDefault(_auth);
 
-var _data = __webpack_require__(23);
+var _data = __webpack_require__(14);
 
 var _data2 = _interopRequireDefault(_data);
 
@@ -999,250 +999,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _express = __webpack_require__(0);
-
-var _express2 = _interopRequireDefault(_express);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var router = _express2.default.Router();
-
-//common information about server and project
-router.get('/', function (req, res, next) {
-  res.json({
-    name: "PS Type API",
-    madeBy: "Anna, Valya"
-  });
-});
-
-exports.default = router;
-
-/***/ }),
-/* 15 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _express = __webpack_require__(0);
-
-var _express2 = _interopRequireDefault(_express);
-
-var _v = __webpack_require__(13);
-
-var _v2 = _interopRequireDefault(_v);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var router = _express2.default.Router();
-
-//version
-router.use('/v1', _v2.default);
-
-exports.default = router;
-
-/***/ }),
-/* 16 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(__dirname) {
-
-var _express = __webpack_require__(0);
-
-var _express2 = _interopRequireDefault(_express);
-
-var _path = __webpack_require__(1);
-
-var _path2 = _interopRequireDefault(_path);
-
-var _fs = __webpack_require__(17);
-
-var _fs2 = _interopRequireDefault(_fs);
-
-var _morgan = __webpack_require__(18);
-
-var _morgan2 = _interopRequireDefault(_morgan);
-
-var _bodyParser = __webpack_require__(19);
-
-var _bodyParser2 = _interopRequireDefault(_bodyParser);
-
-var _expressJwt = __webpack_require__(20);
-
-var _expressJwt2 = _interopRequireDefault(_expressJwt);
-
-var _mongoose = __webpack_require__(4);
-
-var _mongoose2 = _interopRequireDefault(_mongoose);
-
-var _index = __webpack_require__(14);
-
-var _index2 = _interopRequireDefault(_index);
-
-var _api = __webpack_require__(15);
-
-var _api2 = _interopRequireDefault(_api);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-//connect to db mongoose
-_mongoose2.default.Promise = global.Promise;
-_mongoose2.default.connect('mongodb://SpanriDb:nysha2161@ds046939.mlab.com:46939/spanridb');
-var db = _mongoose2.default.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function () {
-  return console.log('DB connected!');
-});
-
-var app = (0, _express2.default)();
-
-app.set('secret', '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3');
-
-//logging
-var accessLogStream = _fs2.default.createWriteStream(_path2.default.join(__dirname, 'access.log'), { flags: 'a' });
-app.use((0, _morgan2.default)('combined', { stream: accessLogStream }));
-app.use(_bodyParser2.default.json());
-app.use(_bodyParser2.default.urlencoded({
-  extended: false
-}));
-app.use(_express2.default.static(_path2.default.join(__dirname, 'public')));
-
-app.use((0, _expressJwt2.default)({
-  secret: app.get('secret')
-}).unless({
-  method: 'OPTIONS',
-  path: ['/', /\/api\/v\d(\/sign(in|up))?\/?/i]
-}));
-
-//path
-app.use('/', _index2.default);
-app.use('/api', _api2.default);
-
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
-
-// error handler
-app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  res.status(err.status || 500).send({
-    status: 'error',
-    message: err.message || 'Server error'
-  });
-});
-
-module.exports = app;
-/* WEBPACK VAR INJECTION */}.call(exports, "src"))
-
-/***/ }),
-/* 17 */
-/***/ (function(module, exports) {
-
-module.exports = require("fs");
-
-/***/ }),
-/* 18 */
-/***/ (function(module, exports) {
-
-module.exports = require("morgan");
-
-/***/ }),
-/* 19 */
-/***/ (function(module, exports) {
-
-module.exports = require("body-parser");
-
-/***/ }),
-/* 20 */
-/***/ (function(module, exports) {
-
-module.exports = require("express-jwt");
-
-/***/ }),
-/* 21 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var app = __webpack_require__(16);
-var http = __webpack_require__(22);
-
-var port = normalizePort(process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || '8080');
-var hostname = process.env.IP || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
-app.set('port', port);
-app.set('hostname', hostname);
-
-var server = http.createServer(app);
-
-server.listen(port, hostname);
-server.on('error', onError);
-server.on('listening', onListening);
-
-function normalizePort(val) {
-  var port = parseInt(val, 10);
-
-  if (isNaN(port)) return val;
-  if (port >= 0) return port;
-  return false;
-}
-
-function onError(error) {
-  if (error.syscall !== 'listen') {
-    throw error;
-  }
-
-  var bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
-
-  switch (error.code) {
-    case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
-      process.exit(1);
-      break;
-    case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
-      process.exit(1);
-      break;
-    default:
-      throw error;
-  }
-}
-
-function onListening() {
-  var addr = server.address();
-  var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
-  console.log('Listening on ' + bind);
-}
-
-/***/ }),
-/* 22 */
-/***/ (function(module, exports) {
-
-module.exports = require("http");
-
-/***/ }),
-/* 23 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _regenerator = __webpack_require__(5);
+var _regenerator = __webpack_require__(4);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
@@ -1260,11 +1017,11 @@ var _user2 = _interopRequireDefault(_user);
 
 var _helpers = __webpack_require__(3);
 
-var _jwtDecode = __webpack_require__(7);
+var _jwtDecode = __webpack_require__(6);
 
 var _jwtDecode2 = _interopRequireDefault(_jwtDecode);
 
-var _jsonwebtoken = __webpack_require__(6);
+var _jsonwebtoken = __webpack_require__(5);
 
 var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
 
@@ -1513,7 +1270,7 @@ router.post('/getDate', function () {
                         str += ']';
                         return _context5.abrupt('return', res.status(200).send({
                           status: 'ok',
-                          message: 'Date successfuly found',
+                          message: 'Date successfuly received',
                           str: str
                         }));
 
@@ -1557,7 +1314,7 @@ router.post('/getPoints', function () {
             //проверка на валидность токена
             _jsonwebtoken2.default.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', function () {
               var _ref8 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee7(err, token) {
-                var user, str, k, i;
+                var user, k, dateTrack, startTime, i;
                 return _regenerator2.default.wrap(function _callee7$(_context7) {
                   while (1) {
                     switch (_context7.prev = _context7.next) {
@@ -1572,7 +1329,7 @@ router.post('/getPoints', function () {
                           message: 'Verify error',
                           message2: err.message
                         });
-                        _context7.next = 22;
+                        _context7.next = 25;
                         break;
 
                       case 4:
@@ -1592,30 +1349,47 @@ router.post('/getPoints', function () {
                         return _context7.abrupt('return', (0, _helpers.notFound)(res));
 
                       case 11:
-                        str = '[';
-
                         for (k = 1; user.track.dateTrack[k] != null; k++) {}
-                        for (i = k - 1; i >= 0; i--) {
-                          str += '{dateTrack:/' + user.track.dateTrack[i] + '/,StartTime:/' + user.track.startTime[i] + '/,StopTime:/' + user.track.stopTime[i] + '/};';
-                        }str = str.slice(0, -1);
-                        str += ']';
+                        dateTrack = req.body.dateTrack, startTime = req.body.StartTime;
+                        i = k - 1;
+
+                      case 14:
+                        if (!(i >= 0)) {
+                          _context7.next = 20;
+                          break;
+                        }
+
+                        if (!(dateTrack == user.track.dateTrack[i] && startTime == user.track.startTime[i])) {
+                          _context7.next = 17;
+                          break;
+                        }
+
                         return _context7.abrupt('return', res.status(200).send({
                           status: 'ok',
-                          message: 'Date successfuly found',
-                          str: str
+                          message: 'Date successfuly received',
+                          points: points[i]
                         }));
 
-                      case 19:
-                        _context7.prev = 19;
+                      case 17:
+                        i--;
+                        _context7.next = 14;
+                        break;
+
+                      case 20:
+                        _context7.next = 25;
+                        break;
+
+                      case 22:
+                        _context7.prev = 22;
                         _context7.t0 = _context7['catch'](5);
                         return _context7.abrupt('return', (0, _helpers.dberr)(res));
 
-                      case 22:
+                      case 25:
                       case 'end':
                         return _context7.stop();
                     }
                   }
-                }, _callee7, undefined, [[5, 19]]);
+                }, _callee7, undefined, [[5, 22]]);
               }));
 
               return function (_x19, _x20) {
@@ -1637,6 +1411,249 @@ router.post('/getPoints', function () {
 }());
 
 exports.default = router;
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _express = __webpack_require__(0);
+
+var _express2 = _interopRequireDefault(_express);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var router = _express2.default.Router();
+
+//common information about server and project
+router.get('/', function (req, res, next) {
+  res.json({
+    name: "PS Type API",
+    madeBy: "Anna, Valya"
+  });
+});
+
+exports.default = router;
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _express = __webpack_require__(0);
+
+var _express2 = _interopRequireDefault(_express);
+
+var _v = __webpack_require__(13);
+
+var _v2 = _interopRequireDefault(_v);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var router = _express2.default.Router();
+
+//version
+router.use('/v1', _v2.default);
+
+exports.default = router;
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(__dirname) {
+
+var _express = __webpack_require__(0);
+
+var _express2 = _interopRequireDefault(_express);
+
+var _path = __webpack_require__(1);
+
+var _path2 = _interopRequireDefault(_path);
+
+var _fs = __webpack_require__(18);
+
+var _fs2 = _interopRequireDefault(_fs);
+
+var _morgan = __webpack_require__(19);
+
+var _morgan2 = _interopRequireDefault(_morgan);
+
+var _bodyParser = __webpack_require__(20);
+
+var _bodyParser2 = _interopRequireDefault(_bodyParser);
+
+var _expressJwt = __webpack_require__(21);
+
+var _expressJwt2 = _interopRequireDefault(_expressJwt);
+
+var _mongoose = __webpack_require__(7);
+
+var _mongoose2 = _interopRequireDefault(_mongoose);
+
+var _index = __webpack_require__(15);
+
+var _index2 = _interopRequireDefault(_index);
+
+var _api = __webpack_require__(16);
+
+var _api2 = _interopRequireDefault(_api);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//connect to db mongoose
+_mongoose2.default.Promise = global.Promise;
+_mongoose2.default.connect('mongodb://SpanriDb:nysha2161@ds046939.mlab.com:46939/spanridb');
+var db = _mongoose2.default.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function () {
+  return console.log('DB connected!');
+});
+
+var app = (0, _express2.default)();
+
+app.set('secret', '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3');
+
+//logging
+var accessLogStream = _fs2.default.createWriteStream(_path2.default.join(__dirname, 'access.log'), { flags: 'a' });
+app.use((0, _morgan2.default)('combined', { stream: accessLogStream }));
+app.use(_bodyParser2.default.json());
+app.use(_bodyParser2.default.urlencoded({
+  extended: false
+}));
+app.use(_express2.default.static(_path2.default.join(__dirname, 'public')));
+
+app.use((0, _expressJwt2.default)({
+  secret: app.get('secret')
+}).unless({
+  method: 'OPTIONS',
+  path: ['/', /\/api\/v\d(\/sign(in|up))?\/?/i]
+}));
+
+//path
+app.use('/', _index2.default);
+app.use('/api', _api2.default);
+
+// catch 404 and forward to error handler
+app.use(function (req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
+
+// error handler
+app.use(function (err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+  res.status(err.status || 500).send({
+    status: 'error',
+    message: err.message || 'Server error'
+  });
+});
+
+module.exports = app;
+/* WEBPACK VAR INJECTION */}.call(exports, "src"))
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports) {
+
+module.exports = require("fs");
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports) {
+
+module.exports = require("morgan");
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports) {
+
+module.exports = require("body-parser");
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports) {
+
+module.exports = require("express-jwt");
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var app = __webpack_require__(17);
+var http = __webpack_require__(23);
+
+var port = normalizePort(process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || '8080');
+var hostname = process.env.IP || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
+app.set('port', port);
+app.set('hostname', hostname);
+
+var server = http.createServer(app);
+
+server.listen(port, hostname);
+server.on('error', onError);
+server.on('listening', onListening);
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) return val;
+  if (port >= 0) return port;
+  return false;
+}
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
+
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
+  console.log('Listening on ' + bind);
+}
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports) {
+
+module.exports = require("http");
 
 /***/ })
 /******/ ])));
