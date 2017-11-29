@@ -9,6 +9,7 @@ import mongoose from 'mongoose';
 import index from './routes/index';
 import api from './routes/api';
 
+//connect to db mongoose
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://SpanriDb:nysha2161@ds046939.mlab.com:46939/spanridb');
 const db = mongoose.connection;
@@ -19,6 +20,7 @@ const app = express();
 
 app.set('secret', '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3');
 
+//logging
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' });
 app.use(morgan('combined', { stream: accessLogStream }));
 app.use(bodyParser.json());
@@ -37,6 +39,7 @@ app.use(ejwt({
   ]
 }));
 
+//path
 app.use('/', index);
 app.use('/api', api);
 

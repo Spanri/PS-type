@@ -60,32 +60,13 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
-/* 0 */
-/***/ (function(module, exports) {
-
-module.exports = require("mongoose");
-
-/***/ }),
+/* 0 */,
 /* 1 */,
-/* 2 */,
-/* 3 */
-/***/ (function(module, exports) {
-
-module.exports = require("mongoose-unique-validator");
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports) {
-
-module.exports = require("mongoose-bcrypt");
-
-/***/ }),
-/* 5 */,
-/* 6 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -95,21 +76,17 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _mongoose = __webpack_require__(0);
+var _mongoose = __webpack_require__(4);
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
 
-var _mongooseUniqueValidator = __webpack_require__(3);
+var _mongooseUniqueValidator = __webpack_require__(8);
 
 var _mongooseUniqueValidator2 = _interopRequireDefault(_mongooseUniqueValidator);
 
-var _mongooseBcrypt = __webpack_require__(4);
+var _mongooseBcrypt = __webpack_require__(9);
 
 var _mongooseBcrypt2 = _interopRequireDefault(_mongooseBcrypt);
-
-var _common = __webpack_require__(11);
-
-var _common2 = _interopRequireDefault(_common);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -118,6 +95,41 @@ function validator(v) {
 }
 var message = function message(name) {
   return name + ' must be longer than 6 symbols';
+};
+
+var obr = {
+  max: Number,
+  dist: Number,
+  avtime: Number,
+  radvar: Number,
+  date: {
+    type: [Number],
+    required: false
+  },
+  type: {
+    type: String,
+    default: "Статистики пока нет",
+    required: false
+  }
+};
+
+var track = {
+  dateTrack: {
+    type: [String],
+    required: false
+  },
+  startTime: {
+    type: [String],
+    required: false
+  },
+  stopTime: {
+    type: [String],
+    required: false
+  },
+  points: {
+    type: [String],
+    required: false
+  }
 };
 
 var userSchema = _mongoose2.default.Schema({
@@ -139,7 +151,54 @@ var userSchema = _mongoose2.default.Schema({
       message: message('Password')
     }
   },
-  a: _common2.default
+  name: String,
+  experience: String,
+  country: String,
+  city: String,
+  age: {
+    type: Date,
+    required: false,
+    validate: {
+      validator: function validator(v) {
+        var birthday = new Date(v.getTime());
+        var today = new Date();
+        var years = today.getFullYear() - birthday.getFullYear();
+        birthday.setFullYear(today.getFullYear());
+        if (today < birthday) years--;
+        return years > 14 && years < 110;
+      },
+      message: 'Age must be > 14 and < 110'
+    }
+  },
+  sex: {
+    type: Number,
+    min: [0, 'Sex must be >= 0'],
+    max: [2, 'Sex must be <= 2'],
+    required: false,
+    default: 0,
+    validate: {
+      validator: Number.isInteger,
+      message: 'Sex must be an integer'
+    }
+  },
+  latitude: {
+    type: [Number],
+    required: false
+  },
+  longitude: {
+    type: [Number],
+    required: false
+  },
+  speed: {
+    type: [Number],
+    required: false
+  },
+  date: {
+    type: [Date],
+    required: false
+  },
+  obr: obr,
+  track: track
 }, { versionKey: false });
 
 userSchema.plugin(_mongooseUniqueValidator2.default);
@@ -148,86 +207,26 @@ userSchema.plugin(_mongooseBcrypt2.default);
 exports.default = _mongoose2.default.model('User', userSchema);
 
 /***/ }),
+/* 3 */,
+/* 4 */
+/***/ (function(module, exports) {
+
+module.exports = require("mongoose");
+
+/***/ }),
+/* 5 */,
+/* 6 */,
 /* 7 */,
-/* 8 */,
-/* 9 */,
-/* 10 */,
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 8 */
+/***/ (function(module, exports) {
 
-"use strict";
+module.exports = require("mongoose-unique-validator");
 
+/***/ }),
+/* 9 */
+/***/ (function(module, exports) {
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _mongoose = __webpack_require__(0);
-
-var _mongoose2 = _interopRequireDefault(_mongoose);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var usSch = {
-    age: {
-        type: Date,
-        required: false,
-        validate: {
-            validator: function validator(v) {
-                var birthday = new Date(v.getTime());
-                var today = new Date();
-                var years = today.getFullYear() - birthday.getFullYear();
-                birthday.setFullYear(today.getFullYear());
-                if (today < birthday) years--;
-                return years > 14 && years < 110;
-            },
-            message: 'Age must be > 14 and < 110'
-        }
-    },
-    sex: {
-        type: Number,
-        min: [0, 'Sex must be >= 0'],
-        max: [2, 'Sex must be <= 2'],
-        required: false,
-        default: 0,
-        validate: {
-            validator: Number.isInteger,
-            message: 'Sex must be an integer'
-        }
-    },
-    latitude: {
-        type: [Number],
-        required: false
-    },
-    longitude: {
-        type: [Number],
-        required: false
-    },
-    speed: {
-        type: [Number],
-        required: false
-    },
-    date: {
-        type: [Date],
-        required: false
-    },
-    obr: {
-        max: Number,
-        dist: Number,
-        avtime: Number,
-        radvar: Number,
-        date: {
-            type: [Number],
-            required: false
-        },
-        type: {
-            type: String,
-            default: "Статистики пока нет"
-        }
-    }
-};
-
-exports.default = usSch;
+module.exports = require("mongoose-bcrypt");
 
 /***/ })
 /******/ ])));

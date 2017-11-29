@@ -60,16 +60,20 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 8);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 8:
+/***/ 3:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
+
+//There is func for input error
+
+//common error
 
 Object.defineProperty(exports, "__esModule", {
     value: true
@@ -86,6 +90,7 @@ function dberr(res) {
     });
 }
 
+//for change.js
 function ok(res) {
     return res.status(200).send({
         status: 'ok',
@@ -93,6 +98,7 @@ function ok(res) {
     });
 }
 
+//for authorization
 function notFound(res) {
     return res.status(404).send({
         status: 'error',
@@ -100,6 +106,7 @@ function notFound(res) {
     });
 }
 
+//for validation of token (time of life - 10days) ???
 function valerr(res, err) {
     if (err.name === 'ValidationError') {
         var firstErr = err.errors[Object.keys(err.errors)[0]];
@@ -118,10 +125,6 @@ function valerr(res, err) {
     }
     return dberr(res);
 }
-
-//токены для запросов в постмане, пользователи asdfgh
-//vk eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHZrIjoiYXNkZmdoIiwiX2lkIjoiNTk2NTNjYzM2NzA5MzExOTQ0YzRhZjlmIiwiaWF0IjoxNDk5ODA2OTE2LCJleHAiOjE1MDA2NzA5MTZ9.a1tV8GwWQhtzZ89F3kkNYLlRoE10VbOx8MkMxjTGDFU
-//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFzZGZnaCIsIl9pZCI6IjU5NjUzZWE1NjcwOTMxMTk0NGM0YWZhMCIsImlhdCI6MTQ5OTgwNzM5NywiZXhwIjoxNTAwNjcxMzk3fQ.Ww4xxFd65Oez0hVPED4mH4NaiVn9IeD8Hl0DckjEdJY
 
 /***/ })
 

@@ -60,19 +60,19 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 17);
+/******/ 	return __webpack_require__(__webpack_require__.s = 14);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 1:
+/***/ 0:
 /***/ (function(module, exports) {
 
 module.exports = require("express");
 
 /***/ }),
 
-/***/ 17:
+/***/ 14:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -82,7 +82,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _express = __webpack_require__(1);
+var _express = __webpack_require__(0);
 
 var _express2 = _interopRequireDefault(_express);
 
@@ -90,10 +90,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var router = _express2.default.Router();
 
+//common information about server and project
 router.get('/', function (req, res, next) {
   res.json({
     name: "PS Type API",
-    madeBy: "Anna, Valya, Liza"
+    madeBy: "Anna, Valya"
   });
 });
 

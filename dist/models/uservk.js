@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -79,20 +79,98 @@ module.exports = __webpack_require__(12);
 
 /***/ }),
 /* 3 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = require("mongoose-unique-validator");
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _mongoose = __webpack_require__(0);
+
+var _mongoose2 = _interopRequireDefault(_mongoose);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var usSch = {
+    age: {
+        type: Date,
+        required: false,
+        validate: {
+            validator: function validator(v) {
+                var birthday = new Date(v.getTime());
+                var today = new Date();
+                var years = today.getFullYear() - birthday.getFullYear();
+                birthday.setFullYear(today.getFullYear());
+                if (today < birthday) years--;
+                return years > 14 && years < 110;
+            },
+            message: 'Age must be > 14 and < 110'
+        }
+    },
+    sex: {
+        type: Number,
+        min: [0, 'Sex must be >= 0'],
+        max: [2, 'Sex must be <= 2'],
+        required: false,
+        default: 0,
+        validate: {
+            validator: Number.isInteger,
+            message: 'Sex must be an integer'
+        }
+    },
+    latitude: {
+        type: [Number],
+        required: false
+    },
+    longitude: {
+        type: [Number],
+        required: false
+    },
+    speed: {
+        type: [Number],
+        required: false
+    },
+    date: {
+        type: [Date],
+        required: false
+    },
+    obr: {
+        max: Number,
+        dist: Number,
+        avtime: Number,
+        radvar: Number,
+        date: {
+            type: [Number],
+            required: false
+        },
+        type: {
+            type: String,
+            default: "Статистики пока нет"
+        }
+    }
+};
+
+exports.default = usSch;
 
 /***/ }),
 /* 4 */
 /***/ (function(module, exports) {
 
+module.exports = require("mongoose-unique-validator");
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports) {
+
 module.exports = require("mongoose-bcrypt");
 
 /***/ }),
-/* 5 */,
 /* 6 */,
-/* 7 */
+/* 7 */,
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -140,13 +218,17 @@ var _mongoose = __webpack_require__(0);
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
 
-var _mongooseUniqueValidator = __webpack_require__(3);
+var _mongooseUniqueValidator = __webpack_require__(4);
 
 var _mongooseUniqueValidator2 = _interopRequireDefault(_mongooseUniqueValidator);
 
-var _mongooseBcrypt = __webpack_require__(4);
+var _mongooseBcrypt = __webpack_require__(5);
 
 var _mongooseBcrypt2 = _interopRequireDefault(_mongooseBcrypt);
+
+var _common = __webpack_require__(3);
+
+var _common2 = _interopRequireDefault(_common);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -173,54 +255,7 @@ var userSchemavk = _mongoose2.default.Schema({
       message: "Usernamevk must be String"
     }
   },
-  age: {
-    type: Date,
-    required: false,
-    validate: {
-      validator: validator,
-      message: 'Age must be > 14 and < 110'
-    }
-  },
-  sex: {
-    type: Number,
-    min: [0, 'Sex must be >= 0'],
-    max: [2, 'Sex must be <= 2'],
-    required: false,
-    validate: {
-      validator: Number.isInteger,
-      message: 'Sex must be an integer'
-    }
-  },
-  latitude: {
-    type: [Number],
-    required: false
-  },
-  longitude: {
-    type: [Number],
-    required: false
-  },
-  speed: {
-    type: [Number],
-    required: false
-  },
-  date: {
-    type: [Date],
-    required: false
-  },
-  obr: {
-    max: Number,
-    dist: Number,
-    avtime: Number,
-    radvar: Number,
-    date: {
-      type: [Number],
-      required: false
-    },
-    type: {
-      type: String,
-      default: "Статистики пока нет"
-    }
-  }
+  a: _common2.default
 }, { versionKey: false });
 
 userSchemavk.plugin(_mongooseUniqueValidator2.default);
@@ -229,7 +264,6 @@ userSchemavk.plugin(_mongooseBcrypt2.default);
 exports.default = _mongoose2.default.model('Uservk', userSchemavk);
 
 /***/ }),
-/* 8 */,
 /* 9 */,
 /* 10 */,
 /* 11 */,

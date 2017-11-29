@@ -1,5 +1,8 @@
 "use strict";
 
+//There is func for input error
+
+//common error
 export function dberr(res) {
     res.status(500).send({
         status: 'error',
@@ -8,6 +11,7 @@ export function dberr(res) {
     });
 }
 
+//for change.js
 export function ok(res) {
     return res.status(200).send({
         status: 'ok',
@@ -15,6 +19,7 @@ export function ok(res) {
     }); 
 }
 
+//for authorization
 export function notFound(res) {
     return res.status(404).send({
         status: 'error',
@@ -22,6 +27,7 @@ export function notFound(res) {
         });
 }
 
+//for validation of token (time of life - 10days) ???
 export function valerr(res,err){
     if (err.name === 'ValidationError') {
         const firstErr = err.errors[Object.keys(err.errors)[0]];
@@ -41,7 +47,3 @@ export function valerr(res,err){
     }
     return dberr(res);
 }
-
-//токены для запросов в постмане, пользователи asdfgh
-//vk eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHZrIjoiYXNkZmdoIiwiX2lkIjoiNTk2NTNjYzM2NzA5MzExOTQ0YzRhZjlmIiwiaWF0IjoxNDk5ODA2OTE2LCJleHAiOjE1MDA2NzA5MTZ9.a1tV8GwWQhtzZ89F3kkNYLlRoE10VbOx8MkMxjTGDFU
-//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFzZGZnaCIsIl9pZCI6IjU5NjUzZWE1NjcwOTMxMTk0NGM0YWZhMCIsImlhdCI6MTQ5OTgwNzM5NywiZXhwIjoxNTAwNjcxMzk3fQ.Ww4xxFd65Oez0hVPED4mH4NaiVn9IeD8Hl0DckjEdJY

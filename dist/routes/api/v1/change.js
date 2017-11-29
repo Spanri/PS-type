@@ -84,295 +84,6 @@ module.exports = __webpack_require__(12);
 
 /***/ }),
 /* 3 */
-/***/ (function(module, exports) {
-
-module.exports = require("mongoose-unique-validator");
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports) {
-
-module.exports = require("mongoose-bcrypt");
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports) {
-
-module.exports = require("path");
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _mongoose = __webpack_require__(0);
-
-var _mongoose2 = _interopRequireDefault(_mongoose);
-
-var _mongooseUniqueValidator = __webpack_require__(3);
-
-var _mongooseUniqueValidator2 = _interopRequireDefault(_mongooseUniqueValidator);
-
-var _mongooseBcrypt = __webpack_require__(4);
-
-var _mongooseBcrypt2 = _interopRequireDefault(_mongooseBcrypt);
-
-var _common = __webpack_require__(11);
-
-var _common2 = _interopRequireDefault(_common);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function validator(v) {
-  return v && /[^\s]{6,}/.test(v); //любой символ, кроме пробела и минимум 6 штук
-}
-var message = function message(name) {
-  return name + ' must be longer than 6 symbols';
-};
-
-var userSchema = _mongoose2.default.Schema({
-  username: {
-    type: String,
-    required: [true, 'Username is required'],
-    unique: true,
-    index: true,
-    validate: {
-      validator: validator,
-      message: message('Username')
-    }
-  },
-  password: {
-    type: String,
-    required: [true, 'Password is required'],
-    validate: {
-      validator: validator,
-      message: message('Password')
-    }
-  },
-  a: _common2.default
-}, { versionKey: false });
-
-userSchema.plugin(_mongooseUniqueValidator2.default);
-userSchema.plugin(_mongooseBcrypt2.default);
-
-exports.default = _mongoose2.default.model('User', userSchema);
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _regenerator = __webpack_require__(2);
-
-var _regenerator2 = _interopRequireDefault(_regenerator);
-
-var validator = function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee(v) {
-    var birthday, today, years;
-    return _regenerator2.default.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            birthday = new Date(v.getTime());
-            today = new Date();
-            years = today.getFullYear() - birthday.getFullYear();
-            _context.next = 5;
-            return birthday.setFullYear(today.getFullYear());
-
-          case 5:
-            if (today < birthday) years--;
-            return _context.abrupt('return', years > 14 && years < 110);
-
-          case 7:
-          case 'end':
-            return _context.stop();
-        }
-      }
-    }, _callee, this);
-  }));
-
-  return function validator(_x) {
-    return _ref.apply(this, arguments);
-  };
-}();
-
-var _mongoose = __webpack_require__(0);
-
-var _mongoose2 = _interopRequireDefault(_mongoose);
-
-var _mongooseUniqueValidator = __webpack_require__(3);
-
-var _mongooseUniqueValidator2 = _interopRequireDefault(_mongooseUniqueValidator);
-
-var _mongooseBcrypt = __webpack_require__(4);
-
-var _mongooseBcrypt2 = _interopRequireDefault(_mongooseBcrypt);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-
-var userSchemavk = _mongoose2.default.Schema({
-  idvk: {
-    type: String,
-    required: [true, "Idvk is required"],
-    validate: {
-      validator: function validator(v) {
-        return typeof v === "string";
-      },
-      message: "Idvk must be String"
-    }
-  },
-  usernamevk: {
-    type: String,
-    required: [true, "Usernamevk is required"],
-    validate: {
-      validator: function validator(v) {
-        return typeof v === "string";
-      },
-      message: "Usernamevk must be String"
-    }
-  },
-  age: {
-    type: Date,
-    required: false,
-    validate: {
-      validator: validator,
-      message: 'Age must be > 14 and < 110'
-    }
-  },
-  sex: {
-    type: Number,
-    min: [0, 'Sex must be >= 0'],
-    max: [2, 'Sex must be <= 2'],
-    required: false,
-    validate: {
-      validator: Number.isInteger,
-      message: 'Sex must be an integer'
-    }
-  },
-  latitude: {
-    type: [Number],
-    required: false
-  },
-  longitude: {
-    type: [Number],
-    required: false
-  },
-  speed: {
-    type: [Number],
-    required: false
-  },
-  date: {
-    type: [Date],
-    required: false
-  },
-  obr: {
-    max: Number,
-    dist: Number,
-    avtime: Number,
-    radvar: Number,
-    date: {
-      type: [Number],
-      required: false
-    },
-    type: {
-      type: String,
-      default: "Статистики пока нет"
-    }
-  }
-}, { versionKey: false });
-
-userSchemavk.plugin(_mongooseUniqueValidator2.default);
-userSchemavk.plugin(_mongooseBcrypt2.default);
-
-exports.default = _mongoose2.default.model('Uservk', userSchemavk);
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.dberr = dberr;
-exports.ok = ok;
-exports.notFound = notFound;
-exports.valerr = valerr;
-function dberr(res) {
-    res.status(500).send({
-        status: 'error',
-        message: 'Database error',
-        message2: err.message
-    });
-}
-
-function ok(res) {
-    return res.status(200).send({
-        status: 'ok',
-        message: 'User successfuly changed'
-    });
-}
-
-function notFound(res) {
-    return res.status(404).send({
-        status: 'error',
-        message: 'User not found'
-    });
-}
-
-function valerr(res, err) {
-    if (err.name === 'ValidationError') {
-        var firstErr = err.errors[Object.keys(err.errors)[0]];
-        var message = 'Unexpected error';
-        if (firstErr.kind === 'unique') message = 'User with this username already exists';else if (firstErr.message) message = firstErr.message;
-        return res.status(400).send({
-            status: 'error',
-            message: message
-        });
-    }
-    if (err.name === 'CastError') {
-        return res.status(400).send({
-            status: 'error',
-            message: err.message
-        });
-    }
-    return dberr(res);
-}
-
-//токены для запросов в постмане, пользователи asdfgh
-//vk eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHZrIjoiYXNkZmdoIiwiX2lkIjoiNTk2NTNjYzM2NzA5MzExOTQ0YzRhZjlmIiwiaWF0IjoxNDk5ODA2OTE2LCJleHAiOjE1MDA2NzA5MTZ9.a1tV8GwWQhtzZ89F3kkNYLlRoE10VbOx8MkMxjTGDFU
-//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFzZGZnaCIsIl9pZCI6IjU5NjUzZWE1NjcwOTMxMTk0NGM0YWZhMCIsImlhdCI6MTQ5OTgwNzM5NywiZXhwIjoxNTAwNjcxMzk3fQ.Ww4xxFd65Oez0hVPED4mH4NaiVn9IeD8Hl0DckjEdJY
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports) {
-
-module.exports = require("jsonwebtoken");
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports) {
-
-module.exports = require("jwt-decode");
-
-/***/ }),
-/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -450,6 +161,259 @@ var usSch = {
 exports.default = usSch;
 
 /***/ }),
+/* 4 */
+/***/ (function(module, exports) {
+
+module.exports = require("mongoose-unique-validator");
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports) {
+
+module.exports = require("mongoose-bcrypt");
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports) {
+
+module.exports = require("path");
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _mongoose = __webpack_require__(0);
+
+var _mongoose2 = _interopRequireDefault(_mongoose);
+
+var _mongooseUniqueValidator = __webpack_require__(4);
+
+var _mongooseUniqueValidator2 = _interopRequireDefault(_mongooseUniqueValidator);
+
+var _mongooseBcrypt = __webpack_require__(5);
+
+var _mongooseBcrypt2 = _interopRequireDefault(_mongooseBcrypt);
+
+var _common = __webpack_require__(3);
+
+var _common2 = _interopRequireDefault(_common);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function validator(v) {
+  return v && /[^\s]{6,}/.test(v); //любой символ, кроме пробела и минимум 6 штук
+}
+var message = function message(name) {
+  return name + ' must be longer than 6 symbols';
+};
+
+var userSchema = _mongoose2.default.Schema({
+  username: {
+    type: String,
+    required: [true, 'Username is required'],
+    unique: true,
+    index: true,
+    validate: {
+      validator: validator,
+      message: message('Username')
+    }
+  },
+  password: {
+    type: String,
+    required: [true, 'Password is required'],
+    validate: {
+      validator: validator,
+      message: message('Password')
+    }
+  },
+  a: _common2.default
+}, { versionKey: false });
+
+for (var i in _common2.default) {
+  userSchema.mongoose.Schema = _common2.default[i];
+}
+
+userSchema.plugin(_mongooseUniqueValidator2.default);
+userSchema.plugin(_mongooseBcrypt2.default);
+
+exports.default = _mongoose2.default.model('User', userSchema);
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _regenerator = __webpack_require__(2);
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var validator = function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee(v) {
+    var birthday, today, years;
+    return _regenerator2.default.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            birthday = new Date(v.getTime());
+            today = new Date();
+            years = today.getFullYear() - birthday.getFullYear();
+            _context.next = 5;
+            return birthday.setFullYear(today.getFullYear());
+
+          case 5:
+            if (today < birthday) years--;
+            return _context.abrupt('return', years > 14 && years < 110);
+
+          case 7:
+          case 'end':
+            return _context.stop();
+        }
+      }
+    }, _callee, this);
+  }));
+
+  return function validator(_x) {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+var _mongoose = __webpack_require__(0);
+
+var _mongoose2 = _interopRequireDefault(_mongoose);
+
+var _mongooseUniqueValidator = __webpack_require__(4);
+
+var _mongooseUniqueValidator2 = _interopRequireDefault(_mongooseUniqueValidator);
+
+var _mongooseBcrypt = __webpack_require__(5);
+
+var _mongooseBcrypt2 = _interopRequireDefault(_mongooseBcrypt);
+
+var _common = __webpack_require__(3);
+
+var _common2 = _interopRequireDefault(_common);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+var userSchemavk = _mongoose2.default.Schema({
+  idvk: {
+    type: String,
+    required: [true, "Idvk is required"],
+    validate: {
+      validator: function validator(v) {
+        return typeof v === "string";
+      },
+      message: "Idvk must be String"
+    }
+  },
+  usernamevk: {
+    type: String,
+    required: [true, "Usernamevk is required"],
+    validate: {
+      validator: function validator(v) {
+        return typeof v === "string";
+      },
+      message: "Usernamevk must be String"
+    }
+  },
+  a: _common2.default
+}, { versionKey: false });
+
+userSchemavk.plugin(_mongooseUniqueValidator2.default);
+userSchemavk.plugin(_mongooseBcrypt2.default);
+
+exports.default = _mongoose2.default.model('Uservk', userSchemavk);
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+//There is func for input error
+
+//common error
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.dberr = dberr;
+exports.ok = ok;
+exports.notFound = notFound;
+exports.valerr = valerr;
+function dberr(res) {
+    res.status(500).send({
+        status: 'error',
+        message: 'Database error',
+        message2: err.message
+    });
+}
+
+//for change.js
+function ok(res) {
+    return res.status(200).send({
+        status: 'ok',
+        message: 'User successfuly changed'
+    });
+}
+
+//for authorization
+function notFound(res) {
+    return res.status(404).send({
+        status: 'error',
+        message: 'User not found'
+    });
+}
+
+//for validation of token (time of life - 10days) ???
+function valerr(res, err) {
+    if (err.name === 'ValidationError') {
+        var firstErr = err.errors[Object.keys(err.errors)[0]];
+        var message = 'Unexpected error';
+        if (firstErr.kind === 'unique') message = 'User with this username already exists';else if (firstErr.message) message = firstErr.message;
+        return res.status(400).send({
+            status: 'error',
+            message: message
+        });
+    }
+    if (err.name === 'CastError') {
+        return res.status(400).send({
+            status: 'error',
+            message: err.message
+        });
+    }
+    return dberr(res);
+}
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports) {
+
+module.exports = require("jsonwebtoken");
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports) {
+
+module.exports = require("jwt-decode");
+
+/***/ }),
 /* 12 */
 /***/ (function(module, exports) {
 
@@ -471,7 +435,7 @@ var _regenerator = __webpack_require__(2);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
-var _path = __webpack_require__(5);
+var _path = __webpack_require__(6);
 
 var _path2 = _interopRequireDefault(_path);
 
@@ -479,21 +443,21 @@ var _express = __webpack_require__(1);
 
 var _express2 = _interopRequireDefault(_express);
 
-var _user = __webpack_require__(6);
+var _user = __webpack_require__(7);
 
 var _user2 = _interopRequireDefault(_user);
 
-var _uservk = __webpack_require__(7);
+var _uservk = __webpack_require__(8);
 
 var _uservk2 = _interopRequireDefault(_uservk);
 
-var _helpers = __webpack_require__(8);
+var _helpers = __webpack_require__(9);
 
-var _jwtDecode = __webpack_require__(10);
+var _jwtDecode = __webpack_require__(11);
 
 var _jwtDecode2 = _interopRequireDefault(_jwtDecode);
 
-var _jsonwebtoken = __webpack_require__(9);
+var _jsonwebtoken = __webpack_require__(10);
 
 var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
 

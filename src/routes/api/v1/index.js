@@ -1,12 +1,12 @@
 "use strict";
 import express from 'express';
 import auth from './auth';
-import change from './change';
+import data from './data';
 import map from './map';
 const router = express.Router();
 
 router.use('/', auth);
-router.use('/change', change);
+router.use('/data', data);
 router.use('/map', map);
 
 router.get('/', (req, res, next) => {

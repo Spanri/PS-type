@@ -2,13 +2,13 @@
 import path from 'path';
 import express from 'express';
 import User from '../../../models/user';
-import Uservk from '../../../models/uservk';
 import jwt from 'jsonwebtoken';
 import { dberr,notFound } from '../../../helpers';
 import jwt_decode from 'jwt-decode';
 const router = express.Router();
 
 //https://toster.ru/q/369662
+//get token, time of life - 10days, secret in app.js
 const getToken = (req, payload) => jwt.sign(payload, req.app.get('secret'), {
   expiresIn: '10d'
 });
@@ -21,51 +21,17 @@ const verifyPassword = (user, password) => new Promise((resolve, reject) => {
    });
 });
 
-router.post('/vksignup', async (req, res, next) => {
-  const userToCreatevk = {
-    usernamevk: req.body.usernamevk,
-    idvk: req.body.idvk,
-    'a.age': req.body.age,
-    'a.sex': req.body.sex,
-  };
-  try {
-    let findUs = await Uservk.findOne({idvk: req.body.idvk}).exec();
-    if (findUs) {
-      return res.status(400).send({
-        status: 'error',
-        message: 'User with this id already exists'
-      });
-    }
-    else {
-      const uservk = await Uservk.create(userToCreatevk);
-      const payload = { idvk: uservk.idvk, _id: uservk._id };
-      return res.status(200).send({
-        status: 'ok',
-        message: 'User successfuly created',
-        uservk: payload,
-        token: getToken(req, payload)
-      });
-    }
-  } catch (err) {
-    if (err.name === 'ValidationError') {
-      const firstErr = err.errors[Object.keys(err.errors)[0]];
-      let message = 'Unexpected error';
-      if (firstErr.message) message = firstErr.message;
-      return res.status(400).send({
-        status: 'error',
-        message
-      });
-    }
-    else return dberr(res);
-  }
-});
-
 router.post('/signup', async (req, res, next) => {
+  //create object with info about user
   const userToCreate = {
     username: req.body.username,
     password: req.body.password,
-    'a.age': req.body.age,
-    'a.sex': req.body.sex
+    age: req.body.age,
+    sex: req.body.sex,
+    name: req.body.name,
+    experience: req.body.experience,
+    country: req.body.country,
+    city: req.body.city
   };
   try {
     const user = await User.create(userToCreate);
@@ -105,20 +71,6 @@ router.post('/signin', async (req, res, next) => {
     else return dberr(res);
   }
   const payload = { username: user.username, _id: user._id };
-  return res.status(200).send({
-    status: 'ok',
-    message: 'User successfuly authorized',
-    token: getToken(req, payload)
-  });
-});
-
-router.post('/vksignin', async (req, res, next) => {
-  let uservk = null;
-  try {
-    uservk = await Uservk.findOne({ idvk: req.body.idvk }).exec();
-    if (!uservk) return notFound(res);
-  } catch (err) { return dberr(res); }
-  const payload = { idvk: uservk.idvk, _id: uservk._id };
   return res.status(200).send({
     status: 'ok',
     message: 'User successfuly authorized',
