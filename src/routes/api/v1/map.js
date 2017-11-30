@@ -50,10 +50,10 @@ router.post('/startPos', async (req, res, next) => {
       try {
         user = await User.findOne({ _id: token._id }).exec();
         if (!user) return notFound(res);
-        await User.track.update({ _id: user._id }, {
+        await User.update({ _id: user._id }, {
           $push: {
-            dateTrack: { $each: [req.body.dateTrack] },
-            startTime: { $each: [req.body.StartTime] }
+            'track.dateTrack': { $each: [req.body.dateTrack] },
+            'track.startTime': { $each: [req.body.StartTime] }
           }
         });
         return ok(res);
@@ -76,10 +76,10 @@ router.post('/obr', async (req, res, next) => {
         user = await User.findOne({ _id: token._id }).exec();
         if (!user) return notFound(res);
         try {
-          await User.track.update({ _id: user._id }, {
+          await User.update({ _id: user._id }, {
             $push: {
-              stopTime: { $each: [req.body.StopTime] },
-              points: { $each: [req.body.points] }
+              'track.stopTime': { $each: [req.body.StopTime] },
+              'track.points': { $each: [req.body.points] }
             }
           });
         } catch (err) { return res.status(404).send({

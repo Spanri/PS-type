@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 12);
+/******/ 	return __webpack_require__(__webpack_require__.s = 13);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -323,7 +323,8 @@ module.exports = require("regenerator-runtime");
 
 /***/ }),
 /* 11 */,
-/* 12 */
+/* 12 */,
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -607,10 +608,10 @@ router.post('/startPos', function () {
 
                       case 11:
                         _context3.next = 13;
-                        return _user2.default.track.update({ _id: user._id }, {
+                        return _user2.default.update({ _id: user._id }, {
                           $push: {
-                            dateTrack: { $each: [req.body.dateTrack] },
-                            startTime: { $each: [req.body.StartTime] }
+                            'track.dateTrack': { $each: [req.body.dateTrack] },
+                            'track.startTime': { $each: [req.body.StartTime] }
                           }
                         });
 
@@ -693,10 +694,10 @@ router.post('/obr', function () {
                       case 11:
                         _context5.prev = 11;
                         _context5.next = 14;
-                        return _user2.default.track.update({ _id: user._id }, {
+                        return _user2.default.update({ _id: user._id }, {
                           $push: {
-                            stopTime: { $each: [req.body.StopTime] },
-                            points: { $each: [req.body.points] }
+                            'track.stopTime': { $each: [req.body.StopTime] },
+                            'track.points': { $each: [req.body.points] }
                           }
                         });
 

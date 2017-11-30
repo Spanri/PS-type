@@ -20,11 +20,9 @@ module.exports = {
         "routes/api/index": "./src/routes/api/index.js",
         "routes/api/v1/index": "./src/routes/api/v1/index.js",
         "routes/api/v1/auth": "./src/routes/api/v1/auth.js",
-        "routes/api/v1/change": "./src/routes/api/v1/change.js",
+        "routes/api/v1/data": "./src/routes/api/v1/data.js",
         "routes/api/v1/map": "./src/routes/api/v1/map.js",
-        "models/user": "./src/models/user.js",
-        "models/uservk": "./src/models/uservk.js",
-        "models/common": "./src/models/common.js"
+        "models/user": "./src/models/user.js"
     },
     output: {
         filename: '[name].js',
