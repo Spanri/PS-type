@@ -14,7 +14,7 @@ const obr = {
   avtime: Number,
   radvar: Number,
   date: {
-    type: [Number],
+    type: [Date],
     required: false
   },
   type: {

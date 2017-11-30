@@ -113,7 +113,7 @@ var obr = {
   avtime: Number,
   radvar: Number,
   date: {
-    type: [Number],
+    type: [Date],
     required: false
   },
   type: {
@@ -842,7 +842,7 @@ router.post('/getPoints', function () {
             //проверка на валидность токена
             _jsonwebtoken2.default.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', function () {
               var _ref8 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee7(err, token) {
-                var user, k, dateTrack, startTime, i;
+                var user, dateTrack, startTime, i;
                 return _regenerator2.default.wrap(function _callee7$(_context7) {
                   while (1) {
                     switch (_context7.prev = _context7.next) {
@@ -877,35 +877,36 @@ router.post('/getPoints', function () {
                         return _context7.abrupt('return', (0, _helpers.notFound)(res));
 
                       case 11:
-                        for (k = 1; user.track.dateTrack[k] != null; k++) {}
                         dateTrack = req.body.dateTrack, startTime = req.body.StartTime;
-                        i = k - 1;
+                        i = 0;
 
-                      case 14:
-                        if (!(i >= 0)) {
-                          _context7.next = 20;
+                      case 13:
+                        if (!(user.track.dateTrack[i] != null)) {
+                          _context7.next = 19;
                           break;
                         }
 
                         if (!(dateTrack == user.track.dateTrack[i] && startTime == user.track.startTime[i])) {
-                          _context7.next = 17;
+                          _context7.next = 16;
                           break;
                         }
 
                         return _context7.abrupt('return', res.status(200).send({
                           status: 'ok',
                           message: 'Date successfuly received',
-                          points: points[i]
+                          points: user.track.points[i]
                         }));
 
-                      case 17:
-                        i--;
-                        _context7.next = 14;
+                      case 16:
+                        i++;
+                        _context7.next = 13;
                         break;
 
-                      case 20:
-                        _context7.next = 25;
-                        break;
+                      case 19:
+                        return _context7.abrupt('return', res.status(404).send({
+                          status: 'error',
+                          message: 'Date not found'
+                        }));
 
                       case 22:
                         _context7.prev = 22;
