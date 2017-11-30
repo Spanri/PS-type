@@ -10,11 +10,19 @@
     <script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script>
     <link href="track.css" rel="stylesheet" />
     <link rel="shortcut icon" href="img/icon.ico" type="image/x-icon" />
-    <script src="track.js"></script>
+    <script src="../dist/gui/track.js"></script>
 </head>
 
 <body>
-    
+    <p id="tr"></p>
+    <form name="test" method="post" action="">
+        <p><b>Index:</b><br>
+         <input type="text" size="40">
+        </p>
+    </form>
+    <script>   
+        document.getElementById("tr").innerHTML = ``;
+    </script>
 </body>
 
 </html>

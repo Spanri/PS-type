@@ -11,7 +11,7 @@ fs.readdirSync('node_modules')
 		nodeModules[mod] = 'commonjs ' + mod;
     });
     
-module.exports = {
+var serverConfig = {
     entry: {
         "www": "./src/www.js",
         "app": "./src/app.js",
@@ -38,27 +38,40 @@ module.exports = {
         __filename: true,
         __dirname: true
     },
-    // resolve: {
-    //     extensions: [
-    //         ".js",
-    //         ".json",
-    //         ".css"
-    //     ],
-    // },
     module: {
         loaders: [
             {
                 test: /\.jsx?$/,
-                exclude:/(node_modules)/,
+                exclude: /(node_modules)/,
                 loader: 'babel-loader',
                 query: {
-                    presets: ['es2015','stage-0']
+                    presets: ['es2015', 'stage-0']
                 }
             },
             {
                 test: /\.json$/,
                 loader: "json"
             }
-        ]
+        ],
     }
 };
+
+// var clientConfig = {
+//     target: 'web',
+//     entry: './gui/track.js',
+//     output: {
+//       filename: 'track.js',
+//       path: __dirname + '/dist',
+//     },
+//     module: {
+//       rules: [
+//         {
+//           test: /\.js$/,
+//           loader: 'babel-loader',
+//           exclude: /node_modules/,
+//         },
+//       ],
+//     },
+// };
+
+module.exports = [ serverConfig ];
