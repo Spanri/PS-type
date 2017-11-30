@@ -118,15 +118,18 @@ router.post('/getPoints', async (req, res, next) => {
       try { //выношу из токена данные в user
         user = await User.findOne({ _id: token._id }).exec();
         if (!user) return notFound(res);
-        for (var k = 1; user.track.dateTrack[k] != null; k++);
         let dateTrack = req.body.dateTrack, startTime = req.body.StartTime;
-        for (let i = k - 1; i >= 0; i--)
+        for (let i = 1; user.track.dateTrack[i] != null; i++)
           if (dateTrack == user.track.dateTrack[i] && startTime == user.track.startTime[i])
             return res.status(200).send({
               status: 'ok',
               message: 'Date successfuly received',
               points: points[i]
             });
+        return res.status(404).send({
+          status: 'ok',
+          message: 'Date not found'
+        });
       } catch (err) { return dberr(res); }
     }
   });
