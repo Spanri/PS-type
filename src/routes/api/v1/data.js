@@ -91,7 +91,7 @@ router.post('/getDate', async (req, res, next) => {
         let str = '[';
         for (var k = 1; user.track.dateTrack[k] != null; k++);
         for (let i = k - 1; i >= 0; i--)
-          str += `{dateTrack:/${user.track.dateTrack[i]}/,StartTime:/${user.track.startTime[i]}/,StopTime:/${user.track.stopTime[i]}/};`;
+          str += `{dateTrack:"${user.track.dateTrack[i]}",StartTime:"${user.track.startTime[i]}",StopTime:"${user.track.stopTime[i]}"};`;
           str = str.slice(0, -1);
         str += ']';
         return res.status(200).send({

@@ -26,10 +26,7 @@ module.exports = {
     },
     output: {
         filename: '[name].js',
-        libraryTarget: 'commonjs',
         path: path.resolve(__dirname, 'dist'),
-        //path: path.join(__dirname, "dist"),
-        //filename: "[name].js"
     },
     externals: nodeModules,
     target: 'node',
@@ -41,12 +38,13 @@ module.exports = {
         __filename: true,
         __dirname: true
     },
-    resolve: {
-        extensions: [
-            ".js",
-            ".json"
-        ],
-    },
+    // resolve: {
+    //     extensions: [
+    //         ".js",
+    //         ".json",
+    //         ".css"
+    //     ],
+    // },
     module: {
         loaders: [
             {
@@ -62,13 +60,5 @@ module.exports = {
                 loader: "json"
             }
         ]
-    },
-    // plugins: [
-	// 	new webpack.optimize.UglifyJsPlugin({
-	// 		compress: {
-	// 			warnings: false
-	// 		},
-	// 		mangle: true
-	// 	})
-	// ]
+    }
 };

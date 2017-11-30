@@ -1,4 +1,4 @@
-(function(e, a) { for(var i in a) e[i] = a[i]; }(exports, /******/ (function(modules) { // webpackBootstrap
+/******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -793,7 +793,7 @@ router.post('/getDate', function () {
 
                         for (k = 1; user.track.dateTrack[k] != null; k++) {}
                         for (i = k - 1; i >= 0; i--) {
-                          str += '{dateTrack:/' + user.track.dateTrack[i] + '/,StartTime:/' + user.track.startTime[i] + '/,StopTime:/' + user.track.stopTime[i] + '/};';
+                          str += '{dateTrack:"' + user.track.dateTrack[i] + '",StartTime:"' + user.track.startTime[i] + '",StopTime:"' + user.track.stopTime[i] + '"};';
                         }str = str.slice(0, -1);
                         str += ']';
                         return _context5.abrupt('return', res.status(200).send({
@@ -1656,4 +1656,4 @@ function onListening() {
 module.exports = require("http");
 
 /***/ })
-/******/ ])));
+/******/ ]);

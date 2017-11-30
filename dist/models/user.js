@@ -1,4 +1,4 @@
-(function(e, a) { for(var i in a) e[i] = a[i]; }(exports, /******/ (function(modules) { // webpackBootstrap
+/******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -229,4 +229,4 @@ module.exports = require("mongoose-unique-validator");
 module.exports = require("mongoose-bcrypt");
 
 /***/ })
-/******/ ])));
+/******/ ]);
