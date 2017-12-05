@@ -87,7 +87,7 @@ router.post('/obr', async (req, res, next) => {
           message: 'Error in saving'
           }); 
         }
-        obr(res, user);
+        await obr(res, user);
         return ok(res);
       } catch (err) { return dberr(res); }
     }
@@ -145,7 +145,7 @@ async function obr(res, user) {
       if (user.longitude[i] > maxlat) maxlat = user.longitude[i];
       if (user.longitude[i] < minlat) minlat = user.longitude[i];
     }
-    user.obr.radvar = sqrt(pow(maxlat-minlat,2)+pow(maxlon-minlon,2));
+    user.obr.radvar = await sqrt(pow(maxlat-minlat,2)+pow(maxlon-minlon,2));
 
     //clear arrays
     (await function () {
