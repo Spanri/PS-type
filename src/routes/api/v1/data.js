@@ -62,12 +62,17 @@ router.post('/', async (req, res, next) => {
           message: 'Data successfuly received',
           age: years,
           sex: user.sex,
-          type: user.obr.type,
           name: user.name,
           experience: user.experience,
           country: user.country,
           city: user.city,
-          age2: user.age
+          age2: user.age,
+          max: user.obr.max,
+          dist: user.obr.dist,
+          avtime: user.obr.avtime,
+          radvar: user.obr.radvar,
+          date: user.obr.date,
+          type: user.obr.type
         });
       } catch (err) { return dberr(res); }
     }

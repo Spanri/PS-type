@@ -36,6 +36,13 @@
 `experience` | опыт | String | нет
 `country` | страна | String | нет
 `city` | город | String | нет
+`max` | максимальная скорость | Number | нет
+`dist` | максимальная дистанция | Number | нет
+`time` | максимальное время | Date | нет
+`avtime` | среднее время | Date | нет
+`radvar` | radius variation | Number | нет
+`date` | дата | Date | нет
+`type` | тип | String | нет
 
 ## Данные о пользователе
 `POST` `/api/v1/data`

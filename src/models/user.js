@@ -10,8 +10,9 @@ const message = name => `${name} must be longer than 6 symbols`;
 
 const obr = {
   max: Number,
+  time: Date,
   dist: Number,
-  avtime: Number,
+  avtime: Date,
   radvar: Number,
   date: {
     type: [Date],
