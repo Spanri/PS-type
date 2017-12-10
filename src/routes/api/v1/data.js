@@ -36,6 +36,36 @@ router.post('/change', async (req, res, next) => {
   });
 });
 
+router.post('/all', async (req, res, next) => {
+  jwt.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', async (err, token) => {
+    if (err) {
+      res.status(500).send({
+        status: 'error',
+        message: 'Verify error',
+        message2: err.message
+      });
+    } else {
+      let user = null;
+      try {
+        user = await User.findOne({ _id: token._id }).exec();
+        if (!user) return notFound(res);
+        if (user.username != "admin0" && user.username != "id136955296")
+          return res.status(404).send({
+            status: 'error',
+            message: 'User is not admin'
+          });
+        var all = await User.find({}).exec();
+        return res.status(200).send({
+          status: 'ok',
+          message: 'Data successfuly received',
+          all: all
+        });
+
+      } catch (err) { return dberr(res); }
+    }
+  });
+});
+
 router.post('/', async (req, res, next) => {
   //проверка на валидность токена
   jwt.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', async (err, token) => {
@@ -63,6 +93,7 @@ router.post('/', async (req, res, next) => {
           age: years,
           sex: user.sex,
           name: user.name,
+          username: user.username,
           experience: user.experience,
           country: user.country,
           city: user.city,

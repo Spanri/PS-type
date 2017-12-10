@@ -1,0 +1,17 @@
+body{
+    font-family: 'head';
+    margin-left: 5vw;
+    margin-top: 10vh;
+}
+
+#auth{
+    margin-top: 5vh;
+}
+
+#panel{
+    display: none;
+}
+
+#data{
+    white-space: pre-line;
+}

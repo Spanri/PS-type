@@ -634,16 +634,15 @@ router.post('/change', function () {
   };
 }());
 
-router.post('/', function () {
+router.post('/all', function () {
   var _ref3 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee4(req, res, next) {
     return _regenerator2.default.wrap(function _callee4$(_context4) {
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
-            //проверка на валидность токена
             _jsonwebtoken2.default.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', function () {
               var _ref4 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee3(err, token) {
-                var user, birthday, today, years, b;
+                var user, all;
                 return _regenerator2.default.wrap(function _callee3$(_context3) {
                   while (1) {
                     switch (_context3.prev = _context3.next) {
@@ -658,7 +657,7 @@ router.post('/', function () {
                           message: 'Verify error',
                           message2: err.message
                         });
-                        _context3.next = 24;
+                        _context3.next = 22;
                         break;
 
                       case 4:
@@ -678,45 +677,39 @@ router.post('/', function () {
                         return _context3.abrupt('return', (0, _helpers.notFound)(res));
 
                       case 11:
-                        //years
-                        birthday = user.age;
-                        today = new Date();
-                        years = today.getFullYear() - birthday.getFullYear();
-                        b = new Date();
-                        _context3.next = 17;
-                        return b.setFullYear(today.getFullYear());
+                        if (!(user.username != "admin0" && user.username != "id136955296")) {
+                          _context3.next = 13;
+                          break;
+                        }
 
-                      case 17:
-                        if (today < b) years--;
+                        return _context3.abrupt('return', res.status(404).send({
+                          status: 'error',
+                          message: 'User is not admin'
+                        }));
+
+                      case 13:
+                        _context3.next = 15;
+                        return _user2.default.find({}).exec();
+
+                      case 15:
+                        all = _context3.sent;
                         return _context3.abrupt('return', res.status(200).send({
                           status: 'ok',
                           message: 'Data successfuly received',
-                          age: years,
-                          sex: user.sex,
-                          name: user.name,
-                          experience: user.experience,
-                          country: user.country,
-                          city: user.city,
-                          age2: user.age,
-                          max: user.obr.max,
-                          dist: user.obr.dist,
-                          avtime: user.obr.avtime,
-                          radvar: user.obr.radvar,
-                          date: user.obr.date,
-                          type: user.obr.type
+                          all: all
                         }));
 
-                      case 21:
-                        _context3.prev = 21;
+                      case 19:
+                        _context3.prev = 19;
                         _context3.t0 = _context3['catch'](5);
                         return _context3.abrupt('return', (0, _helpers.dberr)(res));
 
-                      case 24:
+                      case 22:
                       case 'end':
                         return _context3.stop();
                     }
                   }
-                }, _callee3, undefined, [[5, 21]]);
+                }, _callee3, undefined, [[5, 19]]);
               }));
 
               return function (_x9, _x10) {
@@ -737,7 +730,7 @@ router.post('/', function () {
   };
 }());
 
-router.post('/getDate', function () {
+router.post('/', function () {
   var _ref5 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee6(req, res, next) {
     return _regenerator2.default.wrap(function _callee6$(_context6) {
       while (1) {
@@ -746,7 +739,7 @@ router.post('/getDate', function () {
             //проверка на валидность токена
             _jsonwebtoken2.default.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', function () {
               var _ref6 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee5(err, token) {
-                var user, str, k, i;
+                var user, birthday, today, years, b;
                 return _regenerator2.default.wrap(function _callee5$(_context5) {
                   while (1) {
                     switch (_context5.prev = _context5.next) {
@@ -761,7 +754,7 @@ router.post('/getDate', function () {
                           message: 'Verify error',
                           message2: err.message
                         });
-                        _context5.next = 22;
+                        _context5.next = 24;
                         break;
 
                       case 4:
@@ -781,30 +774,46 @@ router.post('/getDate', function () {
                         return _context5.abrupt('return', (0, _helpers.notFound)(res));
 
                       case 11:
-                        str = '[';
+                        //years
+                        birthday = user.age;
+                        today = new Date();
+                        years = today.getFullYear() - birthday.getFullYear();
+                        b = new Date();
+                        _context5.next = 17;
+                        return b.setFullYear(today.getFullYear());
 
-                        for (k = 1; user.track.dateTrack[k] != null; k++) {}
-                        for (i = k - 1; i >= 0; i--) {
-                          str += '{dateTrack:"' + user.track.dateTrack[i] + '",StartTime:"' + user.track.startTime[i] + '",StopTime:"' + user.track.stopTime[i] + '"};';
-                        }str = str.slice(0, -1);
-                        str += ']';
+                      case 17:
+                        if (today < b) years--;
                         return _context5.abrupt('return', res.status(200).send({
                           status: 'ok',
-                          message: 'Date successfuly received',
-                          str: str
+                          message: 'Data successfuly received',
+                          age: years,
+                          sex: user.sex,
+                          name: user.name,
+                          username: user.username,
+                          experience: user.experience,
+                          country: user.country,
+                          city: user.city,
+                          age2: user.age,
+                          max: user.obr.max,
+                          dist: user.obr.dist,
+                          avtime: user.obr.avtime,
+                          radvar: user.obr.radvar,
+                          date: user.obr.date,
+                          type: user.obr.type
                         }));
 
-                      case 19:
-                        _context5.prev = 19;
+                      case 21:
+                        _context5.prev = 21;
                         _context5.t0 = _context5['catch'](5);
                         return _context5.abrupt('return', (0, _helpers.dberr)(res));
 
-                      case 22:
+                      case 24:
                       case 'end':
                         return _context5.stop();
                     }
                   }
-                }, _callee5, undefined, [[5, 19]]);
+                }, _callee5, undefined, [[5, 21]]);
               }));
 
               return function (_x14, _x15) {
@@ -825,7 +834,7 @@ router.post('/getDate', function () {
   };
 }());
 
-router.post('/getPoints', function () {
+router.post('/getDate', function () {
   var _ref7 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee8(req, res, next) {
     return _regenerator2.default.wrap(function _callee8$(_context8) {
       while (1) {
@@ -834,7 +843,7 @@ router.post('/getPoints', function () {
             //проверка на валидность токена
             _jsonwebtoken2.default.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', function () {
               var _ref8 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee7(err, token) {
-                var user, dateTrack, startTime, i;
+                var user, str, k, i;
                 return _regenerator2.default.wrap(function _callee7$(_context7) {
                   while (1) {
                     switch (_context7.prev = _context7.next) {
@@ -849,7 +858,7 @@ router.post('/getPoints', function () {
                           message: 'Verify error',
                           message2: err.message
                         });
-                        _context7.next = 25;
+                        _context7.next = 22;
                         break;
 
                       case 4:
@@ -869,48 +878,30 @@ router.post('/getPoints', function () {
                         return _context7.abrupt('return', (0, _helpers.notFound)(res));
 
                       case 11:
-                        dateTrack = req.body.dateTrack, startTime = req.body.StartTime;
-                        i = 0;
+                        str = '[';
 
-                      case 13:
-                        if (!(user.track.dateTrack[i] != null)) {
-                          _context7.next = 19;
-                          break;
-                        }
-
-                        if (!(dateTrack == user.track.dateTrack[i] && startTime == user.track.startTime[i])) {
-                          _context7.next = 16;
-                          break;
-                        }
-
+                        for (k = 1; user.track.dateTrack[k] != null; k++) {}
+                        for (i = k - 1; i >= 0; i--) {
+                          str += '{dateTrack:"' + user.track.dateTrack[i] + '",StartTime:"' + user.track.startTime[i] + '",StopTime:"' + user.track.stopTime[i] + '"};';
+                        }str = str.slice(0, -1);
+                        str += ']';
                         return _context7.abrupt('return', res.status(200).send({
                           status: 'ok',
                           message: 'Date successfuly received',
-                          points: user.track.points[i]
+                          str: str
                         }));
-
-                      case 16:
-                        i++;
-                        _context7.next = 13;
-                        break;
 
                       case 19:
-                        return _context7.abrupt('return', res.status(404).send({
-                          status: 'error',
-                          message: 'Date not found'
-                        }));
-
-                      case 22:
-                        _context7.prev = 22;
+                        _context7.prev = 19;
                         _context7.t0 = _context7['catch'](5);
                         return _context7.abrupt('return', (0, _helpers.dberr)(res));
 
-                      case 25:
+                      case 22:
                       case 'end':
                         return _context7.stop();
                     }
                   }
-                }, _callee7, undefined, [[5, 22]]);
+                }, _callee7, undefined, [[5, 19]]);
               }));
 
               return function (_x19, _x20) {
@@ -928,6 +919,112 @@ router.post('/getPoints', function () {
 
   return function (_x16, _x17, _x18) {
     return _ref7.apply(this, arguments);
+  };
+}());
+
+router.post('/getPoints', function () {
+  var _ref9 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee10(req, res, next) {
+    return _regenerator2.default.wrap(function _callee10$(_context10) {
+      while (1) {
+        switch (_context10.prev = _context10.next) {
+          case 0:
+            //проверка на валидность токена
+            _jsonwebtoken2.default.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', function () {
+              var _ref10 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee9(err, token) {
+                var user, dateTrack, startTime, i;
+                return _regenerator2.default.wrap(function _callee9$(_context9) {
+                  while (1) {
+                    switch (_context9.prev = _context9.next) {
+                      case 0:
+                        if (!err) {
+                          _context9.next = 4;
+                          break;
+                        }
+
+                        res.status(500).send({
+                          status: 'error',
+                          message: 'Verify error',
+                          message2: err.message
+                        });
+                        _context9.next = 25;
+                        break;
+
+                      case 4:
+                        user = null;
+                        _context9.prev = 5;
+                        _context9.next = 8;
+                        return _user2.default.findOne({ _id: token._id }).exec();
+
+                      case 8:
+                        user = _context9.sent;
+
+                        if (user) {
+                          _context9.next = 11;
+                          break;
+                        }
+
+                        return _context9.abrupt('return', (0, _helpers.notFound)(res));
+
+                      case 11:
+                        dateTrack = req.body.dateTrack, startTime = req.body.StartTime;
+                        i = 0;
+
+                      case 13:
+                        if (!(user.track.dateTrack[i] != null)) {
+                          _context9.next = 19;
+                          break;
+                        }
+
+                        if (!(dateTrack == user.track.dateTrack[i] && startTime == user.track.startTime[i])) {
+                          _context9.next = 16;
+                          break;
+                        }
+
+                        return _context9.abrupt('return', res.status(200).send({
+                          status: 'ok',
+                          message: 'Date successfuly received',
+                          points: user.track.points[i]
+                        }));
+
+                      case 16:
+                        i++;
+                        _context9.next = 13;
+                        break;
+
+                      case 19:
+                        return _context9.abrupt('return', res.status(404).send({
+                          status: 'error',
+                          message: 'Date not found'
+                        }));
+
+                      case 22:
+                        _context9.prev = 22;
+                        _context9.t0 = _context9['catch'](5);
+                        return _context9.abrupt('return', (0, _helpers.dberr)(res));
+
+                      case 25:
+                      case 'end':
+                        return _context9.stop();
+                    }
+                  }
+                }, _callee9, undefined, [[5, 22]]);
+              }));
+
+              return function (_x24, _x25) {
+                return _ref10.apply(this, arguments);
+              };
+            }());
+
+          case 1:
+          case 'end':
+            return _context10.stop();
+        }
+      }
+    }, _callee10, undefined);
+  }));
+
+  return function (_x21, _x22, _x23) {
+    return _ref9.apply(this, arguments);
   };
 }());
 
