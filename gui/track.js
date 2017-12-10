@@ -1,10 +1,11 @@
 "use strict"
 
-import User from '../src/models/user';
+const User = require('../src/models/user');
 
 console.log('sdfg');
 
-(async () => {
+$(document).ready(async ()=>{
     var all = await User.find({}).exec();
-    console.log(all);
-})
+    for(i in all)
+        $("#tr").append(`<p>${all[i]}</p>`);
+});

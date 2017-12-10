@@ -82,23 +82,9 @@ module.exports = require("path");
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _mongoose = __webpack_require__(7);
-
-var _mongoose2 = _interopRequireDefault(_mongoose);
-
-var _mongooseUniqueValidator = __webpack_require__(8);
-
-var _mongooseUniqueValidator2 = _interopRequireDefault(_mongooseUniqueValidator);
-
-var _mongooseBcrypt = __webpack_require__(9);
-
-var _mongooseBcrypt2 = _interopRequireDefault(_mongooseBcrypt);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var mongoose = __webpack_require__(7);
+var mongooseUnique = __webpack_require__(8);
+var mongooseBcrypt = __webpack_require__(9);
 
 function validator(v) {
   return v && /[^\s]{6,}/.test(v); //любой символ, кроме пробела и минимум 6 штук
@@ -109,8 +95,9 @@ var message = function message(name) {
 
 var obr = {
   max: Number,
+  time: Date,
   dist: Number,
-  avtime: Number,
+  avtime: Date,
   radvar: Number,
   date: {
     type: [Date],
@@ -142,7 +129,7 @@ var track = {
   }
 };
 
-var userSchema = _mongoose2.default.Schema({
+var userSchema = mongoose.Schema({
   username: {
     type: String,
     required: [true, 'Username is required'],
@@ -211,10 +198,10 @@ var userSchema = _mongoose2.default.Schema({
   track: track
 }, { versionKey: false });
 
-userSchema.plugin(_mongooseUniqueValidator2.default);
-userSchema.plugin(_mongooseBcrypt2.default);
+userSchema.plugin(mongooseUnique);
+userSchema.plugin(mongooseBcrypt);
 
-exports.default = _mongoose2.default.model('User', userSchema);
+module.exports = mongoose.model('User', userSchema);
 
 /***/ }),
 /* 3 */
@@ -706,12 +693,17 @@ router.post('/', function () {
                           message: 'Data successfuly received',
                           age: years,
                           sex: user.sex,
-                          type: user.obr.type,
                           name: user.name,
                           experience: user.experience,
                           country: user.country,
                           city: user.city,
-                          age2: user.age
+                          age2: user.age,
+                          max: user.obr.max,
+                          dist: user.obr.dist,
+                          avtime: user.obr.avtime,
+                          radvar: user.obr.radvar,
+                          date: user.obr.date,
+                          type: user.obr.type
                         }));
 
                       case 21:
@@ -1024,10 +1016,12 @@ var obr = function () {
               if (user.longitude[_i3] > maxlat) maxlat = user.longitude[_i3];
               if (user.longitude[_i3] < minlat) minlat = user.longitude[_i3];
             }
-            user.obr.radvar = sqrt(pow(maxlat - minlat, 2) + pow(maxlon - minlon, 2));
+            _context7.next = 20;
+            return sqrt(pow(maxlat - minlat, 2) + pow(maxlon - minlon, 2));
 
-            //clear arrays
-            _context7.next = 21;
+          case 20:
+            user.obr.radvar = _context7.sent;
+            _context7.next = 23;
             return function () {
               for (var _i4 = 0; user.date[_i4] != null; _i4++) {
                 user.date[_i4] = null;
@@ -1037,26 +1031,26 @@ var obr = function () {
               }
             };
 
-          case 21:
+          case 23:
             _context7.t0 = _context7.sent;
             (0, _context7.t0)();
-            _context7.next = 25;
+            _context7.next = 27;
             return user.save();
 
-          case 25:
-            _context7.next = 31;
+          case 27:
+            _context7.next = 33;
             break;
 
-          case 27:
-            _context7.prev = 27;
+          case 29:
+            _context7.prev = 29;
             _context7.t1 = _context7['catch'](0);
             (0, _helpers.valerr)(res, _context7.t1);console.error(_context7.t1);
-          case 31:
+          case 33:
           case 'end':
             return _context7.stop();
         }
       }
-    }, _callee7, this, [[0, 27]]);
+    }, _callee7, this, [[0, 29]]);
   }));
 
   return function obr(_x16, _x17) {
@@ -1290,7 +1284,7 @@ router.post('/obr', function () {
                           message: 'Verify error',
                           message2: err.message
                         });
-                        _context5.next = 26;
+                        _context5.next = 27;
                         break;
 
                       case 4:
@@ -1332,20 +1326,23 @@ router.post('/obr', function () {
                         }));
 
                       case 19:
-                        obr(res, user);
+                        _context5.next = 21;
+                        return obr(res, user);
+
+                      case 21:
                         return _context5.abrupt('return', (0, _helpers.ok)(res));
 
-                      case 23:
-                        _context5.prev = 23;
+                      case 24:
+                        _context5.prev = 24;
                         _context5.t1 = _context5['catch'](5);
                         return _context5.abrupt('return', (0, _helpers.dberr)(res));
 
-                      case 26:
+                      case 27:
                       case 'end':
                         return _context5.stop();
                     }
                   }
-                }, _callee5, undefined, [[5, 23], [11, 16]]);
+                }, _callee5, undefined, [[5, 24], [11, 16]]);
               }));
 
               return function (_x14, _x15) {

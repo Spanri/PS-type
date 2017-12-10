@@ -72,23 +72,9 @@
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _mongoose = __webpack_require__(7);
-
-var _mongoose2 = _interopRequireDefault(_mongoose);
-
-var _mongooseUniqueValidator = __webpack_require__(8);
-
-var _mongooseUniqueValidator2 = _interopRequireDefault(_mongooseUniqueValidator);
-
-var _mongooseBcrypt = __webpack_require__(9);
-
-var _mongooseBcrypt2 = _interopRequireDefault(_mongooseBcrypt);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var mongoose = __webpack_require__(7);
+var mongooseUnique = __webpack_require__(8);
+var mongooseBcrypt = __webpack_require__(9);
 
 function validator(v) {
   return v && /[^\s]{6,}/.test(v); //любой символ, кроме пробела и минимум 6 штук
@@ -99,8 +85,9 @@ var message = function message(name) {
 
 var obr = {
   max: Number,
+  time: Date,
   dist: Number,
-  avtime: Number,
+  avtime: Date,
   radvar: Number,
   date: {
     type: [Date],
@@ -132,7 +119,7 @@ var track = {
   }
 };
 
-var userSchema = _mongoose2.default.Schema({
+var userSchema = mongoose.Schema({
   username: {
     type: String,
     required: [true, 'Username is required'],
@@ -201,10 +188,10 @@ var userSchema = _mongoose2.default.Schema({
   track: track
 }, { versionKey: false });
 
-userSchema.plugin(_mongooseUniqueValidator2.default);
-userSchema.plugin(_mongooseBcrypt2.default);
+userSchema.plugin(mongooseUnique);
+userSchema.plugin(mongooseBcrypt);
 
-exports.default = _mongoose2.default.model('User', userSchema);
+module.exports = mongoose.model('User', userSchema);
 
 /***/ }),
 /* 3 */,

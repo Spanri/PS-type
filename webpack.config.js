@@ -57,21 +57,34 @@ var serverConfig = {
 };
 
 // var clientConfig = {
-//     target: 'web',
 //     entry: './gui/track.js',
 //     output: {
 //       filename: 'track.js',
 //       path: __dirname + '/dist',
 //     },
+//     target: 'web',
+//     externals: nodeModules,
 //     module: {
-//       rules: [
-//         {
-//           test: /\.js$/,
-//           loader: 'babel-loader',
-//           exclude: /node_modules/,
-//         },
-//       ],
-//     },
+//         // loaders: [
+//         //     { 
+//         //       test: /\.js$/, 
+//         //       exclude: /node_modules/,
+//         //       loader: 'babel-loader',
+              
+//         //       query: {
+//         //         presets: ['es2015']
+//         //       }
+//         //     }
+//         //   ]
+//           rules: [
+//             {
+//                 test: /\.js$/,
+//                 use: {
+//                    loader: 'babel-loader'
+//                 }
+//             }
+//          ]
+//     }
 // };
 
 module.exports = [ serverConfig ];

@@ -1,7 +1,7 @@
 "use strict";
-import mongoose from 'mongoose';
-import mongooseUnique from 'mongoose-unique-validator';
-import mongooseBcrypt from 'mongoose-bcrypt';
+const mongoose = require('mongoose');
+const mongooseUnique = require('mongoose-unique-validator');
+const mongooseBcrypt = require('mongoose-bcrypt');
 
 function validator(v) {
   return v && (/[^\s]{6,}/).test(v);  //любой символ, кроме пробела и минимум 6 штук
@@ -117,4 +117,4 @@ const userSchema = mongoose.Schema({
 userSchema.plugin(mongooseUnique);
 userSchema.plugin(mongooseBcrypt);
 
-export default mongoose.model('User', userSchema);
+module.exports = mongoose.model('User', userSchema);
