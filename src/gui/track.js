@@ -7,7 +7,7 @@ $(document).ready(function () {
     $("#login").click(()=>{
         let username = $('#username').val();
         let password = $('#password').val();
-        $.post('/api/v1/signin', { "username": "admin0", "password": "hardpassword" }, (auth) => {
+        $.post('/api/v1/signin', { "username": username, "password": password }, (auth) => {
             token = auth.token;
             $.post('/api/v1/data',
                 { "token": token },
