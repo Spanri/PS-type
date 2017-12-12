@@ -1,17 +1,140 @@
 body{
     font-family: 'head';
-    margin-left: 5vw;
-    margin-top: 10vh;
+    background-color: #e4ecb8;
+    margin: 0;
+}
+
+#line{
+    height: 40vh;
+    background-color: #D4E157;
+}
+
+#hello{
+    padding: 5vh;
+    margin-left: 7%;
+    padding-left: 0;
+    color: white;
+    display: none;
+    text-shadow: 2px black;
+    font-size: 30px;
+}
+
+#hello > input{
+    display: inline-block;
+    margin: 1%;
+}
+
+#username2{
+    background-color: #D4E157;
 }
 
 #auth{
-    margin-top: 5vh;
+    z-index: 1;
+    position: fixed;
+    background-color:#F9FBE7;
+    color: rgb(50, 62, 35);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    top: 20vh;
+    left: 35vw;
+    padding: 5%;
+    text-align: center;
+}
+
+#auth p{
+    font-size: 20px;
+    color: #827717;
+    margin-top: 15px; 
+    margin-bottom: 3px;
+}
+
+input[type="text"], input[type="password"]{
+    color: #827717;
+    
+    padding: 8px;
+    font-size: 20px;
+    background-color:#F9FBE7;
+    border: 0;
+    border-bottom: 1.2px #C0CA33 solid;
+    border-radius: 0;
+    outline: none;
+    text-align: center;
+}
+
+input[type="text"]:focus, input[type="text"]:hover, input[type="password"]:focus, input[type="password"]:hover{
+    border-bottom: 1.5px #827717 solid;
+    transition: border-bottom 0.3s ease-out;
+}
+
+input[type="submit"]{
+    border: 0;
+    cursor: pointer;
+    color: #F9FBE7;
+    font-size: 20px;
+    padding: 6px;
+    background-color: #827717;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.5);
 }
 
 #panel{
     display: none;
 }
 
+::-webkit-input-placeholder {color:#F9FBE7;}
+::-moz-placeholder          {color:#F9FBE7;}/* Firefox 19+ */
+:-moz-placeholder           {color:#F9FBE7;}/* Firefox 18- */
+:-ms-input-placeholder      {color:#F9FBE7;}
+
+#username2{
+    text-align: left;
+}
+
 #data{
     white-space: pre-line;
+    margin: 7%;
+    margin-top: 3%;
+    font-size: 20px;
+    color: #827717;
+}
+
+.user{
+    display: inline-block;
+    padding: 1%;
+    font-size: 20px;
+    margin: 1%;
+    background-color:#9E9D24;
+    /* border-radius: 7px; */
+    color: #827717;
+    color: white;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.5);
+}
+
+.user:hover{
+    cursor: pointer;
+}
+
+#error{
+    position: fixed;
+    z-index: 1;
+    bottom: 7%;
+    right: 7%;
+    background-color: #D4E157;
+    padding: 3%;
+    display: none;
+}
+
+@media all and (max-width: 560px){
+    *{
+        font-size: 18px !important;
+    }
+    #auth{
+        left: 20vw;
+    }
+}
+
+@media all and (max-width: 560px){
+    #auth{
+        left: 0;
+        right: 0;
+        width: 100vw;
+    }
 }
