@@ -12,37 +12,42 @@
 </head>
 
 <body>
-    <div id="line">
-        <div id="hello">
-            <p>
-                Hello. <br>
-                It`s admin`s panel. <br>
-                Check user to watch information.
-            </p>
-            <input id="username2" type="text" placeholder="Input username"/>
-            <input id="watch" type="submit" value="Search"/>
-            <input id="back" type="submit" value="Back"/>
+    <!-- <div></div> -->
+    <div id="base">
+        <div id="line">
+            <div id="hello">
+                <p>
+                    Hello. <br>
+                    It`s admin`s panel. <br>
+                    Check user to watch information.
+                </p>
+                <input id="username2" type="text" placeholder="Input username"/>
+                <input id="watch" type="submit" value="Search"/>
+                <input id="back" type="submit" value="Back"/>
+            </div>
         </div>
-    </div>
-    <div id="auth">
-        <div class="inp">
-            <p> Username</p>
-            <input class="inp" id="username" type="text" />
+        <div id="panel">
+            <div id="data"></div>
+            
         </div>
-        <div class="inp">
-            <p> Password</p>
-            <input id="password" type="password"/>
+        <div id="aut">
+            <div id="auth">
+                <div class="inp">
+                    <p> Username</p>
+                    <input class="inp" id="username" type="text" />
+                </div>
+                <div class="inp">
+                    <p> Password</p>
+                    <input id="password" type="password"/>
+                </div>
+                <br>
+                <input id="login" type="submit" value="Log in" />
+                <p id="tr"></p>
+            </div>
         </div>
-        <br>
-        <input id="login" type="submit" value="Log in" />
-        <p id="tr"></p>
-    </div>
-    <div id="panel">
-        
-        <div id="data"></div>
-    </div>
-    <div id="error">
-        Nothing is good.
+        <div id="error">
+            Nothing is good.
+        </div>
     </div>
 </body>
 

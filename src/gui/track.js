@@ -3,9 +3,11 @@
 $(document).ready(function () {
     var token, all;
     $("#login").click(()=>{
+        console.log('click');
         let username = $('#username').val();
         let password = $('#password').val();
         $.post('/api/v1/signin', { "username": username, "password": password }, (auth) => {
+            console.log('sigin');
             token = auth.token;
             $.post('/api/v1/data',
                 { "token": token },
@@ -13,7 +15,7 @@ $(document).ready(function () {
                     if (data.username == 'admin0' || data.username == 'id136955296') {
                         $("#auth").css('display','none');
                         $("#hello").css('display','block');
-                        $("#line").css('height','100%');
+                        $("#line").css('height','auto');
                         $("#panel").css('display','block');
                         $.post('/api/v1/data/all',
                             { "token": token },

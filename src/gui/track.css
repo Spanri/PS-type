@@ -1,11 +1,20 @@
 body{
     font-family: 'head';
-    background-color: #e4ecb8;
+    background-color: #c3c7ad;
     margin: 0;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 10vw 80vw;
+}
+
+#base{
+    background-color: white;
+    height: 100vh;
+    grid-column-start: 2;
 }
 
 #line{
-    height: 40vh;
+    height: 40%;
     background-color: #D4E157;
 }
 
@@ -28,16 +37,25 @@ body{
     background-color: #D4E157;
 }
 
+#aut{
+    z-index: 2;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    justify-content: center;
+
+    /* position: absolute;
+    top: 20%; */
+}
+
 #auth{
-    z-index: 1;
-    position: fixed;
     background-color:#F9FBE7;
     color: rgb(50, 62, 35);
     box-shadow: 0 2px 5px rgba(0,0,0,0.5);
-    top: 20vh;
-    left: 35vw;
     padding: 5%;
     text-align: center;
+    width: auto;
+    height: auto;
+    grid-column-start: 2;
 }
 
 #auth p{
@@ -122,19 +140,30 @@ input[type="submit"]{
     display: none;
 }
 
-@media all and (max-width: 560px){
-    *{
-        font-size: 18px !important;
-    }
-    #auth{
+@media all and (max-width: 992px){
+    
+    /* #auth{
         left: 20vw;
+    } */
+    body{
+        grid-template-columns: 0 100vw;
     }
 }
 
-@media all and (max-width: 560px){
+@media all and (max-width: 768px){
+    *{
+        font-size: 22px !important;
+    }
+    
+}
+
+@media all and (max-width: 480px){
     #auth{
-        left: 0;
+        left: -5%;
         right: 0;
         width: 100vw;
+    }
+    *{
+        font-size: 19px !important;
     }
 }
