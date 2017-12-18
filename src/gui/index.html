@@ -7,46 +7,69 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
     <link href="track.css" rel="stylesheet" />
     <script src="track.js"></script>
 </head>
 
 <body>
-    <!-- <div></div> -->
     <div id="base">
         <div id="line">
-            <div id="hello">
-                <p>
-                    Hello. <br>
-                    It`s admin`s panel. <br>
-                    Check user to watch information.
+            <div id="interface">
+                <p id="hello">
+                        Привет. Это панель администратора. <br>
+                        Выберите пользователя, чтобы узнать о нем больше.
                 </p>
-                <input id="username2" type="text" placeholder="Input username"/>
-                <input id="watch" type="submit" value="Search"/>
-                <input id="back" type="submit" value="Back"/>
+                <div id="us">
+                    <input id="username2" type="text" placeholder="Username" />
+                    <div id="search"></div>
+                </div>
+                <!-- <input id="watch" type="submit" value="Search"/> -->
+                <input id="back" type="submit" value="Все пользователи"/>
+                <input id="mapbut" type="submit" value="Треки на карте"/>
+                
             </div>
         </div>
         <div id="panel">
-            <div id="data"></div>
             
+            <div class="center">
+                <div id="map"></div>
+            </div>
+            <table id="data">
+                <!-- <td>Name
+                    <tr>Name</tr>
+                    <tr>..2</tr>
+                    <tr>..3</td>
+                </td>
+                <td>
+                    <tr>Username</tr>
+                    <tr>..2</tr>
+                    <tr>..3</tr>
+                </td>
+                <td>
+                    <tr>Age</tr>
+                    <tr>..2</tr>
+                    <tr>..3</tr>
+                </td> -->
+            </table>            
         </div>
         <div id="aut">
             <div id="auth">
                 <div class="inp">
-                    <p> Username</p>
+                    <p>Логин</p>
                     <input class="inp" id="username" type="text" />
                 </div>
                 <div class="inp">
-                    <p> Password</p>
+                    <p>Пароль</p>
                     <input id="password" type="password"/>
                 </div>
                 <br>
-                <input id="login" type="submit" value="Log in" />
+                <input id="login" type="submit" value="Войти" />
                 <p id="tr"></p>
             </div>
         </div>
         <div id="error">
-            Nothing is good.
+            Всё плохо.
         </div>
     </div>
 </body>

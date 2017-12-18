@@ -13,7 +13,9 @@ $(document).ready(function () {
                 { "token": token },
                 (data) => {
                     if (data.username == 'admin0' || data.username == 'id136955296') {
+                        console.log('admin0');
                         $("#auth").css('display','none');
+                        $("#interface").css('display','block');
                         $("#hello").css('display','block');
                         $("#line").css('height','auto');
                         $("#panel").css('display','block');
@@ -36,7 +38,7 @@ $(document).ready(function () {
                     }
                     // else $("#tr").html('Ok, but you are not admin:^(');
                     else {
-                        $("#error").html('Ok, but you are not admin:^(');
+                        $("#error").html('Круто, но ты не админ:^(');
                         $("#error").css('display','block');
                         setInterval(()=>{
                             $("#error").css('display','none');
@@ -82,25 +84,51 @@ $(document).ready(function () {
             all2.speed = all2.speed.toString().replace(/,/g,' ');
             $("#data p").remove();
             for (var el in all2) $("#data").append(`<p>${el}: ${all2[el]}</p>`);
+            $("#base").css('height','auto')
             
         }
         if (i == -1) { 
-            $("#error").html('User is not found');
+            $("#error").html('Пользователь не найден');
             $("#error").css('display','block');
             setInterval(()=>{
                 $("#error").css('display','none');
             },2000);
         }
     }
-    $("#watch").click(()=>{
+
+    $("#search").click(()=>{
+        $("#map").css('display','none');
         search($('#username2').val());  
     });
+
+    //карты
+    ymaps.ready(init);
+    var map;
+
+    function init(){     
+        map = new ymaps.Map("map", {
+            center: [55.76, 37.64],
+            zoom: 7
+        });
+    }
+
+    $("#mapbut").click(()=>{
+        $("#data p").remove();
+        $("#map").css('display','block');
+        for (let k = 0; k < all.length; k++)
+            $("#data").append(`<p>${all[k].username}</p>`);
+        $("#data p").addClass('mapUser');
+    });
+
+    //назад
     $("#back").click(()=>{
+        $("#map").css('display','none');
         $("#data p").remove();
         for (let k = 0; k < all.length; k++)
             $("#data").append(`<p>${all[k].username}</p>`);
         $("#data p").addClass('user');
     });
+
     $(document).on("click",".user",function(){
         search(this.innerHTML);
     });

@@ -1,42 +1,112 @@
 body{
     font-family: 'head';
+    /* background-image: url('./background.png'); */
     background-color: #c3c7ad;
     margin: 0;
-    height: 100vh;
+    min-height: 100vh;
     display: grid;
     grid-template-columns: 10vw 80vw;
 }
 
+/* база */
 #base{
     background-color: white;
-    height: 100vh;
+    min-height: 100vh;
+    /* height: auto; */
     grid-column-start: 2;
+    display: grid;
+    grid-template-columns: auto auto;
 }
 
+/* линия(шапка) */
 #line{
-    height: 40%;
-    background-color: #D4E157;
+    min-height: 100vh;
+    min-width: 220px;
+    width: 20vw;
+    font-size: 20px;
+    background-color: #827717;
 }
 
-#hello{
-    padding: 5vh;
-    margin-left: 7%;
-    padding-left: 0;
+#interface > input[type="submit"] {
+    background-color: rgba(0,0,0,0);
+    box-shadow: none;
     color: white;
-    display: none;
-    text-shadow: 2px black;
-    font-size: 30px;
+    display: block;
+    /* margin: 1%; */
+    padding: 3%;
 }
 
-#hello > input{
-    display: inline-block;
-    margin: 1%;
+#interface > input[type="submit"]:hover{
+    /* font-size: 23px; */
+    text-shadow: 0 0 15px rgb(247, 255, 89), 0 0 10px #827717;
+    transition: all 0.3s ease-out;
+    margin: 0;
 }
 
 #username2{
-    background-color: #D4E157;
+    background-color: rgba(255, 255, 255, 0);
+    text-align: left;
+    color: white;
+    font-size: 17px;
+    /* max-width: 75%; */
+    text-align: left;
+    border-bottom: none;
+    outline: none;
 }
 
+#us{
+    background-color: rgba(255, 255, 255, 0.486);
+    /* border: 1.2px #827717 solid; */
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: 84% auto;
+}
+
+#search{
+    display: inline-block;
+    font-size: 20px;
+    color: white;
+    background-image: url('search.svg');
+    /* background: no-repeat; */
+    margin: 10%;
+    background-size: 100% 100%;
+}
+
+#search:hover{
+    color: #C0CA33 solid;
+    cursor: pointer;
+    transition: all 350ms;
+}
+
+#us:focus, #us:hover{
+    /* border: 1.5px #C0CA33 solid; */
+    color: #C0CA33 solid;
+    transition: all 0.3s ease-out;
+}
+
+#interface{
+    /* padding: 5%; */
+    margin: 7%;
+    /* padding-left: 0; */
+    color: white;
+    display: none;
+    text-shadow: 2px black;
+    /* font-size: 30px; */
+}
+
+#hello{
+    padding: 3%;
+    padding-bottom: 10%;
+    margin: 0;
+    color: white;
+    display: none;
+    font: 400 Arial;
+    text-rendering: auto;
+    letter-spacing: normal;
+    word-spacing: normal;
+}
+
+/* вход */
 #aut{
     z-index: 2;
     display: grid;
@@ -67,7 +137,6 @@ body{
 
 input[type="text"], input[type="password"]{
     color: #827717;
-    
     padding: 8px;
     font-size: 20px;
     background-color:#F9FBE7;
@@ -93,6 +162,7 @@ input[type="submit"]{
     box-shadow: 0 2px 3px rgba(0,0,0,0.5);
 }
 
+/* панель */
 #panel{
     display: none;
 }
@@ -102,19 +172,28 @@ input[type="submit"]{
 :-moz-placeholder           {color:#F9FBE7;}/* Firefox 18- */
 :-ms-input-placeholder      {color:#F9FBE7;}
 
-#username2{
-    text-align: left;
+/* карта */
+#map{
+    display: none;
+    width: auto;
+    height: auto;
+    min-height: 500px;
 }
 
+.center{
+    display: grid;
+}
+
+/* данные в таблице */
 #data{
     white-space: pre-line;
-    margin: 7%;
+    margin: 4%;
     margin-top: 3%;
     font-size: 20px;
-    color: #827717;
+    color: black;
 }
 
-.user{
+.user, .mapUser{
     display: inline-block;
     padding: 1%;
     font-size: 20px;
@@ -126,7 +205,7 @@ input[type="submit"]{
     box-shadow: 0 2px 3px rgba(0,0,0,0.5);
 }
 
-.user:hover{
+.user:hover, .mapUser:hover{
     cursor: pointer;
 }
 
@@ -151,9 +230,9 @@ input[type="submit"]{
 }
 
 @media all and (max-width: 768px){
-    *{
+    /* *{
         font-size: 22px !important;
-    }
+    } */
     
 }
 
@@ -163,7 +242,7 @@ input[type="submit"]{
         right: 0;
         width: 100vw;
     }
-    *{
+    /* *{
         font-size: 19px !important;
-    }
+    } */
 }
