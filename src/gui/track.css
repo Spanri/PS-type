@@ -18,11 +18,33 @@ body{
     grid-template-columns: auto auto;
 }
 
+table{
+    /* border-collapse: collapse; */
+    border: 2px solid white;
+    border-spacing: 0;
+    table-layout: auto;
+    text-align: center;
+    width: 100%;
+    background-color: #e4f07c;
+}
+
+th{
+    background: #827717;
+    width: auto;
+    /* color: white; */
+}
+
+td, th{
+    border-collapse: collapse;
+    border: 1.5px solid white;
+    padding: 2%;
+}
+
 /* линия(шапка) */
 #line{
     min-height: 100vh;
     min-width: 220px;
-    width: 20vw;
+    max-width: 20vw;
     font-size: 20px;
     background-color: #827717;
 }
@@ -48,10 +70,15 @@ body{
     text-align: left;
     color: white;
     font-size: 17px;
-    /* max-width: 75%; */
-    text-align: left;
+    max-width: 75%;
     border-bottom: none;
     outline: none;
+}
+
+#us:hover, #us:focus{
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    /* border: white 1px dashed; */
+    transition: all 1s ease-out; 
 }
 
 #us{
@@ -63,20 +90,21 @@ body{
 }
 
 #search{
-    display: inline-block;
     font-size: 20px;
-    color: white;
-    background-image: url('search.svg');
-    /* background: no-repeat; */
-    margin: 10%;
-    background-size: 100% 100%;
+    width: 100%;
+    height: 100%;
 }
 
-#search:hover{
-    color: #C0CA33 solid;
+#search:hover, #us:hover #search2{
     cursor: pointer;
-    transition: all 350ms;
+    fill: white;
+    transition: fill 0.3s ease-out;
 }
+
+/* #search1:hover{
+    fill: black;
+    stroke: black;
+} */
 
 #us:focus, #us:hover{
     /* border: 1.5px #C0CA33 solid; */
@@ -165,6 +193,11 @@ input[type="submit"]{
 /* панель */
 #panel{
     display: none;
+    min-width: 500px;
+}
+
+#hide{
+    display: none;
 }
 
 ::-webkit-input-placeholder {color:#F9FBE7;}
@@ -186,14 +219,15 @@ input[type="submit"]{
 
 /* данные в таблице */
 #data{
-    white-space: pre-line;
-    margin: 4%;
-    margin-top: 3%;
+    /* white-space: pre-line; */
+    /* margin: 4%;
+    margin-top: 3%; */
     font-size: 20px;
-    color: black;
+    /* color: white; */
+    
 }
 
-.user, .mapUser{
+.mapUser{
     display: inline-block;
     padding: 1%;
     font-size: 20px;
@@ -207,6 +241,11 @@ input[type="submit"]{
 
 .user:hover, .mapUser:hover{
     cursor: pointer;
+}
+
+.user:hover{
+    background: #D4E157;
+    transition: all 0.3s ease-out;
 }
 
 #error{
@@ -241,6 +280,9 @@ input[type="submit"]{
         left: -5%;
         right: 0;
         width: 100vw;
+    }
+    #hide{
+        display: block;
     }
     /* *{
         font-size: 19px !important;
