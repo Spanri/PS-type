@@ -1,7 +1,9 @@
+
 body{
-    font-family: 'head';
-    /* background-image: url('./background.png'); */
-    background-color: #c3c7ad;
+    background-image: url("map.png");
+    background-size: auto 100vh;
+    background-position: center;
+    background-repeat: repeat-x;
     margin: 0;
     min-height: 100vh;
     display: grid;
@@ -12,54 +14,30 @@ body{
 #base{
     background-color: white;
     min-height: 100vh;
-    /* height: auto; */
     grid-column-start: 2;
-    display: grid;
-    grid-template-columns: auto auto;
-}
-
-table{
-    /* border-collapse: collapse; */
-    border: 2px solid white;
-    border-spacing: 0;
-    table-layout: auto;
-    text-align: center;
-    width: 100%;
-    background-color: #e4f07c;
-}
-
-th{
-    background: #827717;
-    width: auto;
-    /* color: white; */
-}
-
-td, th{
-    border-collapse: collapse;
-    border: 1.5px solid white;
-    padding: 2%;
+    display: none;
+    grid-template-columns: auto 1fr;
 }
 
 /* линия(шапка) */
 #line{
     min-height: 100vh;
-    min-width: 220px;
-    max-width: 20vw;
+    min-width: 200px;
+    max-width: 240px;
     font-size: 20px;
     background-color: #827717;
+    
 }
 
-#interface > input[type="submit"] {
+#line > input[type="submit"] {
     background-color: rgba(0,0,0,0);
     box-shadow: none;
     color: white;
     display: block;
-    /* margin: 1%; */
     padding: 3%;
 }
 
-#interface > input[type="submit"]:hover{
-    /* font-size: 23px; */
+#line > input[type="submit"]:hover{
     text-shadow: 0 0 15px rgb(247, 255, 89), 0 0 10px #827717;
     transition: all 0.3s ease-out;
     margin: 0;
@@ -71,19 +49,17 @@ td, th{
     color: white;
     font-size: 17px;
     max-width: 75%;
-    border-bottom: none;
+    border: none;
     outline: none;
 }
 
 #us:hover, #us:focus{
     box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-    /* border: white 1px dashed; */
     transition: all 1s ease-out; 
 }
 
 #us{
     background-color: rgba(255, 255, 255, 0.486);
-    /* border: 1.2px #827717 solid; */
     max-width: 100%;
     display: grid;
     grid-template-columns: 84% auto;
@@ -91,35 +67,26 @@ td, th{
 
 #search{
     font-size: 20px;
-    width: 100%;
-    height: 100%;
+    width: 30px;
+    height: 35px;
+    
 }
-
+#search input{
+    border: 0;
+    padding: 5px;
+}
 #search:hover, #us:hover #search2{
     cursor: pointer;
-    fill: white;
-    transition: fill 0.3s ease-out;
 }
 
-/* #search1:hover{
-    fill: black;
-    stroke: black;
-} */
-
 #us:focus, #us:hover{
-    /* border: 1.5px #C0CA33 solid; */
-    color: #C0CA33 solid;
+    color: #C0CA33;
     transition: all 0.3s ease-out;
 }
 
-#interface{
-    /* padding: 5%; */
-    margin: 7%;
-    /* padding-left: 0; */
+#line{
+    padding: 3%;
     color: white;
-    display: none;
-    text-shadow: 2px black;
-    /* font-size: 30px; */
 }
 
 #hello{
@@ -127,57 +94,42 @@ td, th{
     padding-bottom: 10%;
     margin: 0;
     color: white;
-    display: none;
     font: 400 Arial;
-    text-rendering: auto;
-    letter-spacing: normal;
-    word-spacing: normal;
 }
 
 /* вход */
-#aut{
-    z-index: 2;
-    display: grid;
-    grid-template-columns: auto auto auto;
-    justify-content: center;
-
-    /* position: absolute;
-    top: 20%; */
-}
-
 #auth{
-    background-color:#F9FBE7;
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
     color: rgb(50, 62, 35);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
     padding: 5%;
     text-align: center;
     width: auto;
     height: auto;
-    grid-column-start: 2;
 }
 
 #auth p{
-    font-size: 20px;
-    color: #827717;
+    font-size: 30px;
+    color: rgb(55, 63, 48);
     margin-top: 15px; 
     margin-bottom: 3px;
 }
 
-input[type="text"], input[type="password"]{
-    color: #827717;
+#auth input{
+    margin: 10px;
+    color: rgb(55, 63, 48);
     padding: 8px;
-    font-size: 20px;
-    background-color:#F9FBE7;
-    border: 0;
-    border-bottom: 1.2px #C0CA33 solid;
+    font-size: 25px;
+    background: #e4f07c;
+    border: none;
     border-radius: 0;
     outline: none;
     text-align: center;
-}
-
-input[type="text"]:focus, input[type="text"]:hover, input[type="password"]:focus, input[type="password"]:hover{
-    border-bottom: 1.5px #827717 solid;
-    transition: border-bottom 0.3s ease-out;
 }
 
 input[type="submit"]{
@@ -192,7 +144,6 @@ input[type="submit"]{
 
 /* панель */
 #panel{
-    display: none;
     min-width: 500px;
 }
 
@@ -209,22 +160,33 @@ input[type="submit"]{
 #map{
     display: none;
     width: auto;
-    height: auto;
+    height: 100%;
     min-height: 500px;
-}
-
-.center{
-    display: grid;
 }
 
 /* данные в таблице */
 #data{
-    /* white-space: pre-line; */
-    /* margin: 4%;
-    margin-top: 3%; */
     font-size: 20px;
-    /* color: white; */
-    
+}
+
+table{
+    border: 2px solid white;
+    border-spacing: 0;
+    table-layout: auto;
+    text-align: center;
+    width: 100%;
+    background-color: #e4f07c;
+}
+
+th{
+    background: #827717;
+    width: auto;
+}
+
+td, th{
+    border-collapse: collapse;
+    border: 1.5px solid white;
+    padding: 2%;
 }
 
 .mapUser{
@@ -233,7 +195,6 @@ input[type="submit"]{
     font-size: 20px;
     margin: 1%;
     background-color:#9E9D24;
-    /* border-radius: 7px; */
     color: #827717;
     color: white;
     box-shadow: 0 2px 3px rgba(0,0,0,0.5);
@@ -254,37 +215,36 @@ input[type="submit"]{
     bottom: 7%;
     right: 7%;
     background-color: #D4E157;
+    box-shadow: 0 0 15px black;
     padding: 3%;
     display: none;
 }
 
 @media all and (max-width: 992px){
-    
-    /* #auth{
-        left: 20vw;
-    } */
     body{
-        grid-template-columns: 0 100vw;
+        grid-template-columns: 0 100%;
     }
 }
 
 @media all and (max-width: 768px){
-    /* *{
-        font-size: 22px !important;
-    } */
-    
+    #base{
+        grid-template-columns: auto;
+        grid-template-rows: 5vh auto;
+    }
+    #hello{
+        display: none !important;
+    }
+    #line{
+        display: grid !important;
+        grid-template-rows: 5vh;
+        max-width: 100%;
+        grid-template-columns: repeat(3,auto);
+        margin: 0;
+    }
 }
 
 @media all and (max-width: 480px){
-    #auth{
-        left: -5%;
-        right: 0;
-        width: 100vw;
-    }
     #hide{
         display: block;
     }
-    /* *{
-        font-size: 19px !important;
-    } */
 }

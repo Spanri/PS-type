@@ -7,16 +7,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
-    <link href="track.css" rel="stylesheet" />
+    <!-- <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script> -->
     <script src="track.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4XLTJupCojjyyIFLDhcHrDLCGvRuxoWA"></script>
+    <link href="track.css" rel="stylesheet" />
+    
 </head>
 
 <body>
     <div id="base">
         <div id="line">
-            <div id="interface">
-                <div id="hide"> Закрыть </div>
+            <!-- <div id="interface"> -->
+                <!-- <div id="hide"> Закрыть </div> -->
                 <p id="hello">
                         Привет. Это панель администратора. <br>
                         Выберите пользователя, чтобы узнать о нем больше.
@@ -31,42 +33,28 @@
                 </div>
                 <input id="back" type="submit" value="Все пользователи"/>
                 <input id="mapbut" type="submit" value="Треки на карте"/>
-                
-            </div>
         </div>
         <div id="panel">
-            <div class="center">
-                <div id="map"></div>
-            </div>
+            <div id="map"></div>
             <div id="data">
                 <table>
-                    <!-- <tr>
-                        <th>Username</th>
-                        <th>Age</th>
-                        <th>Sex</th>
-                        <th>Статистика</th>
-                    </tr> -->
                 </table>
             </div>            
         </div>
-        <div id="aut">
-            <div id="auth">
-                <div class="inp">
-                    <p>Логин</p>
-                    <input class="inp" id="username" type="text" />
-                </div>
-                <div class="inp">
-                    <p>Пароль</p>
-                    <input id="password" type="password"/>
-                </div>
-                <br>
-                <input id="login" type="submit" value="Войти" />
-                <p id="tr"></p>
-            </div>
+    </div>
+    <div id="auth">
+        <p>Вход</p>
+        <div class="inp">
+            <input id="username" type="text" placeholder="Логин" />
         </div>
-        <div id="error">
-            Всё плохо.
+        <div class="inp">
+            <input id="password" type="password" placeholder="Пароль"/>
         </div>
+        <input id="login" type="submit" value="Войти" />
+        <p id="tr"></p>
+        </div>
+    <div id="error">
+        Всё плохо.
     </div>
 </body>
 
