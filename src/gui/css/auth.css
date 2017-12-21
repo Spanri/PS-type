@@ -1,0 +1,43 @@
+#auth{
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    /* color: rgb(50, 62, 35); */
+    padding: 5%;
+    text-align: center;
+    width: auto;
+    height: auto;
+}
+
+#auth p{
+    font-size: 30px;
+    color: rgb(85, 90, 67);
+    margin-top: 15px; 
+    margin-bottom: 3px;
+}
+
+.inp input{
+    margin: 10px;
+    color: rgb(55, 63, 48);
+    padding: 8px;
+    font-size: 25px;
+    background: #f0f3dc;
+    border: none;
+    border-radius: 0;
+    outline: none;
+    text-align: center;
+}
+
+#login{
+    border: 0;
+    cursor: pointer;
+    color: #F9FBE7;
+    font-size: 20px;
+    padding: 6px;
+    background-color: #827717;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.5);
+}

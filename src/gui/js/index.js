@@ -1,18 +1,8 @@
 "use strict"
 
 $(document).ready(function () {
-    $("#login").css("width",`${$("#password").width()+16}`);
-    $('#username, #password').focus(function(){
-        $(this).attr('placeholder','');
-    });
-    $('#username').focusout(function(){
-        $(this).attr('placeholder','Логин');
-    });
-    $('#password').focusout(function(){
-        $(this).attr('placeholder','Пароль');
-    });
 
-    var token, all;
+    var all, token;
     $("#login").click(()=>{
         let username = $("#username").val();
         let password = $("#password").val();
@@ -34,7 +24,8 @@ $(document).ready(function () {
                             { "token": token },
                             (dataAll) => {
                                 all = dataAll.all;
-                                console.log(dataAll.all);
+                                window.all = all;
+                                console.log(window.all);
                                 $("table").append(`<tr><th>Username</th><th>Age</th><th>Sex</th><th>Статистика</th></tr>`);
                                 for (let k = 0; k < all.length; k++)
                                     $("table").append(`<tr><td>${all[k].username}</td><td>${all[k].age}</td><td>${all[k].sex}</td><td>${all[k].obr.type}</td></tr>`);
@@ -72,6 +63,7 @@ $(document).ready(function () {
             },2000);
         });
     });
+    
     var search = function(name){
         var i = -1;
         for (let k = 0; k < all.length; k++)
@@ -110,84 +102,8 @@ $(document).ready(function () {
         search($("#username2").val());
     });
 
-    //карты
-    var map;
-    function initMap() {
-        var myLatlng = new google.maps.LatLng(55.751244, 37.618423);
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: myLatlng,
-          zoom: 8
-        });
-    }
-
-    $("#mapbut").click(()=>{
-        $("tr, #data p").remove();
-        initMap();
-        $("#map").css("display","block");
-        for (let k = 0; k < all.length; k++)
-            $("#data").append(`<p>${all[k].username}</p>`);
-        $("#data p").addClass("mapUser");
-    });
-
-    var flightPath;
-    $(document).on("click",".mapUser",async function(){
-        if(flightPath) flightPath.setMap(null);
-        let name = this.innerHTML;
-        let geometry = Array();
-
-        for (let k = 0; k < all.length; k++)
-            if (name == all[k].username) {
-                for(let i = 0;i<all[k].longitude.length;i++){
-                    await geometry.push({'lat':all[k].latitude[i],'lng':all[k].longitude[i]});
-                }
-                break;
-            }
-            flightPath = new google.maps.Polyline({
-                path: geometry,
-                geodesic: true,
-                strokeColor: '#FF0000',
-                strokeOpacity: 1.0,
-                strokeWeight: 2
-            });
-            flightPath.setMap(map);
-    });
-
-    $("#hide").click(()=>{
-        let panel = $("#interface").children();
-        if($("#hello").css("display") == "block"){
-            $("#line").css("min-width","30px !important");
-            for(let i=0;i<panel.length;i++) panel[i].style.display = "none";
-            $("#hide").css("display","block");
-            $("#hide").html("Открыть");
-        }
-        else{
-            for(let i=0;i<panel.length;i++) panel[i].style.display = "block";
-            $("#hide").css("display","block");
-            $("#hide").html("Закрыть");
-        }
-    });
-
-    //назад
-    $("#back").click(()=>{
-        $("#map").css("display","none");
-        $("tr, #data p").remove();
-        $("table").append(`<tr><th>Username</th><th>Age</th><th>Sex</th><th>Статистика</th></tr>`);
-        for (let k = 0; k < all.length; k++)
-            $("table").append(`<tr><td>${all[k].username}</td><td>${all[k].age}</td><td>${all[k].sex}</td><td>${all[k].obr.type}</td></tr>`);
-        $("table tr").addClass("user");
-    });
-
     $(document).on("click",".user",function(){
         let user = $(this).children()[0];
         search(user.innerHTML);
-    });
-
-    $("#username2").focus(()=>{
-        $("#search2").css("fill","white");
-    });
-
-    $("#username2").blur(()=>{
-        $("#search2").css("fill","#827717");
-        $("#search2").css("transition","fill 0.3s ease-out");
     });
 });

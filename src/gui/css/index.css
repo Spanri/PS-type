@@ -1,0 +1,44 @@
+body{
+    background-image: url("../map.png");
+    background-size: auto 100vh;
+    background-position: center;
+    background-repeat: repeat-x;
+    margin: 0;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 10vw 80vw;
+}
+
+#base{
+    background-color: white;
+    min-height: 100vh;
+    grid-column-start: 2;
+    display: none;
+    grid-template-columns: auto 1fr;
+}
+
+/* input[type="submit"]{
+    border: 0;
+    cursor: pointer;
+    color: #F9FBE7;
+    font-size: 20px;
+    padding: 6px;
+    background-color: #827717;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.5);
+} */
+
+::-webkit-input-placeholder {color:rgb(177, 180, 136);}
+::-moz-placeholder          {color:#F9FBE7;}/* Firefox 19+ */
+:-moz-placeholder           {color:#F9FBE7;}/* Firefox 18- */
+:-ms-input-placeholder      {color:#F9FBE7;}
+
+#error{
+    position: fixed;
+    z-index: 1;
+    bottom: 7%;
+    right: 7%;
+    background-color: #D4E157;
+    box-shadow: 0 0 15px black;
+    padding: 3%;
+    display: none;
+}

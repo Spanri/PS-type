@@ -1,0 +1,52 @@
+/* карта */
+#map{
+    display: none;
+    width: auto;
+    height: auto;
+    min-height: 500px;
+}
+
+/* данные в таблице */
+#data{
+    font-size: 20px;
+}
+
+table{
+    border: 2px solid white;
+    border-spacing: 0;
+    table-layout: auto;
+    text-align: center;
+    width: 100%;
+    background-color: #e4f07c;
+}
+
+th{
+    background: #827717;
+    width: auto;
+}
+
+td, th{
+    border-collapse: collapse;
+    border: 1.5px solid white;
+    padding: 2%;
+}
+
+.mapUser{
+    display: inline-block;
+    padding: 1%;
+    font-size: 20px;
+    margin: 1%;
+    background-color:#9E9D24;
+    color: #827717;
+    color: white;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.5);
+}
+
+.user:hover, .mapUser:hover{
+    cursor: pointer;
+}
+
+.user:hover{
+    background: #D4E157;
+    transition: all 0.3s ease-out;
+}

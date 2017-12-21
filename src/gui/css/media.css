@@ -1,0 +1,28 @@
+@media all and (max-width: 992px){
+    body{
+        grid-template-columns: 0 100%;
+    }
+}
+
+@media all and (max-width: 768px){
+    #base{
+        grid-template-columns: auto;
+        grid-template-rows: 5vh auto;
+    }
+    #hello{
+        display: none !important;
+    }
+    #line{
+        display: grid !important;
+        grid-template-rows: 5vh;
+        max-width: 100%;
+        grid-template-columns: repeat(3,auto);
+        margin: 0;
+    }
+}
+
+@media all and (max-width: 480px){
+    #hide{
+        display: block;
+    }
+}
