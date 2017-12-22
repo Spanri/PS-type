@@ -3,7 +3,11 @@
 $(document).ready(function () {
 
     $("#login").css("width",`${$("#password").width()+16}`);
-    $('#username, #password').focus(function(){
+    window.onresize = function(e){
+        $("#login").css("width",`${$("#password").width()+16}`);
+    }
+
+    $('#username, #password, #username2').focus(function(){
         $(this).attr('placeholder','');
     });
     $('#username').focusout(function(){
@@ -11,6 +15,9 @@ $(document).ready(function () {
     });
     $('#password').focusout(function(){
         $(this).attr('placeholder','Пароль');
+    });
+    $('#username2').focusout(function(){
+        $(this).attr('placeholder','Username');
     });
 
     $("#hide").click(()=>{

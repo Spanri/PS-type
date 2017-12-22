@@ -15,11 +15,9 @@ $(document).ready(function () {
                     if (data.username == "admin0" || data.username == "id136955296") {
                         console.log("Загрузка данных");
                         $("#auth").css("display","none");
-                        $("#base").css("display","grid").css("background-image","none");
-                        $("#interface").css("display","block");
-                        $("#hello").css("display","block");
+                        $("#base").css("display","grid");
+                        $("body").css("background-image","none");
                         $("#line").css("height","auto");
-                        $("#panel").css("display","block");
                         $.post("/api/v1/data/all",
                             { "token": token },
                             (dataAll) => {

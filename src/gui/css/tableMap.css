@@ -11,6 +11,11 @@
     font-size: 20px;
 }
 
+#data p{
+    margin: 15px;
+    padding: 0;
+}
+
 table{
     border: 2px solid white;
     border-spacing: 0;
@@ -33,9 +38,9 @@ td, th{
 
 .mapUser{
     display: inline-block;
-    padding: 1%;
+    padding: 1% !important;
     font-size: 20px;
-    margin: 1%;
+    margin: 1% !important;
     background-color:#9E9D24;
     color: #827717;
     color: white;

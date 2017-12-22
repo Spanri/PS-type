@@ -10,27 +10,18 @@ body{
 }
 
 #base{
-    background-color: white;
+    background-color: #f0f3dc;
     min-height: 100vh;
     grid-column-start: 2;
     display: none;
     grid-template-columns: auto 1fr;
+    margin: 0;
+    padding: 0;
 }
 
-/* input[type="submit"]{
-    border: 0;
-    cursor: pointer;
-    color: #F9FBE7;
-    font-size: 20px;
-    padding: 6px;
-    background-color: #827717;
-    box-shadow: 0 2px 3px rgba(0,0,0,0.5);
-} */
-
-::-webkit-input-placeholder {color:rgb(177, 180, 136);}
-::-moz-placeholder          {color:#F9FBE7;}/* Firefox 19+ */
-:-moz-placeholder           {color:#F9FBE7;}/* Firefox 18- */
-:-ms-input-placeholder      {color:#F9FBE7;}
+#panel{
+    min-width: 500px;
+}
 
 #error{
     position: fixed;

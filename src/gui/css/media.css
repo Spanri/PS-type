@@ -1,6 +1,11 @@
+
 @media all and (max-width: 992px){
     body{
         grid-template-columns: 0 100%;
+    }
+    #auth input, #auth p{
+        font-size: 25px;
+        margin: 10px;
     }
 }
 

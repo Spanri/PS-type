@@ -6,11 +6,8 @@
     bottom: 0;
     left: 0;
     margin: auto;
-    /* color: rgb(50, 62, 35); */
-    padding: 5%;
+    padding-top: 5%;
     text-align: center;
-    width: auto;
-    height: auto;
 }
 
 #auth p{
@@ -20,24 +17,26 @@
     margin-bottom: 3px;
 }
 
-.inp input{
-    margin: 10px;
-    color: rgb(55, 63, 48);
+#auth input{
+    font-size: 30px;
     padding: 8px;
-    font-size: 25px;
-    background: #f0f3dc;
+    margin: 13px;
     border: none;
-    border-radius: 0;
-    outline: none;
     text-align: center;
 }
 
+.inp input{
+    color: rgb(55, 63, 48);
+    background: #f0f3dc;
+    -webkit-box-shadow: inset 0 0 0 50px #f0f3dc;
+    -webkit-text-fill-color: rgb(55, 63, 48);
+}
+
+.inp input::-webkit-input-placeholder {color:rgb(177, 180, 136);}
+
 #login{
-    border: 0;
     cursor: pointer;
     color: #F9FBE7;
-    font-size: 20px;
-    padding: 6px;
-    background-color: #827717;
+    background: #827717;
     box-shadow: 0 2px 3px rgba(0,0,0,0.5);
 }
