@@ -8,13 +8,13 @@ $(document).ready(function () {
         var myLatlng = new google.maps.LatLng(55.751244, 37.618423);
         map = new google.maps.Map(document.getElementById('map'), {
             center: myLatlng,
-            zoom: 8
+            zoom: 10
         });
     }
 
     $("#mapbut").click(()=>{
         var all = window.all;
-        $("tr, #data p").remove();
+        $("#data *").remove();
         initMap();
         $("#map").css("display","block");
         for (let k = 0; k < all.length; k++)
@@ -22,8 +22,10 @@ $(document).ready(function () {
         $("#data p").addClass("mapUser");
     });
 
+    var flightPath;
     $(document).on("click",".mapUser",async function(){
-        var all = window.all, flightPath;
+        var all = window.all;
+        console.log(flightPath);
         if(flightPath) flightPath.setMap(null);
         let name = this.innerHTML;
         let geometry = Array();

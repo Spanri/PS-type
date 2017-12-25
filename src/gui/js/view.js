@@ -35,23 +35,33 @@ $(document).ready(function () {
         }
     });
 
-    //назад
-    $("#back").click(()=>{
-        var all = window.all;
-        $("#map").css("display","none");
-        $("tr, #data p").remove();
-        $("table").append(`<tr><th>Username</th><th>Age</th><th>Sex</th><th>Статистика</th></tr>`);
-        for (let k = 0; k < all.length; k++)
-            $("table").append(`<tr><td>${all[k].username}</td><td>${all[k].age}</td><td>${all[k].sex}</td><td>${all[k].obr.type}</td></tr>`);
-        $("table tr").addClass("user");
-    });
-
     $("#username2").focus(()=>{
         $("#search2").css("fill","white");
     });
 
     $("#username2").blur(()=>{
-        $("#search2").css("fill","#827717");
+        $("#search2").css("fill","#76b151");
         $("#search2").css("transition","fill 0.3s ease-out");
     });
+
+    if (matchMedia) {
+        const mq = window.matchMedia("(min-width: 640px)");
+        mq.addListener(WidthChange);
+        WidthChange(mq);
+      }
+      
+      // media query change
+      function WidthChange(mq) {
+        if (mq.matches) {
+            $("#mapbut").val("Треки на карте").css("background-image", "none")
+                .width('auto').height('auto');
+            $("#back").val("Все пользователи").css("background-image", "none")
+                .width('auto').height('auto');
+        } else {
+            $("#mapbut").val("").css("background-image", "url('../map.png')").width('36px').height('32px')
+                .css("background-size","36px 32px").css("background-position","center");
+            $("#back").val("").css("background-image", "url('../table.png')").width('36px').height('32px')
+                .css("background-size","36px 32px").css("background-position","center");
+        }
+    }
 });

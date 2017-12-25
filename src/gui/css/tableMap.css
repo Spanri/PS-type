@@ -9,6 +9,7 @@
 /* данные в таблице */
 #data{
     font-size: 20px;
+    color: #0e4040;
 }
 
 #data p{
@@ -16,24 +17,33 @@
     padding: 0;
 }
 
+.bigData{
+    background: #89b4ad;
+    border: none;
+    color: #0e4040;
+}
+
 table{
-    border: 2px solid white;
+    border: 2px solid #f0f3dc;
     border-spacing: 0;
     table-layout: auto;
     text-align: center;
     width: 100%;
-    background-color: #e4f07c;
+    background-color: #cde7de;
+    /* overflow: hidden; */
 }
 
 th{
-    background: #827717;
-    width: auto;
+    background: #89b4ad;
+    color: white;
+    width: 100%;
 }
 
 td, th{
     border-collapse: collapse;
-    border: 1.5px solid white;
+    border: 1.5px solid #f0f3dc;
     padding: 2%;
+    overflow: hidden;
 }
 
 .mapUser{
@@ -41,8 +51,7 @@ td, th{
     padding: 1% !important;
     font-size: 20px;
     margin: 1% !important;
-    background-color:#9E9D24;
-    color: #827717;
+    background-color:#4e7934;
     color: white;
     box-shadow: 0 2px 3px rgba(0,0,0,0.5);
 }
@@ -52,6 +61,6 @@ td, th{
 }
 
 .user:hover{
-    background: #D4E157;
+    background: #abdbd2;
     transition: all 0.3s ease-out;
 }

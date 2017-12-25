@@ -6,23 +6,24 @@
     bottom: 0;
     left: 0;
     margin: auto;
-    padding-top: 5%;
+    margin-top: 20vh;
     text-align: center;
+}
+
+#auth p, #auth input{
+    font-size: 25px;
+    margin: 10px;
+    text-align: center;
+    border: none;
 }
 
 #auth p{
-    font-size: 30px;
-    color: rgb(85, 90, 67);
-    margin-top: 15px; 
-    margin-bottom: 3px;
+    color: #0e4040;
 }
 
 #auth input{
-    font-size: 30px;
     padding: 8px;
-    margin: 13px;
-    border: none;
-    text-align: center;
+    
 }
 
 .inp input{
@@ -36,7 +37,7 @@
 
 #login{
     cursor: pointer;
-    color: #F9FBE7;
-    background: #827717;
+    color: #f0f3dc;
+    background: #76b151;
     box-shadow: 0 2px 3px rgba(0,0,0,0.5);
 }

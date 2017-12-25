@@ -1,6 +1,7 @@
 body{
-    background-image: url("../map.png");
-    background-size: auto 100vh;
+    /* background-image: url("../road.jpg"); */
+    background: #89b4ad;
+    background-size: auto 100%;
     background-position: center;
     background-repeat: repeat-x;
     margin: 0;
@@ -28,8 +29,17 @@ body{
     z-index: 1;
     bottom: 7%;
     right: 7%;
-    background-color: #D4E157;
-    box-shadow: 0 0 15px black;
+    background-color: #4e7934;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.5);
+    color: white;
     padding: 3%;
     display: none;
+}
+
+#preloader{
+    font-size: 20px;
+    padding: 20%;
+    color: #0e4040;
+    margin: 0;
+    text-align: center;
 }

@@ -1,9 +1,9 @@
 #line{
     min-height: 100vh;
-    min-width: 200px;
+    min-width: 170px;
     max-width: 240px;
     font-size: 20px;
-    background-color: #827717;
+    background-color: #76b151;
     padding: 3%;
 }
 
@@ -21,10 +21,12 @@
     margin: 10px;
     border: 0;
     cursor: pointer;
+    align-self: center;
+    justify-self: center;
 }
 
 .sidebarBut:hover{
-    text-shadow: 0 0 15px rgb(247, 255, 89), 0 0 10px #827717;
+    text-shadow: 0 0 15px rgb(254, 255, 229), 0 0 10px #80da44;
     transition: all 0.3s ease-out;
 }
 
