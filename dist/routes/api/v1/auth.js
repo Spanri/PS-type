@@ -351,7 +351,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 var router = _express2.default.Router();
 
-//https://toster.ru/q/369662
 //get token, time of life - 10days, secret in app.js
 var getToken = function getToken(req, payload) {
   return _jsonwebtoken2.default.sign(payload, req.app.get('secret'), {

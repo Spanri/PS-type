@@ -93,8 +93,10 @@ var router = _express2.default.Router();
 //common information about server and project
 router.get('/', function (req, res, next) {
   res.json({
-    name: "PS Type API",
-    madeBy: "Anna, Valya"
+    name: "PSType API",
+    madeBy: "Anna, Valya",
+    versionOfServer: "0.1.1",
+    versionOfClient: "0.0.1"
   });
 });
 

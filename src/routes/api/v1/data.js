@@ -20,15 +20,17 @@ router.post('/change', async (req, res, next) => {
       try { //выношу из токена данные в user
         user = await User.findOne({ _id: token._id }).exec();
         if (!user) return notFound(res);
-        let age = req.body.age, sex = req.body.sex, name = req.body.name, 
-          experience = req.body.experience, country = req.body.country,
-          city = req.body.city;
+        let age = req.body.age, sex = req.body.sex, name = req.body.name,
+          username = req.body.username, experience = req.body.experience, 
+          country = req.body.country, city = req.body.city;
         if (age && age!=user.age) user.age = age; 
         if (sex && sex!=user.sex) user.sex = sex;
         if (name && name!=user.name) user.name = name; 
+        if (username && username!=user.username) user.username = username;
         if (experience && experience!=user.experience) user.experience = experience; 
         if (country && country!=user.country) user.country = country; 
         if (city && city!=user.city) user.city = city; 
+        console.log(user.username);
         await user.save(); //сохраняю
         return ok(res);
       } catch (err) { return dberr(res); }
@@ -59,6 +61,58 @@ router.post('/all', async (req, res, next) => {
           status: 'ok',
           message: 'Data successfuly received',
           all: all
+        });
+
+      } catch (err) { return dberr(res); }
+    }
+  });
+});
+
+//изменение данных в админке (вход по паролю админа)
+router.post('/changeAdmin', async (req, res, next) => {
+  jwt.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', async (err, token) => {
+    if (err) {
+      res.status(500).send({
+        status: 'error',
+        message: 'Verify error',
+        message2: err.message
+      });
+    } else {
+      let user = null;
+      try {
+        user = await User.findOne({ _id: token._id }).exec();
+        if (!user) return notFound(res);
+        if (user.username != "admin0" && user.username != "id136955296")
+          return res.status(404).send({
+            status: 'error',
+            message: 'User is not admin'
+          });
+        var userChange = await User.findOne({ username: req.body.usernameAuth }).exec();
+        let par = (req.body.nameOfPar).slice(0,-1), data = req.body.data;
+        // for(let i=0;i<userChange.length;i++) {
+        //   //надо if(par==a..., где а="age", например
+        //   if (par==??? && data!=userChange[i]) {
+        //     userChange[i].age = data;
+        //     break;
+        //   }
+        // }
+        if (par=="age" && par!=userChange.age) userChange.age = data; 
+        else if (par=="sex" && par!=userChange.sex) userChange.sex = data;
+        else if (par=="date" && par!=userChange.date) userChange.date = data;
+        else if (par=="type" && par!=userChange.obr.type) userChange.obr.type = data;
+        else if (par=="points" && par!=userChange.points) userChange.points = data;
+        else if (par=="speed" && par!=userChange.speed) userChange.speed = data;
+        else if (par=="lalitude" && par!=userChange.lalitude) userChange.lalitude = data;
+        else if (par=="longitude" && par!=userChange.longitude) userChange.longitude = data;
+        else if (par=="name" && par!=userChange.name) userChange.name = data; 
+        else if (par=="username" && par!=userChange.username) userChange.username = data;
+        else if (par=="experience" && par!=userChange.experience) userChange.experience = data; 
+        else if (par=="country" && par!=userChange.country) userChange.country = data; 
+        else if (par=="city" && par!=userChange.city) userChange.city = data;
+        await userChange.save();
+        return res.status(200).send({
+          status: 'ok',
+          message: 'Data successfuly changed'
         });
 
       } catch (err) { return dberr(res); }

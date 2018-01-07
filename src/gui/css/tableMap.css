@@ -17,10 +17,11 @@
     padding: 0;
 }
 
-.bigData{
+.bigData, .change{
     background: #89b4ad;
     border: none;
     color: #0e4040;
+    cursor: pointer;
 }
 
 table{

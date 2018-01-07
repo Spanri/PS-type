@@ -162,6 +162,4 @@ async function obr(res, user) {
   } catch (err) { valerr(res, err); console.error(err); }
 }
 
-
-
 export default router;

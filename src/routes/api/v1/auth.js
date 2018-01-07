@@ -7,7 +7,6 @@ import { dberr,notFound } from '../../../helpers';
 import jwt_decode from 'jwt-decode';
 const router = express.Router();
 
-//https://toster.ru/q/369662
 //get token, time of life - 10days, secret in app.js
 const getToken = (req, payload) => jwt.sign(payload, req.app.get('secret'), {
   expiresIn: '10d'

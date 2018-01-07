@@ -65,37 +65,49 @@ $(document).ready(function () {
         });
     });
     
-    var search = function(name){
+    function searchInput(elem, n, k){
+        let repl = elem.toString().replace(/,/g,", ");
+        if (repl.length > 100) $("#data").append(`
+            <div style="margin:15px">
+                <div style="color:#408a7d;display:inline-block">${n}:</div>
+                <input type="submit" class="bigData" value="Показать">
+                <p class="${k}" style="display:none">${repl}</p>
+            </div>`);
+        else $("#data").append(`
+            <div style="margin:15px">
+                <div style="color:#408a7d;display:inline-block">${n}:</div> 
+                <p class="${k}" style="margin:0;display:inline-block">${repl}</p>
+                <input type="submit" class="change" value="Изменить">
+            </div>`);
+            
+    }
+
+    function search(name){
         var i = -1;
         for (let k = 0; k < all.length; k++)
             if (name == all[k].username) {
                 i = k;
                 $("#data *").remove();
                 $("#map").css("display","none");
-
+                function empty (element, k2) {
+                    return `<div style="margin:15px">
+                                <div style="color:#408a7d;display:inline-block">${element}:</div>
+                                <p class="${k2}" style="margin:0;display:inline-block">---------</p>
+                                <input type="submit" class="change" value="Изменить">
+                            </div>`;
+                }
                 for (var el in all[k]) {
                     if (el == "_id" || el == "password") {
                         //ничего не делаем, то есть не пишем их
                     } else if (all[k][el] == ""){
-                        $("#data").append(`<p>${el}: ---------</p>`);
+                        $("#data").append(empty(el,all[k].username));
                     } else if(el == "obr" || el == "track") {
                         for (var el2 in all[k][el]) {
-                            if (all[k][el][el2] == "") {
-                                $("#data").append(`<p>${el2}: ---------</p>`);
-                            } else {
-                                let repl = all[k][el][el2].toString().replace(/,/g,", ");
-                                if (repl.length > 100) $("#data").append(`<div style="margin:15px;">${el2}: <input type="submit" class="bigData" value="Показать"><p style="display:none">${repl}</p></div>`);
-                                else $("#data").append(`<p>${el2}: ${repl}</p>`);
-                            }
+                            if (all[k][el][el2] == "") $("#data").append(empty(el2,all[k].username));
+                            else searchInput(all[k][el][el2],el2,all[k].username);
                         }
-                    } else {
-                        let repl = all[k][el].toString().replace(/,/g,", ");
-                        console.log(repl.length+" "+el);
-                        if (repl.length > 100) $("#data").append(`<div style="margin:15px;">${el}: <input type="submit" class="bigData" value="Показать"><p style="display:none">${repl}</p></div>`);
-                        else $("#data").append(`<p>${el}: ${repl}</p>`);
-                    }
+                    } else searchInput(all[k][el],el,all[k].username);
                 }
-
                 $("#base").css("height","auto");
             }
         if(i == -1){
@@ -107,13 +119,42 @@ $(document).ready(function () {
         }
     }
 
+    //показать полную версию данных
     $(document).on("click",".bigData",function(){
-        if ($(this).siblings().css("display") == "none") {
-            $(this).siblings().css("display","block");
+        let elem = $(this).siblings()[1];
+        if (elem.style.display == "none") {
+            elem.style.display = "block";
             $(this).val("Скрыть");
         } else {
-            $(this).siblings().css("display","none");
+            elem.style.display = "none";
             $(this).val("Показать");
+        }
+    });
+
+    //изменить данные
+    $(document).on("click",".change",function(){
+        if ($(this).val() == "Изменить"){
+            let elem = $(this).siblings()[1].innerHTML;
+            $(this).val("Ок");
+            $(this).before(`<textarea style="margin-right:5px;min-height:auto">${$(this).siblings()[1].innerHTML}</textarea>`);
+            $(this).siblings()[1].style.display="none";
+        }
+        else {
+            $(this).val("Изменить");
+            $(this).siblings()[1].style.display="inline-block";
+            $(this).siblings()[1].innerHTML = $(this).siblings("textarea")[0].value;
+            console.log($(this).siblings()[1]);
+            console.log($(this).siblings("textarea")[0].value);
+            $.post("/api/v1/data/changeAdmin", { "token": token, "usernameAuth": $(this).siblings()[1].className, "nameOfPar": $(this).siblings()[0].innerHTML, "data": $(this).siblings()[1].innerHTML})
+                .fail(function (response, status, error) {
+                    console.log("Error: " + response.responseText);
+                    $("#error").html(error);
+                    $("#error").css("display","block");
+                    setInterval(()=>{
+                        $("#error").css("display","none");
+                    },3000);
+                });
+            $(this).siblings("textarea")[0].remove();
         }
     });
 
