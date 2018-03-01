@@ -22,6 +22,7 @@ var serverConfig = {
         "routes/api/v1/auth": "./src/routes/api/v1/auth.js",
         "routes/api/v1/data": "./src/routes/api/v1/data.js",
         "routes/api/v1/map": "./src/routes/api/v1/map.js",
+        "routes/api/v1/accel": "./src/routes/api/v1/accel.js",
         "models/user": "./src/models/user.js"
     },
     output: {

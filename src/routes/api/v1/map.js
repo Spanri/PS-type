@@ -7,6 +7,46 @@ import jwt_decode from 'jwt-decode';
 import jwt from 'jsonwebtoken';
 const router = express.Router();
 
+router.post('/get1', async (req, res, next) => {
+  //проверка на валидность токена
+  jwt.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', async (err, token) => {
+    if (err) {
+      res.status(500).send({
+        status: 'error',
+        message: 'Verify error',
+        message2: err.message
+      });
+    } else {
+      let user = null;
+      try { //выношу из токена данные в user
+        user = await User.findOne({ _id: token._id }).exec();
+        if (!user) return notFound(res);
+
+        var mas = [];
+        for (let k = 0; user.accel.date[k] != null; k++) {
+          if(user.accel.date[k] == req.body.date) {
+              if(user.accel.time[k] < req.body.lastTime && user.accel.time[k] > req.body.firstTime){
+                  mas.push({
+                    x: user.accel.x[k], 
+                    y: user.accel.y[k], 
+                    z: user.accel.z[k], 
+                    lon: user.accel.lon[k], 
+                    lat: user.accel.lat[k]
+                  });
+                }
+          }
+        }
+
+        return res.status(200).send({
+          status: 'ok',
+          message: 'Date successfuly received',
+          mas: mas
+        });
+      } catch (err) { return dberr(res); }
+    }
+  });
+});
+
 router.post('/pos', async (req, res, next) => {
   jwt.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', async (err, token) => {
     if(err){
@@ -62,7 +102,7 @@ router.post('/startPos', async (req, res, next) => {
   });
 });
 
-router.post('/obr', async (req, res, next) => {
+router.post('/getLastData', async (req, res, next) => {
   jwt.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', async (err, token) => {
     if(err){
       res.status(500).send({
@@ -87,7 +127,32 @@ router.post('/obr', async (req, res, next) => {
           message: 'Error in saving'
           }); 
         }
-        await obr(res, user);
+        return ok(res);
+      } catch (err) { return dberr(res); }
+    }
+  });
+});
+
+router.post('/obr', async (req, res, next) => {
+  jwt.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', async (err, token) => {
+    if(err){
+      res.status(500).send({
+        status: 'error',
+        message: 'Verify error',
+        message2: err.message
+    });
+    } else {
+      let user = null;
+      try {
+        user = await User.findOne({ _id: token._id }).exec();
+        if (!user) return notFound(res);
+        try {
+          await obr(res, user);
+        } catch (err) { return res.status(404).send({
+          status: 'error',
+          message: 'Error in saving'
+          }); 
+        }
         return ok(res);
       } catch (err) { return dberr(res); }
     }
@@ -161,5 +226,7 @@ async function obr(res, user) {
 
   } catch (err) { valerr(res, err); console.error(err); }
 }
+
+
 
 export default router;

@@ -25,6 +25,37 @@ const obr = {
   }
 }
 
+const accel = {
+  x: {
+    type: [Number],
+    required: false
+  },
+  y: {
+    type: [Number],
+    required: false
+  },
+  z: {
+    type: [Number],
+    required: false
+  },
+  date: {
+    type: [String],
+    required: false
+  },
+  time: {
+    type: [String],
+    required: false
+  },
+  lat: {
+    type: [Number],
+    required: false
+  },
+  lon: {
+    type: [Number],
+    required: false
+  },
+}
+
 const track = {
   dateTrack: {
     type: [String],
@@ -106,11 +137,12 @@ const userSchema = mongoose.Schema({
     required: false
   },
   date: {
-    type: [Date],
+    type: [String],
     required: false
   },
   obr,
-  track
+  track,
+  accel
 }, { versionKey: false }
 );
 
