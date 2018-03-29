@@ -8,7 +8,7 @@
     "dev": "npm-run-all --parallel watch:build watch:server",
     "watch:build": "webpack --watch",
     "watch:server": "nodemon \"./dist/www.js\" --watch \"./dist\"",
-    "webpack": "npm run clean && webpack --config webpack.config.js",
+    "webpack": "webpack --config webpack.config.js",
     "install": "npm i -g nodemon"
   },
   "dependencies": {
