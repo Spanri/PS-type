@@ -100,6 +100,37 @@ var obr = {
   }
 };
 
+var accel = {
+  x: {
+    type: [Number],
+    required: false
+  },
+  y: {
+    type: [Number],
+    required: false
+  },
+  z: {
+    type: [Number],
+    required: false
+  },
+  date: {
+    type: [String],
+    required: false
+  },
+  time: {
+    type: [String],
+    required: false
+  },
+  lat: {
+    type: [Number],
+    required: false
+  },
+  lon: {
+    type: [Number],
+    required: false
+  }
+};
+
 var track = {
   dateTrack: {
     type: [String],
@@ -181,11 +212,12 @@ var userSchema = mongoose.Schema({
     required: false
   },
   date: {
-    type: [Date],
+    type: [String],
     required: false
   },
   obr: obr,
-  track: track
+  track: track,
+  accel: accel
 }, { versionKey: false });
 
 userSchema.plugin(mongooseUnique);

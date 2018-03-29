@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 13);
+/******/ 	return __webpack_require__(__webpack_require__.s = 14);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -343,7 +343,8 @@ module.exports = require("regenerator-runtime");
 /***/ }),
 /* 11 */,
 /* 12 */,
-/* 13 */
+/* 13 */,
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -356,116 +357,6 @@ Object.defineProperty(exports, "__esModule", {
 var _regenerator = __webpack_require__(4);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
-
-var obr = function () {
-  var _ref11 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee11(res, user) {
-    var cl1, cl2, sl1, sl2, cdelta, sdelta, x, y, len, _i, lat1, lat2, long1, long2, len2, at, _i2, maxlat, minlat, maxlon, minlon, _i3;
-
-    return _regenerator2.default.wrap(function _callee11$(_context11) {
-      while (1) {
-        switch (_context11.prev = _context11.next) {
-          case 0:
-            _context11.prev = 0;
-            _context11.next = 3;
-            return Math.max.apply(Math, user.speed);
-
-          case 3:
-            user.obr.max = _context11.sent;
-
-            if (user.obr.max > 100) user.obr.type = "Лихач";else if (user.obr.max < 40) user.obr.type = "Черепашка";else user.obr.type = "Обычный человек";
-
-            //max dist
-            cl1 = void 0, cl2 = void 0, sl1 = void 0, sl2 = void 0, cdelta = void 0, sdelta = void 0, x = void 0, y = void 0;
-
-            user.obr.dist = 0;
-            len = 0;
-
-            for (_i = 1; user.date[_i] != null; _i++) {
-              len++;
-              lat1 = user.latitude[_i - 1] * M_PI / 180;
-              lat2 = user.latitude[_i] * M_PI / 180;
-              long1 = user.longitude[_i - 1] * M_PI / 180;
-              long2 = user.longitude[_i] * M_PI / 180;
-
-
-              cl1 = cos(lat1);
-              cl2 = cos(lat2);
-              sl1 = sin(lat1);
-              sl2 = sin(lat2);
-              cdelta = cos(long2 - long1);
-              sdelta = sin(long2 - long1);
-
-              y = sqrt(pow(cl2 * sdelta, 2) + pow(cl1 * sl2 - sl1 * cl2 * cdelta, 2));
-              x = sl1 * sl2 + cl1 * cl2 * cdelta;
-
-              user.obr.dist += atan2(y, x) * 6372795;
-            }
-            user.obr.dist /= 1000;
-
-            //max time
-            len2 = 0;
-
-            while (user.obr.time[i] != null) {
-              len2++;
-            }user.obr.time[len2 + 1] = user.date[len] - user.date[0];
-
-            //average time
-            at = 0;
-
-            for (_i2 = 1; user.obr.time[_i2] != null; _i2++) {
-              at += user.obr.time[_i2];
-            }user.obr.avtime = at / (len2 + 1);
-
-            //the radius variation
-            maxlat = 0, minlat = 5, maxlon = 0, minlon = 5;
-
-            for (_i3 = 0; user.latitude[_i3] != null; _i3++) {
-              if (user.latitude[_i3] > maxlat) maxlat = user.latitude[_i3];
-              if (user.latitude[_i3] < minlat) minlat = user.latitude[_i3];
-              if (user.longitude[_i3] > maxlat) maxlat = user.longitude[_i3];
-              if (user.longitude[_i3] < minlat) minlat = user.longitude[_i3];
-            }
-            _context11.next = 20;
-            return sqrt(pow(maxlat - minlat, 2) + pow(maxlon - minlon, 2));
-
-          case 20:
-            user.obr.radvar = _context11.sent;
-            _context11.next = 23;
-            return function () {
-              for (var _i4 = 0; user.date[_i4] != null; _i4++) {
-                user.date[_i4] = null;
-                user.speed[_i4] = null;
-                user.latitude[_i4] = null;
-                user.longitude[_i4] = null;
-              }
-            };
-
-          case 23:
-            _context11.t0 = _context11.sent;
-            (0, _context11.t0)();
-            _context11.next = 27;
-            return user.save();
-
-          case 27:
-            _context11.next = 33;
-            break;
-
-          case 29:
-            _context11.prev = 29;
-            _context11.t1 = _context11['catch'](0);
-            (0, _helpers.valerr)(res, _context11.t1);console.error(_context11.t1);
-          case 33:
-          case 'end':
-            return _context11.stop();
-        }
-      }
-    }, _callee11, this, [[0, 29]]);
-  }));
-
-  return function obr(_x26, _x27) {
-    return _ref11.apply(this, arguments);
-  };
-}();
 
 var _path = __webpack_require__(1);
 
@@ -495,7 +386,10 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 var router = _express2.default.Router();
 
-router.post('/get1', function () {
+//cfnbgb
+
+//отправить данные акселерометра
+router.post('/get', function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee2(req, res, next) {
     return _regenerator2.default.wrap(function _callee2$(_context2) {
       while (1) {
@@ -592,12 +486,14 @@ router.post('/get1', function () {
   };
 }());
 
-router.post('/pos', function () {
+//принять данные акселерометра
+router.post('/set', function () {
   var _ref3 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee4(req, res, next) {
     return _regenerator2.default.wrap(function _callee4$(_context4) {
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
+            //проверка на валидность токена
             _jsonwebtoken2.default.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', function () {
               var _ref4 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee3(err, token) {
                 var user;
@@ -638,10 +534,13 @@ router.post('/pos', function () {
                         _context3.next = 13;
                         return _user2.default.update({ _id: user._id }, {
                           $push: {
-                            latitude: { $each: [req.body.latitude] },
-                            longitude: { $each: [req.body.longitude] },
-                            speed: { $each: [req.body.speed] },
-                            date: { $each: [req.body.date] }
+                            'accel.x': { $each: [req.body.x] },
+                            'accel.y': { $each: [req.body.y] },
+                            'accel.z': { $each: [req.body.z] },
+                            'accel.lon': { $each: [req.body.lon] },
+                            'accel.lat': { $each: [req.body.lat] },
+                            'accel.time': { $each: [req.body.time] },
+                            'accel.date': { $each: [req.body.date] }
                           }
                         });
 
@@ -679,282 +578,6 @@ router.post('/pos', function () {
 
   return function (_x6, _x7, _x8) {
     return _ref3.apply(this, arguments);
-  };
-}());
-
-router.post('/startPos', function () {
-  var _ref5 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee6(req, res, next) {
-    return _regenerator2.default.wrap(function _callee6$(_context6) {
-      while (1) {
-        switch (_context6.prev = _context6.next) {
-          case 0:
-            _jsonwebtoken2.default.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', function () {
-              var _ref6 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee5(err, token) {
-                var user;
-                return _regenerator2.default.wrap(function _callee5$(_context5) {
-                  while (1) {
-                    switch (_context5.prev = _context5.next) {
-                      case 0:
-                        if (!err) {
-                          _context5.next = 4;
-                          break;
-                        }
-
-                        res.status(500).send({
-                          status: 'error',
-                          message: 'Verify error',
-                          message2: err.message
-                        });
-                        _context5.next = 19;
-                        break;
-
-                      case 4:
-                        user = null;
-                        _context5.prev = 5;
-                        _context5.next = 8;
-                        return _user2.default.findOne({ _id: token._id }).exec();
-
-                      case 8:
-                        user = _context5.sent;
-
-                        if (user) {
-                          _context5.next = 11;
-                          break;
-                        }
-
-                        return _context5.abrupt('return', (0, _helpers.notFound)(res));
-
-                      case 11:
-                        _context5.next = 13;
-                        return _user2.default.update({ _id: user._id }, {
-                          $push: {
-                            'track.dateTrack': { $each: [req.body.dateTrack] },
-                            'track.startTime': { $each: [req.body.StartTime] }
-                          }
-                        });
-
-                      case 13:
-                        return _context5.abrupt('return', (0, _helpers.ok)(res));
-
-                      case 16:
-                        _context5.prev = 16;
-                        _context5.t0 = _context5['catch'](5);
-                        return _context5.abrupt('return', (0, _helpers.dberr)(res));
-
-                      case 19:
-                      case 'end':
-                        return _context5.stop();
-                    }
-                  }
-                }, _callee5, undefined, [[5, 16]]);
-              }));
-
-              return function (_x14, _x15) {
-                return _ref6.apply(this, arguments);
-              };
-            }());
-
-          case 1:
-          case 'end':
-            return _context6.stop();
-        }
-      }
-    }, _callee6, undefined);
-  }));
-
-  return function (_x11, _x12, _x13) {
-    return _ref5.apply(this, arguments);
-  };
-}());
-
-router.post('/getLastData', function () {
-  var _ref7 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee8(req, res, next) {
-    return _regenerator2.default.wrap(function _callee8$(_context8) {
-      while (1) {
-        switch (_context8.prev = _context8.next) {
-          case 0:
-            _jsonwebtoken2.default.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', function () {
-              var _ref8 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee7(err, token) {
-                var user;
-                return _regenerator2.default.wrap(function _callee7$(_context7) {
-                  while (1) {
-                    switch (_context7.prev = _context7.next) {
-                      case 0:
-                        if (!err) {
-                          _context7.next = 4;
-                          break;
-                        }
-
-                        res.status(500).send({
-                          status: 'error',
-                          message: 'Verify error',
-                          message2: err.message
-                        });
-                        _context7.next = 25;
-                        break;
-
-                      case 4:
-                        user = null;
-                        _context7.prev = 5;
-                        _context7.next = 8;
-                        return _user2.default.findOne({ _id: token._id }).exec();
-
-                      case 8:
-                        user = _context7.sent;
-
-                        if (user) {
-                          _context7.next = 11;
-                          break;
-                        }
-
-                        return _context7.abrupt('return', (0, _helpers.notFound)(res));
-
-                      case 11:
-                        _context7.prev = 11;
-                        _context7.next = 14;
-                        return _user2.default.update({ _id: user._id }, {
-                          $push: {
-                            'track.stopTime': { $each: [req.body.StopTime] },
-                            'track.points': { $each: [req.body.points] }
-                          }
-                        });
-
-                      case 14:
-                        _context7.next = 19;
-                        break;
-
-                      case 16:
-                        _context7.prev = 16;
-                        _context7.t0 = _context7['catch'](11);
-                        return _context7.abrupt('return', res.status(404).send({
-                          status: 'error',
-                          message: 'Error in saving'
-                        }));
-
-                      case 19:
-                        return _context7.abrupt('return', (0, _helpers.ok)(res));
-
-                      case 22:
-                        _context7.prev = 22;
-                        _context7.t1 = _context7['catch'](5);
-                        return _context7.abrupt('return', (0, _helpers.dberr)(res));
-
-                      case 25:
-                      case 'end':
-                        return _context7.stop();
-                    }
-                  }
-                }, _callee7, undefined, [[5, 22], [11, 16]]);
-              }));
-
-              return function (_x19, _x20) {
-                return _ref8.apply(this, arguments);
-              };
-            }());
-
-          case 1:
-          case 'end':
-            return _context8.stop();
-        }
-      }
-    }, _callee8, undefined);
-  }));
-
-  return function (_x16, _x17, _x18) {
-    return _ref7.apply(this, arguments);
-  };
-}());
-
-router.post('/obr', function () {
-  var _ref9 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee10(req, res, next) {
-    return _regenerator2.default.wrap(function _callee10$(_context10) {
-      while (1) {
-        switch (_context10.prev = _context10.next) {
-          case 0:
-            _jsonwebtoken2.default.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', function () {
-              var _ref10 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee9(err, token) {
-                var user;
-                return _regenerator2.default.wrap(function _callee9$(_context9) {
-                  while (1) {
-                    switch (_context9.prev = _context9.next) {
-                      case 0:
-                        if (!err) {
-                          _context9.next = 4;
-                          break;
-                        }
-
-                        res.status(500).send({
-                          status: 'error',
-                          message: 'Verify error',
-                          message2: err.message
-                        });
-                        _context9.next = 25;
-                        break;
-
-                      case 4:
-                        user = null;
-                        _context9.prev = 5;
-                        _context9.next = 8;
-                        return _user2.default.findOne({ _id: token._id }).exec();
-
-                      case 8:
-                        user = _context9.sent;
-
-                        if (user) {
-                          _context9.next = 11;
-                          break;
-                        }
-
-                        return _context9.abrupt('return', (0, _helpers.notFound)(res));
-
-                      case 11:
-                        _context9.prev = 11;
-                        _context9.next = 14;
-                        return obr(res, user);
-
-                      case 14:
-                        _context9.next = 19;
-                        break;
-
-                      case 16:
-                        _context9.prev = 16;
-                        _context9.t0 = _context9['catch'](11);
-                        return _context9.abrupt('return', res.status(404).send({
-                          status: 'error',
-                          message: 'Error in saving'
-                        }));
-
-                      case 19:
-                        return _context9.abrupt('return', (0, _helpers.ok)(res));
-
-                      case 22:
-                        _context9.prev = 22;
-                        _context9.t1 = _context9['catch'](5);
-                        return _context9.abrupt('return', (0, _helpers.dberr)(res));
-
-                      case 25:
-                      case 'end':
-                        return _context9.stop();
-                    }
-                  }
-                }, _callee9, undefined, [[5, 22], [11, 16]]);
-              }));
-
-              return function (_x24, _x25) {
-                return _ref10.apply(this, arguments);
-              };
-            }());
-
-          case 1:
-          case 'end':
-            return _context10.stop();
-        }
-      }
-    }, _callee10, undefined);
-  }));
-
-  return function (_x21, _x22, _x23) {
-    return _ref9.apply(this, arguments);
   };
 }());
 

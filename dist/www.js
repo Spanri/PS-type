@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 21);
+/******/ 	return __webpack_require__(__webpack_require__.s = 22);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -106,6 +106,37 @@ var obr = {
   type: {
     type: String,
     default: "Статистики пока нет",
+    required: false
+  }
+};
+
+var accel = {
+  x: {
+    type: [Number],
+    required: false
+  },
+  y: {
+    type: [Number],
+    required: false
+  },
+  z: {
+    type: [Number],
+    required: false
+  },
+  date: {
+    type: [String],
+    required: false
+  },
+  time: {
+    type: [String],
+    required: false
+  },
+  lat: {
+    type: [Number],
+    required: false
+  },
+  lon: {
+    type: [Number],
     required: false
   }
 };
@@ -191,11 +222,12 @@ var userSchema = mongoose.Schema({
     required: false
   },
   date: {
-    type: [Date],
+    type: [String],
     required: false
   },
   obr: obr,
-  track: track
+  track: track,
+  accel: accel
 }, { versionKey: false });
 
 userSchema.plugin(mongooseUnique);
@@ -1157,19 +1189,19 @@ var _regenerator = __webpack_require__(4);
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
 var obr = function () {
-  var _ref7 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee7(res, user) {
+  var _ref11 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee11(res, user) {
     var cl1, cl2, sl1, sl2, cdelta, sdelta, x, y, len, _i, lat1, lat2, long1, long2, len2, at, _i2, maxlat, minlat, maxlon, minlon, _i3;
 
-    return _regenerator2.default.wrap(function _callee7$(_context7) {
+    return _regenerator2.default.wrap(function _callee11$(_context11) {
       while (1) {
-        switch (_context7.prev = _context7.next) {
+        switch (_context11.prev = _context11.next) {
           case 0:
-            _context7.prev = 0;
-            _context7.next = 3;
+            _context11.prev = 0;
+            _context11.next = 3;
             return Math.max.apply(Math, user.speed);
 
           case 3:
-            user.obr.max = _context7.sent;
+            user.obr.max = _context11.sent;
 
             if (user.obr.max > 100) user.obr.type = "Лихач";else if (user.obr.max < 40) user.obr.type = "Черепашка";else user.obr.type = "Обычный человек";
 
@@ -1224,12 +1256,12 @@ var obr = function () {
               if (user.longitude[_i3] > maxlat) maxlat = user.longitude[_i3];
               if (user.longitude[_i3] < minlat) minlat = user.longitude[_i3];
             }
-            _context7.next = 20;
+            _context11.next = 20;
             return sqrt(pow(maxlat - minlat, 2) + pow(maxlon - minlon, 2));
 
           case 20:
-            user.obr.radvar = _context7.sent;
-            _context7.next = 23;
+            user.obr.radvar = _context11.sent;
+            _context11.next = 23;
             return function () {
               for (var _i4 = 0; user.date[_i4] != null; _i4++) {
                 user.date[_i4] = null;
@@ -1240,29 +1272,29 @@ var obr = function () {
             };
 
           case 23:
-            _context7.t0 = _context7.sent;
-            (0, _context7.t0)();
-            _context7.next = 27;
+            _context11.t0 = _context11.sent;
+            (0, _context11.t0)();
+            _context11.next = 27;
             return user.save();
 
           case 27:
-            _context7.next = 33;
+            _context11.next = 33;
             break;
 
           case 29:
-            _context7.prev = 29;
-            _context7.t1 = _context7['catch'](0);
-            (0, _helpers.valerr)(res, _context7.t1);console.error(_context7.t1);
+            _context11.prev = 29;
+            _context11.t1 = _context11['catch'](0);
+            (0, _helpers.valerr)(res, _context11.t1);console.error(_context11.t1);
           case 33:
           case 'end':
-            return _context7.stop();
+            return _context11.stop();
         }
       }
-    }, _callee7, this, [[0, 29]]);
+    }, _callee11, this, [[0, 29]]);
   }));
 
-  return function obr(_x16, _x17) {
-    return _ref7.apply(this, arguments);
+  return function obr(_x26, _x27) {
+    return _ref11.apply(this, arguments);
   };
 }();
 
@@ -1294,15 +1326,16 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 var router = _express2.default.Router();
 
-router.post('/pos', function () {
+router.post('/get1', function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee2(req, res, next) {
     return _regenerator2.default.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
+            //проверка на валидность токена
             _jsonwebtoken2.default.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', function () {
               var _ref2 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee(err, token) {
-                var user;
+                var user, mas, k;
                 return _regenerator2.default.wrap(function _callee$(_context) {
                   while (1) {
                     switch (_context.prev = _context.next) {
@@ -1337,20 +1370,26 @@ router.post('/pos', function () {
                         return _context.abrupt('return', (0, _helpers.notFound)(res));
 
                       case 11:
-                        _context.next = 13;
-                        return _user2.default.update({ _id: user._id }, {
-                          $push: {
-                            latitude: { $each: [req.body.latitude] },
-                            longitude: { $each: [req.body.longitude] },
-                            speed: { $each: [req.body.speed] },
-                            date: { $each: [req.body.date] }
-                          }
-                        });
+                        mas = [];
 
-                      case 13:
+                        for (k = 0; user.accel.date[k] != null; k++) {
+                          if (user.accel.date[k] == req.body.date) {
+                            if (user.accel.time[k] < req.body.lastTime && user.accel.time[k] > req.body.firstTime) {
+                              mas.push({
+                                x: user.accel.x[k],
+                                y: user.accel.y[k],
+                                z: user.accel.z[k],
+                                lon: user.accel.lon[k],
+                                lat: user.accel.lat[k]
+                              });
+                            }
+                          }
+                        }
+
                         return _context.abrupt('return', res.status(200).send({
                           status: 'ok',
-                          message: 'Data successfuly processed'
+                          message: 'Date successfuly received',
+                          mas: mas
                         }));
 
                       case 16:
@@ -1384,7 +1423,7 @@ router.post('/pos', function () {
   };
 }());
 
-router.post('/startPos', function () {
+router.post('/pos', function () {
   var _ref3 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee4(req, res, next) {
     return _regenerator2.default.wrap(function _callee4$(_context4) {
       while (1) {
@@ -1430,13 +1469,18 @@ router.post('/startPos', function () {
                         _context3.next = 13;
                         return _user2.default.update({ _id: user._id }, {
                           $push: {
-                            'track.dateTrack': { $each: [req.body.dateTrack] },
-                            'track.startTime': { $each: [req.body.StartTime] }
+                            latitude: { $each: [req.body.latitude] },
+                            longitude: { $each: [req.body.longitude] },
+                            speed: { $each: [req.body.speed] },
+                            date: { $each: [req.body.date] }
                           }
                         });
 
                       case 13:
-                        return _context3.abrupt('return', (0, _helpers.ok)(res));
+                        return _context3.abrupt('return', res.status(200).send({
+                          status: 'ok',
+                          message: 'Data successfuly processed'
+                        }));
 
                       case 16:
                         _context3.prev = 16;
@@ -1469,7 +1513,7 @@ router.post('/startPos', function () {
   };
 }());
 
-router.post('/obr', function () {
+router.post('/startPos', function () {
   var _ref5 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee6(req, res, next) {
     return _regenerator2.default.wrap(function _callee6$(_context6) {
       while (1) {
@@ -1492,7 +1536,7 @@ router.post('/obr', function () {
                           message: 'Verify error',
                           message2: err.message
                         });
-                        _context5.next = 27;
+                        _context5.next = 19;
                         break;
 
                       case 4:
@@ -1512,45 +1556,28 @@ router.post('/obr', function () {
                         return _context5.abrupt('return', (0, _helpers.notFound)(res));
 
                       case 11:
-                        _context5.prev = 11;
-                        _context5.next = 14;
+                        _context5.next = 13;
                         return _user2.default.update({ _id: user._id }, {
                           $push: {
-                            'track.stopTime': { $each: [req.body.StopTime] },
-                            'track.points': { $each: [req.body.points] }
+                            'track.dateTrack': { $each: [req.body.dateTrack] },
+                            'track.startTime': { $each: [req.body.StartTime] }
                           }
                         });
 
-                      case 14:
-                        _context5.next = 19;
-                        break;
+                      case 13:
+                        return _context5.abrupt('return', (0, _helpers.ok)(res));
 
                       case 16:
                         _context5.prev = 16;
-                        _context5.t0 = _context5['catch'](11);
-                        return _context5.abrupt('return', res.status(404).send({
-                          status: 'error',
-                          message: 'Error in saving'
-                        }));
-
-                      case 19:
-                        _context5.next = 21;
-                        return obr(res, user);
-
-                      case 21:
-                        return _context5.abrupt('return', (0, _helpers.ok)(res));
-
-                      case 24:
-                        _context5.prev = 24;
-                        _context5.t1 = _context5['catch'](5);
+                        _context5.t0 = _context5['catch'](5);
                         return _context5.abrupt('return', (0, _helpers.dberr)(res));
 
-                      case 27:
+                      case 19:
                       case 'end':
                         return _context5.stop();
                     }
                   }
-                }, _callee5, undefined, [[5, 24], [11, 16]]);
+                }, _callee5, undefined, [[5, 16]]);
               }));
 
               return function (_x14, _x15) {
@@ -1571,10 +1598,441 @@ router.post('/obr', function () {
   };
 }());
 
+router.post('/getLastData', function () {
+  var _ref7 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee8(req, res, next) {
+    return _regenerator2.default.wrap(function _callee8$(_context8) {
+      while (1) {
+        switch (_context8.prev = _context8.next) {
+          case 0:
+            _jsonwebtoken2.default.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', function () {
+              var _ref8 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee7(err, token) {
+                var user;
+                return _regenerator2.default.wrap(function _callee7$(_context7) {
+                  while (1) {
+                    switch (_context7.prev = _context7.next) {
+                      case 0:
+                        if (!err) {
+                          _context7.next = 4;
+                          break;
+                        }
+
+                        res.status(500).send({
+                          status: 'error',
+                          message: 'Verify error',
+                          message2: err.message
+                        });
+                        _context7.next = 25;
+                        break;
+
+                      case 4:
+                        user = null;
+                        _context7.prev = 5;
+                        _context7.next = 8;
+                        return _user2.default.findOne({ _id: token._id }).exec();
+
+                      case 8:
+                        user = _context7.sent;
+
+                        if (user) {
+                          _context7.next = 11;
+                          break;
+                        }
+
+                        return _context7.abrupt('return', (0, _helpers.notFound)(res));
+
+                      case 11:
+                        _context7.prev = 11;
+                        _context7.next = 14;
+                        return _user2.default.update({ _id: user._id }, {
+                          $push: {
+                            'track.stopTime': { $each: [req.body.StopTime] },
+                            'track.points': { $each: [req.body.points] }
+                          }
+                        });
+
+                      case 14:
+                        _context7.next = 19;
+                        break;
+
+                      case 16:
+                        _context7.prev = 16;
+                        _context7.t0 = _context7['catch'](11);
+                        return _context7.abrupt('return', res.status(404).send({
+                          status: 'error',
+                          message: 'Error in saving'
+                        }));
+
+                      case 19:
+                        return _context7.abrupt('return', (0, _helpers.ok)(res));
+
+                      case 22:
+                        _context7.prev = 22;
+                        _context7.t1 = _context7['catch'](5);
+                        return _context7.abrupt('return', (0, _helpers.dberr)(res));
+
+                      case 25:
+                      case 'end':
+                        return _context7.stop();
+                    }
+                  }
+                }, _callee7, undefined, [[5, 22], [11, 16]]);
+              }));
+
+              return function (_x19, _x20) {
+                return _ref8.apply(this, arguments);
+              };
+            }());
+
+          case 1:
+          case 'end':
+            return _context8.stop();
+        }
+      }
+    }, _callee8, undefined);
+  }));
+
+  return function (_x16, _x17, _x18) {
+    return _ref7.apply(this, arguments);
+  };
+}());
+
+router.post('/obr', function () {
+  var _ref9 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee10(req, res, next) {
+    return _regenerator2.default.wrap(function _callee10$(_context10) {
+      while (1) {
+        switch (_context10.prev = _context10.next) {
+          case 0:
+            _jsonwebtoken2.default.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', function () {
+              var _ref10 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee9(err, token) {
+                var user;
+                return _regenerator2.default.wrap(function _callee9$(_context9) {
+                  while (1) {
+                    switch (_context9.prev = _context9.next) {
+                      case 0:
+                        if (!err) {
+                          _context9.next = 4;
+                          break;
+                        }
+
+                        res.status(500).send({
+                          status: 'error',
+                          message: 'Verify error',
+                          message2: err.message
+                        });
+                        _context9.next = 25;
+                        break;
+
+                      case 4:
+                        user = null;
+                        _context9.prev = 5;
+                        _context9.next = 8;
+                        return _user2.default.findOne({ _id: token._id }).exec();
+
+                      case 8:
+                        user = _context9.sent;
+
+                        if (user) {
+                          _context9.next = 11;
+                          break;
+                        }
+
+                        return _context9.abrupt('return', (0, _helpers.notFound)(res));
+
+                      case 11:
+                        _context9.prev = 11;
+                        _context9.next = 14;
+                        return obr(res, user);
+
+                      case 14:
+                        _context9.next = 19;
+                        break;
+
+                      case 16:
+                        _context9.prev = 16;
+                        _context9.t0 = _context9['catch'](11);
+                        return _context9.abrupt('return', res.status(404).send({
+                          status: 'error',
+                          message: 'Error in saving'
+                        }));
+
+                      case 19:
+                        return _context9.abrupt('return', (0, _helpers.ok)(res));
+
+                      case 22:
+                        _context9.prev = 22;
+                        _context9.t1 = _context9['catch'](5);
+                        return _context9.abrupt('return', (0, _helpers.dberr)(res));
+
+                      case 25:
+                      case 'end':
+                        return _context9.stop();
+                    }
+                  }
+                }, _callee9, undefined, [[5, 22], [11, 16]]);
+              }));
+
+              return function (_x24, _x25) {
+                return _ref10.apply(this, arguments);
+              };
+            }());
+
+          case 1:
+          case 'end':
+            return _context10.stop();
+        }
+      }
+    }, _callee10, undefined);
+  }));
+
+  return function (_x21, _x22, _x23) {
+    return _ref9.apply(this, arguments);
+  };
+}());
+
 exports.default = router;
 
 /***/ }),
 /* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _regenerator = __webpack_require__(4);
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _path = __webpack_require__(1);
+
+var _path2 = _interopRequireDefault(_path);
+
+var _express = __webpack_require__(0);
+
+var _express2 = _interopRequireDefault(_express);
+
+var _user = __webpack_require__(2);
+
+var _user2 = _interopRequireDefault(_user);
+
+var _helpers = __webpack_require__(3);
+
+var _jwtDecode = __webpack_require__(6);
+
+var _jwtDecode2 = _interopRequireDefault(_jwtDecode);
+
+var _jsonwebtoken = __webpack_require__(5);
+
+var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+var router = _express2.default.Router();
+
+//cfnbgb
+
+//отправить данные акселерометра
+router.post('/get', function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee2(req, res, next) {
+    return _regenerator2.default.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            //проверка на валидность токена
+            _jsonwebtoken2.default.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', function () {
+              var _ref2 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee(err, token) {
+                var user, mas, k;
+                return _regenerator2.default.wrap(function _callee$(_context) {
+                  while (1) {
+                    switch (_context.prev = _context.next) {
+                      case 0:
+                        if (!err) {
+                          _context.next = 4;
+                          break;
+                        }
+
+                        res.status(500).send({
+                          status: 'error',
+                          message: 'Verify error',
+                          message2: err.message
+                        });
+                        _context.next = 19;
+                        break;
+
+                      case 4:
+                        user = null;
+                        _context.prev = 5;
+                        _context.next = 8;
+                        return _user2.default.findOne({ _id: token._id }).exec();
+
+                      case 8:
+                        user = _context.sent;
+
+                        if (user) {
+                          _context.next = 11;
+                          break;
+                        }
+
+                        return _context.abrupt('return', (0, _helpers.notFound)(res));
+
+                      case 11:
+                        mas = [];
+
+                        for (k = 0; user.accel.date[k] != null; k++) {
+                          if (user.accel.date[k] == req.body.date) {
+                            if (user.accel.time[k] < req.body.lastTime && user.accel.time[k] > req.body.firstTime) {
+                              mas.push({
+                                x: user.accel.x[k],
+                                y: user.accel.y[k],
+                                z: user.accel.z[k],
+                                lon: user.accel.lon[k],
+                                lat: user.accel.lat[k]
+                              });
+                            }
+                          }
+                        }
+
+                        return _context.abrupt('return', res.status(200).send({
+                          status: 'ok',
+                          message: 'Date successfuly received',
+                          mas: mas
+                        }));
+
+                      case 16:
+                        _context.prev = 16;
+                        _context.t0 = _context['catch'](5);
+                        return _context.abrupt('return', (0, _helpers.dberr)(res));
+
+                      case 19:
+                      case 'end':
+                        return _context.stop();
+                    }
+                  }
+                }, _callee, undefined, [[5, 16]]);
+              }));
+
+              return function (_x4, _x5) {
+                return _ref2.apply(this, arguments);
+              };
+            }());
+
+          case 1:
+          case 'end':
+            return _context2.stop();
+        }
+      }
+    }, _callee2, undefined);
+  }));
+
+  return function (_x, _x2, _x3) {
+    return _ref.apply(this, arguments);
+  };
+}());
+
+//принять данные акселерометра
+router.post('/set', function () {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee4(req, res, next) {
+    return _regenerator2.default.wrap(function _callee4$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            //проверка на валидность токена
+            _jsonwebtoken2.default.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', function () {
+              var _ref4 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee3(err, token) {
+                var user;
+                return _regenerator2.default.wrap(function _callee3$(_context3) {
+                  while (1) {
+                    switch (_context3.prev = _context3.next) {
+                      case 0:
+                        if (!err) {
+                          _context3.next = 4;
+                          break;
+                        }
+
+                        res.status(500).send({
+                          status: 'error',
+                          message: 'Verify error',
+                          message2: err.message
+                        });
+                        _context3.next = 19;
+                        break;
+
+                      case 4:
+                        user = null;
+                        _context3.prev = 5;
+                        _context3.next = 8;
+                        return _user2.default.findOne({ _id: token._id }).exec();
+
+                      case 8:
+                        user = _context3.sent;
+
+                        if (user) {
+                          _context3.next = 11;
+                          break;
+                        }
+
+                        return _context3.abrupt('return', (0, _helpers.notFound)(res));
+
+                      case 11:
+                        _context3.next = 13;
+                        return _user2.default.update({ _id: user._id }, {
+                          $push: {
+                            'accel.x': { $each: [req.body.x] },
+                            'accel.y': { $each: [req.body.y] },
+                            'accel.z': { $each: [req.body.z] },
+                            'accel.lon': { $each: [req.body.lon] },
+                            'accel.lat': { $each: [req.body.lat] },
+                            'accel.time': { $each: [req.body.time] },
+                            'accel.date': { $each: [req.body.date] }
+                          }
+                        });
+
+                      case 13:
+                        return _context3.abrupt('return', res.status(200).send({
+                          status: 'ok',
+                          message: 'Data successfuly processed'
+                        }));
+
+                      case 16:
+                        _context3.prev = 16;
+                        _context3.t0 = _context3['catch'](5);
+                        return _context3.abrupt('return', (0, _helpers.dberr)(res));
+
+                      case 19:
+                      case 'end':
+                        return _context3.stop();
+                    }
+                  }
+                }, _callee3, undefined, [[5, 16]]);
+              }));
+
+              return function (_x9, _x10) {
+                return _ref4.apply(this, arguments);
+              };
+            }());
+
+          case 1:
+          case 'end':
+            return _context4.stop();
+        }
+      }
+    }, _callee4, undefined);
+  }));
+
+  return function (_x6, _x7, _x8) {
+    return _ref3.apply(this, arguments);
+  };
+}());
+
+exports.default = router;
+
+/***/ }),
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1600,6 +2058,10 @@ var _map = __webpack_require__(13);
 
 var _map2 = _interopRequireDefault(_map);
 
+var _accel = __webpack_require__(14);
+
+var _accel2 = _interopRequireDefault(_accel);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var router = _express2.default.Router();
@@ -1607,6 +2069,7 @@ var router = _express2.default.Router();
 router.use('/', _auth2.default);
 router.use('/data', _data2.default);
 router.use('/map', _map2.default);
+router.use('/accel', _accel2.default);
 
 router.get('/', function (req, res, next) {
   res.json({
@@ -1619,7 +2082,7 @@ router.get('/', function (req, res, next) {
 exports.default = router;
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1650,7 +2113,7 @@ router.get('/', function (req, res, next) {
 exports.default = router;
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1664,7 +2127,7 @@ var _express = __webpack_require__(0);
 
 var _express2 = _interopRequireDefault(_express);
 
-var _v = __webpack_require__(14);
+var _v = __webpack_require__(15);
 
 var _v2 = _interopRequireDefault(_v);
 
@@ -1678,7 +2141,7 @@ router.use('/v1', _v2.default);
 exports.default = router;
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1692,15 +2155,15 @@ var _path = __webpack_require__(1);
 
 var _path2 = _interopRequireDefault(_path);
 
-var _fs = __webpack_require__(18);
+var _fs = __webpack_require__(19);
 
 var _fs2 = _interopRequireDefault(_fs);
 
-var _bodyParser = __webpack_require__(19);
+var _bodyParser = __webpack_require__(20);
 
 var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
-var _expressJwt = __webpack_require__(20);
+var _expressJwt = __webpack_require__(21);
 
 var _expressJwt2 = _interopRequireDefault(_expressJwt);
 
@@ -1708,11 +2171,11 @@ var _mongoose = __webpack_require__(7);
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
 
-var _index = __webpack_require__(15);
+var _index = __webpack_require__(16);
 
 var _index2 = _interopRequireDefault(_index);
 
-var _api = __webpack_require__(16);
+var _api = __webpack_require__(17);
 
 var _api2 = _interopRequireDefault(_api);
 
@@ -1770,32 +2233,32 @@ module.exports = app;
 /* WEBPACK VAR INJECTION */}.call(exports, "src"))
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports) {
 
 module.exports = require("fs");
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports) {
 
 module.exports = require("body-parser");
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports) {
 
 module.exports = require("express-jwt");
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var app = __webpack_require__(17);
-var http = __webpack_require__(22);
+var app = __webpack_require__(18);
+var http = __webpack_require__(23);
 
 var port = normalizePort(process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || '8080');
 var hostname = process.env.IP || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
@@ -1844,7 +2307,7 @@ function onListening() {
 }
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports) {
 
 module.exports = require("http");
