@@ -22,7 +22,7 @@ app.set('secret', '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3');
 //logging
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-app.use(express.static(path.join(__dirname, 'gui')));
+app.use(express.static(path.join(__dirname, 'gui/dist')));
 
 app.use(ejwt({
   secret: app.get('secret')

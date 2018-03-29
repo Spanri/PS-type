@@ -20,10 +20,11 @@
     "jsonwebtoken": "^7.4.3",
     "jwt-decode": "^2.2.0",
     "mongoose": "^4.10.4",
-    "nodemon": "^1.10.0",
-    "webpack": "^3.8.1",
     "mongoose-bcrypt": "^1.4.2",
-    "mongoose-unique-validator": "^1.0.5"
+    "mongoose-unique-validator": "^1.0.5",
+    "nodemon": "^1.10.0",
+    "vue-cli": "^2.9.3",
+    "webpack": "^3.8.1"
   },
   "devDependencies": {
     "babel-runtime": "^6.26.0",
