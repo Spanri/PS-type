@@ -101,7 +101,7 @@ $(document).ready(function () {
                         //ничего не делаем, то есть не пишем их
                     } else if (all[k][el] == ""){
                         $("#data").append(empty(el,all[k].username));
-                    } else if(el == "obr" || el == "track") {
+                    } else if(el == "obr" || el == "track" || el == "accel") {
                         for (var el2 in all[k][el]) {
                             if (all[k][el][el2] == "") $("#data").append(empty(el2,all[k].username));
                             else searchInput(all[k][el][el2],el2,all[k].username);

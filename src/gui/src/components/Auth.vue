@@ -7,7 +7,7 @@
     <div class="inp">
         <input id="password" type="password" placeholder="Пароль"/>
     </div>
-    <input id="login" type="submit" value="Войти" />
+    <input id="login" type="submit" value="Войти" v-on:click="login"/>
     <div id="error">
         Всё плохо.
     </div>
@@ -17,8 +17,9 @@
 <script>
 export default {
   name: 'Auth',
-  data () {
-    return {
+  methods: {
+    login: function (event) {
+      window.location = "/all/";
     }
   }
 }
