@@ -123,6 +123,10 @@ var accel = {
     type: [Number],
     required: false
   },
+  type: {
+    type: [String],
+    required: false
+  },
   date: {
     type: [String],
     required: false
