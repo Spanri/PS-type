@@ -16,6 +16,20 @@
 
 <script>
 import axios from 'axios';
+//import * as Auth from './../routes/api/v1/auth';
+
+const http = axios.create({
+  baseURL: 'http://pstype.herokuapp.com/',
+    //baseURL: src,
+  /*headers: {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': 'Content-Type,Authorization',
+    'Access-Control-Request-Method' : 'GET/POST/OPTIONS',
+    timeout: 10000,
+    withCredentials: false
+  }*/
+})
 
 export default {
   name: 'Auth',
@@ -26,7 +40,7 @@ export default {
   methods: {
     login: function (event) {
       // отправка запроса
-      axios.post("http://pstype.herokuapp.com/v1/signin", {
+      http.post('v1/signin', {
         "username": this.username, "password": this.password 
       })
       // ответ на запрос
