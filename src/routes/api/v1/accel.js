@@ -19,10 +19,10 @@ router.post('/set', async (req, res, next) => {
         });
       } else {
         let user = null;
-        try { //выношу из токена данные в user
+        try { //выносим из токена данные в user
           user = await User.findOne({ _id: token._id }).exec();
           if (!user) return notFound(res);
-          
+          //заносим данные в user.accel
           await User.update({ _id: user._id }, {
             $push: {
                 'accel.x': { $each: [req.body.x] },
@@ -35,10 +35,12 @@ router.post('/set', async (req, res, next) => {
                 'accel.type': { $each: [req.body.type] },
               }
           });
+          //если всё хорошо
           return res.status(200).send({
             status: 'ok',
             message: 'Data successfuly processed'
           });
+        //если плохо
         } catch (err) { return dberr(res); }
       }
     });

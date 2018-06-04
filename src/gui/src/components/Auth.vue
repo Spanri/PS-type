@@ -2,10 +2,10 @@
   <div class="auth">
     <p class="title">Пожалуйста, войдите в систему.</p>
     <div class="inp">
-        <input id="username" type="text" placeholder="Логин" />
+        <input id="username" type="text" v-model="username" placeholder="Логин" />
     </div>
     <div class="inp">
-        <input id="password" type="password" placeholder="Пароль"/>
+        <input id="password" type="password" v-model="password" placeholder="Пароль"/>
     </div>
     <input id="login" type="submit" value="Войти" v-on:click="login"/>
     <div id="error">
@@ -15,11 +15,97 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'Auth',
+  data: () => ({
+    username: "",
+    password: ""
+  }),
   methods: {
     login: function (event) {
-      window.location = "/all/";
+      // отправка запроса
+      axios.post("http://pstype.herokuapp.com/v1/signin", {
+        "username": this.username, "password": this.password 
+      })
+      // ответ на запрос
+      .then(response => {
+        console.log("Пользователь найден");
+        alert('пользователь найден');
+      })
+      // обработка ошибок
+      .catch(e => {
+        console.log(e);
+      })
+    
+
+/*
+      var all = [], token;
+      $("#login").click(()=>{
+          let username = $("#username").val();
+          let password = $("#password").val();
+          $.post("/api/v1/signin", { "username": username, "password": password }, (auth) => {
+              console.log("Пользователь найден");
+              token = auth.token;
+              $.post("/api/v1/data",
+                  { "token": token },
+                  (data) => {
+                      if (data.username == "admin0" || data.username == "id136955296") {
+                          console.log("Загрузка данных");
+                          $("#auth").css("display","none");
+                          $("#base").css("display","grid");
+                          $("body").css("background","white");
+                          $("#line").css("height","auto");
+                          $.ajax({
+                              type: "POST",
+                              url: "/api/v1/data/all",
+                              data: { "token": token },
+                              success: (dataAll) => {
+                                  if (dataAll) {
+                                      all = dataAll.all;
+                                      window.all = all;
+                                      console.log(window.all);
+                                      tableUser();
+                                      $("#preloader").hide();
+                                  }
+                              },
+                              fail: function (response, status, error) {
+                                  console.log("Error: " + response.responseText);
+                                  $("#error").html(error);
+                                  $("#error").css("display","block");
+                                  setInterval(()=>{
+                                      $("#error").css("display","none");
+                                  },3000);
+                              }
+                          });
+                      } else {
+                          $("#error").html("Круто, но ты не админ:^(");
+                          $("#error").css("display","block");
+                          setInterval(()=>{
+                              $("#error").css("display","none");
+                          },3000);
+                      }
+                  }).fail(function (response, status, error) {
+                      console.log("Error: " + response.responseText);
+                      $("#error").html(error);
+                      $("#error").css("display","block");
+                      setInterval(()=>{
+                          $("#error").css("display","none");
+                      },3000);
+                  });
+          }).fail(function (response, status, error) {
+              console.log("Error: " + response.responseText);
+              $("#error").html(error);
+              $("#error").css("display","block");
+              setInterval(()=>{
+                  $("#error").css("display","none");
+              },2000);
+          });
+      });
+*/
+
+      //window.location = "/all/";
     }
   }
 }
@@ -41,7 +127,7 @@ export default {
     font-size: 18px;
     text-align: center;
     border: none;
-    -webkit-box-shadow: inset 0 0 0 50px #ffffff;
+    /*-webkit-box-shadow: inset 0 0 0 50px #ffffff;*/
     -webkit-text-fill-color: rgb(55, 63, 48);
 }
 

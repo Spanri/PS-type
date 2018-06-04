@@ -1,8 +1,11 @@
 "use strict"
 
 $(document).ready(function () {
+    //this.$root.all = [1,2,3];
+    var token;
+    
 
-    var all = [], token;
+
     $("#login").click(()=>{
         let username = $("#username").val();
         let password = $("#password").val();

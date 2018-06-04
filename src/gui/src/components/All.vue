@@ -9,7 +9,10 @@
 
 <script>
 export default {
-  name: 'All',  
+  name: 'All',
+  methods:{
+    
+  }  
 }
 </script>
 

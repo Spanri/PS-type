@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  name: 'Auth',  
+  name: 'Map',  
 }
 </script>
 
