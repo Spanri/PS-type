@@ -22,7 +22,7 @@ app.set('secret', '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3');
 //logging
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-app.use(express.static(path.join(__dirname, 'gui2')));
+app.use(express.static(path.join(__dirname, 'gui/dist')));
 
 app.use(ejwt({
   secret: app.get('secret')
@@ -46,6 +46,13 @@ app.use(function(req, res, next) {
   // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
+
+// app.all('*', function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Headers", "X-Requested-With");
+//   res.header('Access-Control-Allow-Headers', 'Content-Type');
+//   next();
+// });
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
