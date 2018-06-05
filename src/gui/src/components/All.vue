@@ -1,15 +1,46 @@
 <template>
   <div class="all">
-    <p class="title">Пожалуйста, войдите в системуfghfghfgh.</p>
-    <div id="error">
+    <div id="error" v-bind:style="{ display: displayError }">
+      <p>Ошибка. Кажется, вы сюда зашли не через главную страницу.</p>
+    </div>
+    <div id="success" v-bind:style="{ display: displaySuccess }">
+      <p class="title">Пожалуйста, войдите в системуfghfghfgh.</p>
+      <div id="error">
         Всё плохо.
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'All',
+  data: () => ({
+    displayError: 'none',
+    displaySuccess: 'none'
+  }),
+  created: function () {
+    console.log(this.token);
+    this.http.post('api/v1/data/', {
+        "token": this.token 
+      })
+      // ответ на запрос
+      .then(response => {
+        this.displaySuccess = 'block';
+        //alert("Пользователь найден");
+        //this.token = response.token;
+        //window.location = "/all/";
+      })
+      // обработка ошибок
+      .catch(e => {
+        console.log(e);
+        this.displayError = 'block';
+        console.log("Что-то не то введено " + this.token);
+      })
+    
+  },
   methods:{
     
   }  

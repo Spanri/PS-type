@@ -2102,7 +2102,7 @@ app.set('secret', '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3');
 //logging
 app.use(_bodyParser2.default.json());
 app.use(_bodyParser2.default.urlencoded({ extended: false }));
-app.use(_express2.default.static(_path2.default.join(__dirname, 'gui/dist')));
+app.use(_express2.default.static(_path2.default.join(__dirname, '/gui/dist')));
 
 app.use((0, _expressJwt2.default)({
   secret: app.get('secret')

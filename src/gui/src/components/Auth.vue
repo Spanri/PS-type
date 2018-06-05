@@ -16,22 +16,6 @@
 
 <script>
 import axios from 'axios';
-//import * as Auth from './../routes/api/v1/auth';
-
-const http = axios.create({
-  baseURL: 'https://pstype.herokuapp.com/',
-    //baseURL: 'localhost:8080/',
-  headers: {
-    'Content-Type': 'application/json',
-    crossDomain: true
-  }
-    /*'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'Content-Type,Authorization',
-    'Access-Control-Request-Method' : 'GET/POST/OPTIONS',
-    timeout: 10000,
-    withCredentials: false
-  }*/
-})
 
 export default {
   name: 'Auth',
@@ -41,18 +25,21 @@ export default {
   }),
   methods: {
     login: function (event) {
+        console.log(this.username+' '+this.password);
       // отправка запроса
-      http.post('api/v1/signin', {
-        "username": "admin0", "password": "hardpassword" 
+      this.http.post('api/v1/signin', {
+        "username": this.username, "password": this.password 
       })
       // ответ на запрос
-      .then(response => {
-        console.log("Пользователь найден");
-        alert('пользователь найден');
+      .then(res => {
+        this.token = res.data.token;
+        console.log(this.token);
+        window.location = "/all/";
       })
       // обработка ошибок
       .catch(e => {
         console.log(e);
+        alert("Что-то не то введено. Описание: " + e);
       })
     
 
