@@ -2098,6 +2098,14 @@ db.once('open', function () {
 var app = (0, _express2.default)();
 
 app.set('secret', '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3');
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header('Access-Control-Allow-Credentials', true);
+  res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'origin, content-type, accept');
+  // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 //logging
 app.use(_bodyParser2.default.json());
@@ -2114,15 +2122,6 @@ app.use((0, _expressJwt2.default)({
 //path
 app.use('/', _index2.default);
 app.use('/api', _api2.default);
-
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header('Access-Control-Allow-Credentials', true);
-  res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'origin, content-type, accept');
-  // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
 
 // app.all('*', function(req, res, next) {
 //   res.header("Access-Control-Allow-Origin", "*");
