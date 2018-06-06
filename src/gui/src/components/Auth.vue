@@ -1,14 +1,14 @@
 <template>
   <div class="auth">
-    <p class="title">Пожалуйста, войдите в систему.</p>
+    <p class="title">Авторизация</p>
     <div class="inp">
         <input id="username" type="text" v-model="username" placeholder="Логин" />
     </div>
     <div class="inp">
         <input id="password" type="password" v-model="password" placeholder="Пароль"/>
     </div>
-    <input id="login" type="submit" value="Войти" v-on:click="login"/>
-    <div id="error">
+    <input id="login" type="submit" value="" v-on:click="login"/>
+    <div id="error" v-bind:style="{ display: displayError }">
         Всё плохо.
     </div>
   </div>
@@ -20,27 +20,28 @@ import axios from 'axios';
 export default {
   name: 'Auth',
   data: () => ({
+    displayError: 'none',
     username: "",
     password: ""
   }),
   methods: {
     login: function (event) {
-        console.log(this.username+' '+this.password);
-      // отправка запроса
-      this.http.post('api/v1/signin', {
-        "username": this.username, "password": this.password 
-      })
-      // ответ на запрос
-      .then(res => {
-        this.token = res.data.token;
-        console.log(this.token);
-        window.location = "/all/";
-      })
-      // обработка ошибок
-      .catch(e => {
-        console.log(e);
-        alert("Что-то не то введено. Описание: " + e);
-      })
+        this.displayError = 'none';
+        // отправка запроса
+        this.http.post('api/v1/signin', {
+            "username": this.username, "password": this.password 
+        })
+        // ответ на запрос
+        .then(res => {
+            sessionStorage.setItem('token', res.data.token);
+            this.$router.push({ path: '/main' });
+        })
+        // обработка ошибок
+        .catch(e => {
+            console.log(e);
+            this.displayError = 'block';
+            //alert("Что-то не то введено. Описание: " + e);
+        })
     
 
 /*
@@ -107,8 +108,6 @@ export default {
           });
       });
 */
-
-      //window.location = "/all/";
     }
   }
 }
@@ -117,9 +116,11 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
-.auth p, #error{
-  padding: 15px;
-  margin: 0;
+
+
+#error{
+    padding: 15px;
+    margin: 0;
 }
 
 .inp input{
@@ -130,29 +131,48 @@ export default {
     font-size: 18px;
     text-align: center;
     border: none;
-    /*-webkit-box-shadow: inset 0 0 0 50px #ffffff;*/
+    -webkit-box-shadow: inset 0 0 0 50px #ffffffda;
     -webkit-text-fill-color: rgb(55, 63, 48);
+}
+
+input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill{
+    background-color: rgb(37, 73, 121);
 }
 
 .inp input::-webkit-input-placeholder {color:rgb(255, 255, 255);}
 
 #login{
-  background: white;
+  
+  background: #41cadc url('../assets/login_ico.png');
+  background-size: 12% ;
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 225.2px;
+  height: 30.8px;
+  color: white;
   border: none;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin: 15px;
+  padding-left: 30px;
+  padding-right: 30px;
+  margin: 10px;
+  margin-bottom: 20px;
   font-size: 18px;
 }
 
-#error{
-  display: none;
+#login:hover{
+    cursor: pointer;
+}
+
+.title{
+    background: #41cadc;
+    color: #ffffff;
+    margin-bottom: 10px;
+    padding: 10px;
 }
 
 .auth{
     background: #c7e7e2;
     margin: auto;
-    width: 500px;
+    width: 400px;
     color: black;
     font-size: 18px;
 }

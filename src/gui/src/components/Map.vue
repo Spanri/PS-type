@@ -1,7 +1,7 @@
 <template>
   <div class="auth">
     <div id="error">
-        Всё плохо.
+        Пользователи на карте.
     </div>
   </div>
 </template>

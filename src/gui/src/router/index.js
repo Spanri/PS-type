@@ -2,8 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Auth from '@/components/Auth'
-import All from '@/components/All'
-import Maps from '@/components/Map'
+import Main from '@/components/Main'
 
 Vue.use(Router)
 
@@ -16,14 +15,9 @@ export default new Router({
       component: Auth
     },
     {
-      path: '/all',
-      name: 'All',
-      component: All
-    },
-    {
-      path: '/map',
-      name: 'Map',
-      component: Maps
+      path: '/main',
+      name: 'Main',
+      component: Main
     }
   ]
 })
