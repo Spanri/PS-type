@@ -18,19 +18,40 @@ Vue.prototype.http = axios.create({
 Vue.use(Vuex);
 const store = new Vuex.Store({
     state: {
-      all: []
+      all: [],
+      doc: '',
+      component: null,
+      id: ''
     },
     actions: {
     },
     mutations: {
       all(state, all) {
         state.all = all;
+      },
+      doc(state, doc) {
+        state.doc = doc;
+      },
+      component(state, component) {
+        state.component = component;
+      },
+      id(state, id) {
+        state.id = id;
       }
     },
     getters: {
       all(state) {
         return state.all
-      }
+      },
+      doc(state) {
+        return state.doc
+      },
+      component(state) {
+        return state.component
+      },
+      allId(state) {
+        return state.all[state.id]
+      },
     },  
     modules: {}
 });

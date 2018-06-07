@@ -10,12 +10,9 @@
     <div id="success" v-bind:style="{ display: displaySuccess }">
       <header>
         <div class="title">
-
           <span class="i"></span>
           <p style="display:inline-block">Панель управления</p>
-          
         </div>
-        <!-- <hr noshade size="2px" color="#41cadc"> -->
         <div class="nav">
           <div class="nav2" 
               v-bind:class="{ colorNav: todo.isActive}" 
@@ -28,7 +25,7 @@
         </div>
       </header>
       <div class="right">
-        <div :is="componentName"></div>
+        <div :is="this.$store.getters.component"></div>
       </div>
     </div>
   </div>
@@ -38,10 +35,12 @@
 import axios from 'axios';
 import PageAll from './All.vue';
 import PageMap from './Map.vue';
+import PageDoc from './Documentation.vue';
+import PageOneUser from './OneUser.vue';
 
 export default {
   name: 'Main',
-  components: { PageAll, PageMap },
+  components: { PageAll, PageMap, PageDoc, PageOneUser },
   data: () => ({
     displayError: 'none',
     displaySuccess: 'none',
@@ -49,29 +48,32 @@ export default {
     todos: [
                 { text: 'Все юзеры', component: 'page-all', '--before': '\'\\f007\'', '--colorNav': '#41cadc', isActive: false },
                 { text: 'Карты', component: 'page-map', '--before': '\'\\f041\'', '--colorNav': '#41cadc', isActive: false },
+                { text: 'Документация', component: 'page-doc', '--before': '\'\\f15c\'', '--colorNav': '#41cadc', isActive: false },
             ],
   }),
-  created: function () {
-    this.http.post('api/v1/data/', {
+  created: async function () {
+    await this.http.post('api/v1/data/', {
         "token": sessionStorage.getItem('token') 
       })
       // ответ на запрос
-      .then(response => {
+      .then(async response => {
         this.displaySuccess = 'grid';
         console.log("Ura vse cool");
-        this.http.post('api/v1/data/all', {
+        await this.http.post('api/v1/data/all', {
             "token": sessionStorage.getItem('token') 
           })
           // ответ на запрос
           .then(response => {
-            sessionStorage.setItem('all', response.data.all);
-            console.log(sessionStorage.getItem('all') );
+            this.$store.commit('all', response.data.all);
+            var doc = response.data.all.filter(function(row) {
+              return Object.keys(row).some(function (key) {
+                return String(row[key]).toLowerCase().indexOf('admin0') > -1;
+              })
+            });
+            this.$store.commit('doc', doc['0'].name);
+            console.log(this.$store.getters.all);
+            console.log(this.$store.getters.doc);
             
-          })
-          // обработка ошибок
-          .catch(e => {
-            console.log(e);
-            console.log("Что-то не то введено");
           })
       })
       // обработка ошибок
@@ -90,7 +92,8 @@ export default {
           todo['--colorNav'] = '#41cadc';
         }
         let todo = this.todos[id];
-        this.componentName = todo.component;
+        this.$store.commit('component', todo.component);
+        //this.componentName = todo.component;
         todo.isActive = true;
         todo['--colorNav'] = 'white';
     }
@@ -187,20 +190,21 @@ header p{
 }
 
 .nav2:hover, .colorNav{
-  background-color:#8ecbd3;
-  color: #ffffff;
-  cursor: pointer;
+    background-color:#8ecbd3;
+    color: #ffffff;
+    cursor: pointer;
 }
 
 .nav2:before {
-content: var(--before); /* добавляем иконку дом */
-font-family: FontAwesome;
-color: var(--colorNav);
-padding-right: 10px;
+    content: var(--before); /* добавляем иконку дом */
+    font-family: FontAwesome;
+    color: var(--colorNav);
+    display: inline-block;
+    min-width: 30px;
 }
 
 .nav2:hover::before {
-  color:white;
+    color:white;
 }
 
 #success{

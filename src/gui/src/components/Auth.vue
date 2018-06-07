@@ -40,74 +40,7 @@ export default {
         .catch(e => {
             console.log(e);
             this.displayError = 'block';
-            //alert("Что-то не то введено. Описание: " + e);
         })
-    
-
-/*
-      var all = [], token;
-      $("#login").click(()=>{
-          let username = $("#username").val();
-          let password = $("#password").val();
-          $.post("/api/v1/signin", { "username": username, "password": password }, (auth) => {
-              console.log("Пользователь найден");
-              token = auth.token;
-              $.post("/api/v1/data",
-                  { "token": token },
-                  (data) => {
-                      if (data.username == "admin0" || data.username == "id136955296") {
-                          console.log("Загрузка данных");
-                          $("#auth").css("display","none");
-                          $("#base").css("display","grid");
-                          $("body").css("background","white");
-                          $("#line").css("height","auto");
-                          $.ajax({
-                              type: "POST",
-                              url: "/api/v1/data/all",
-                              data: { "token": token },
-                              success: (dataAll) => {
-                                  if (dataAll) {
-                                      all = dataAll.all;
-                                      window.all = all;
-                                      console.log(window.all);
-                                      tableUser();
-                                      $("#preloader").hide();
-                                  }
-                              },
-                              fail: function (response, status, error) {
-                                  console.log("Error: " + response.responseText);
-                                  $("#error").html(error);
-                                  $("#error").css("display","block");
-                                  setInterval(()=>{
-                                      $("#error").css("display","none");
-                                  },3000);
-                              }
-                          });
-                      } else {
-                          $("#error").html("Круто, но ты не админ:^(");
-                          $("#error").css("display","block");
-                          setInterval(()=>{
-                              $("#error").css("display","none");
-                          },3000);
-                      }
-                  }).fail(function (response, status, error) {
-                      console.log("Error: " + response.responseText);
-                      $("#error").html(error);
-                      $("#error").css("display","block");
-                      setInterval(()=>{
-                          $("#error").css("display","none");
-                      },3000);
-                  });
-          }).fail(function (response, status, error) {
-              console.log("Error: " + response.responseText);
-              $("#error").html(error);
-              $("#error").css("display","block");
-              setInterval(()=>{
-                  $("#error").css("display","none");
-              },2000);
-          });
-      });
-*/
     }
   }
 }

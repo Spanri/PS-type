@@ -51,7 +51,7 @@ google maps | гугл карты для админки
 `username` | имя пользователя | String | да
 `password` | пароль | String | да
 `age` | возраст | Number | нет
-`sex` | пол | Boolean | нет
+`sex` | пол | String | нет
 `name` | имя | String | нет
 `experience` | опыт | String | нет
 `country` | страна | String | нет
@@ -106,7 +106,7 @@ google maps | гугл карты для админки
 ---------|----------|-----|---------------
 `token` | токен | String | да
 `age` | возраст | Number | нет
-`sex` | пол | Boolean | нет
+`sex` | пол | String | нет
 `name` | имя | String | нет
 `experience` | опыт | String | нет
 `country` | страна | String | нет
