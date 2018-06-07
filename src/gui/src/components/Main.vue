@@ -32,182 +32,207 @@
 </template>
 
 <script>
-import axios from 'axios';
-import PageAll from './All.vue';
-import PageMap from './Map.vue';
-import PageDoc from './Documentation.vue';
-import PageOneUser from './OneUser.vue';
+import axios from "axios";
+import PageAll from "./All.vue";
+import PageMap from "./Map.vue";
+import PageDoc from "./Documentation.vue";
+import PageOneUser from "./OneUser.vue";
 
 export default {
-  name: 'Main',
+  name: "Main",
   components: { PageAll, PageMap, PageDoc, PageOneUser },
   data: () => ({
-    displayError: 'none',
-    displaySuccess: 'none',
+    displayError: "none",
+    displaySuccess: "none",
     componentName: null,
     todos: [
-                { text: 'Все юзеры', component: 'page-all', '--before': '\'\\f007\'', '--colorNav': '#41cadc', isActive: false },
-                { text: 'Карты', component: 'page-map', '--before': '\'\\f041\'', '--colorNav': '#41cadc', isActive: false },
-                { text: 'Документация', component: 'page-doc', '--before': '\'\\f15c\'', '--colorNav': '#41cadc', isActive: false },
-            ],
+      {
+        text: "Все юзеры",
+        component: "page-all",
+        "--before": "'\\f007'",
+        "--colorNav": "#41cadc",
+        isActive: false
+      },
+      {
+        text: "Карты",
+        component: "page-map",
+        "--before": "'\\f041'",
+        "--colorNav": "#41cadc",
+        isActive: false
+      },
+      {
+        text: "Документация",
+        component: "page-doc",
+        "--before": "'\\f15c'",
+        "--colorNav": "#41cadc",
+        isActive: false
+      }
+    ]
   }),
-  created: async function () {
-    await this.http.post('api/v1/data/', {
-        "token": sessionStorage.getItem('token') 
+  created: async function() {
+    await this.http
+      .post("api/v1/data/", {
+        token: sessionStorage.getItem("token")
       })
       // ответ на запрос
       .then(async response => {
-        this.displaySuccess = 'grid';
+        this.displaySuccess = "grid";
         console.log("Ura vse cool");
-        await this.http.post('api/v1/data/all', {
-            "token": sessionStorage.getItem('token') 
+        await this.http
+          .post("api/v1/data/all", {
+            token: sessionStorage.getItem("token")
           })
           // ответ на запрос
           .then(response => {
-            this.$store.commit('all', response.data.all);
+            this.$store.commit("all", response.data.all);
             var doc = response.data.all.filter(function(row) {
-              return Object.keys(row).some(function (key) {
-                return String(row[key]).toLowerCase().indexOf('admin0') > -1;
-              })
+              return Object.keys(row).some(function(key) {
+                return (
+                  String(row[key])
+                    .toLowerCase()
+                    .indexOf("admin0") > -1
+                );
+              });
             });
-            this.$store.commit('doc', doc['0'].name);
+            this.$store.commit("doc", doc["0"].name);
             console.log(this.$store.getters.all);
             console.log(this.$store.getters.doc);
-            
-          })
+          });
       })
       // обработка ошибок
       .catch(e => {
         console.log(e);
-        this.displayError = 'block';
+        this.displayError = "block";
         console.log("Что-то не то введено");
-      })
+      });
     let self = this;
     self.nav(0);
   },
-  methods:{
+  methods: {
     nav: function(id) {
-        for(let todo of this.todos){
-          todo.isActive = false;
-          todo['--colorNav'] = '#41cadc';
-        }
-        let todo = this.todos[id];
-        this.$store.commit('component', todo.component);
-        //this.componentName = todo.component;
-        todo.isActive = true;
-        todo['--colorNav'] = 'white';
+      for (let todo of this.todos) {
+        todo.isActive = false;
+        todo["--colorNav"] = "#41cadc";
+      }
+      let todo = this.todos[id];
+      this.$store.commit("component", todo.component);
+      //this.componentName = todo.component;
+      todo.isActive = true;
+      todo["--colorNav"] = "white";
     }
-  }  
-}
+  }
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-@import '../assets/css/font-awesome.min.css';
+@import "../assets/css/font-awesome.min.css";
 
-.auth p, #error{
-    padding: 15px;
-    margin: 0;
+.auth p,
+#error {
+  padding: 15px;
+  margin: 0;
 }
 
-.inp input{
-    color: rgb(55, 63, 48);
-    background: #ffffff;
-    padding: 5px;
-    margin: 10px;
-    font-size: 18px;
-    text-align: center;
-    border: none;
-    /* -webkit-box-shadow: inset 0 0 0 50px #ffffff; */
-    -webkit-text-fill-color: rgb(55, 63, 48);
+.inp input {
+  color: rgb(55, 63, 48);
+  background: #ffffff;
+  padding: 5px;
+  margin: 10px;
+  font-size: 18px;
+  text-align: center;
+  border: none;
+  /* -webkit-box-shadow: inset 0 0 0 50px #ffffff; */
+  -webkit-text-fill-color: rgb(55, 63, 48);
 }
 
-.inp input::-webkit-input-placeholder {color:rgb(255, 255, 255);}
-
-.main{
-    margin: 0;
-    width: 100vw;
-    min-height: 100vh;
-    color: rgb(37, 73, 121);
-    
-    font-size: 18px;
-    
+.inp input::-webkit-input-placeholder {
+  color: rgb(255, 255, 255);
 }
 
-header{
-    background: #c7e7e2;
-    min-height: 100vh;
-    min-width: 250px;
-    text-align: left;
-    
+.main {
+  margin: 0;
+  width: 100vw;
+  min-height: 100vh;
+  color: rgb(37, 73, 121);
+
+  font-size: 18px;
 }
 
-.nav{
-    display: grid;
-    grid-template-rows: repeat(2,auto);
+header {
+  background: #c7e7e2;
+  min-height: 100vh;
+  min-width: 250px;
+  text-align: left;
 }
 
-header p{
-    /* margin-left: 0px;
+.nav {
+  display: grid;
+  grid-template-rows: repeat(2, auto);
+}
+
+header p {
+  /* margin-left: 0px;
     margin-right: 0px;
     padding: 10px;
     padding-left: 20px; */
-    margin: 0;
-    padding: 10px;
-    background-color:#41cadc;
-    color: #ffffff;
-    position: relative;
-    left: 60px;
+  margin: 0;
+  padding: 10px;
+  background-color: #41cadc;
+  color: #ffffff;
+  position: relative;
+  left: 60px;
 }
 
-.title{
-    margin: 15px;
-    margin-left: 0px;
-    margin-right: 0px;
-    background-color:#41cadc;
+.title {
+  margin: 15px;
+  margin-left: 0px;
+  margin-right: 0px;
+  background-color: #41cadc;
 }
 
 .i {
-    background-image:url(../assets/home.svg); 
-    width:50.5px; 
-    height:50.5px; 
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    display:inline-block;
-    vertical-align:middle;
-    z-index: 2;
+  background-image: url(../assets/home.svg);
+  width: 50.5px;
+  height: 50.5px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: inline-block;
+  vertical-align: middle;
+  z-index: 2;
 }
 
-.nav2{
-    /*margin: 3px;*/
-    margin-left: 0px;
-    margin-right: 0px;
-    padding: 10px;
-    padding-left: 20px;
-    text-decoration: none;
-    color: rgb(41, 59, 83);
+.nav2 {
+  /*margin: 3px;*/
+  margin-left: 0px;
+  margin-right: 0px;
+  padding: 10px;
+  padding-left: 20px;
+  text-decoration: none;
+  color: rgb(41, 59, 83);
 }
 
-.nav2:hover, .colorNav{
-    background-color:#8ecbd3;
-    color: #ffffff;
-    cursor: pointer;
+.nav2:hover,
+.colorNav {
+  background-color: #8ecbd3;
+  color: #ffffff;
+  cursor: pointer;
 }
 
 .nav2:before {
-    content: var(--before); /* добавляем иконку дом */
-    font-family: FontAwesome;
-    color: var(--colorNav);
-    display: inline-block;
-    min-width: 30px;
+  content: var(--before); /* добавляем иконку дом */
+  font-family: FontAwesome;
+  color: var(--colorNav);
+  display: inline-block;
+  min-width: 30px;
 }
 
 .nav2:hover::before {
-    color:white;
+  color: white;
 }
 
-#success{
-    grid-template-columns: max-content auto;
+#success {
+  grid-template-columns: max-content auto;
 }
 </style>
