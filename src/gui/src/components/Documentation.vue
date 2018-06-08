@@ -95,6 +95,12 @@ export default {
     font-size: 18px;
     background-color: #8ecbd3;
     color: white;
+    cursor: pointer;
+}
+
+.title button:hover{
+    background-color: #c7e7e2;
+    color: rgb(41, 59, 83);
 }
 
 .tooltip, .doc{

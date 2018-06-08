@@ -77,7 +77,6 @@ export default {
       // ответ на запрос
       .then(async response => {
         this.displaySuccess = "grid";
-        console.log("Ura vse cool");
         await this.http
           .post("api/v1/data/all", {
             token: sessionStorage.getItem("token")
@@ -95,15 +94,12 @@ export default {
               });
             });
             this.$store.commit("doc", doc["0"].name);
-            console.log(this.$store.getters.all);
-            console.log(this.$store.getters.doc);
           });
       })
       // обработка ошибок
       .catch(e => {
         console.log(e);
         this.displayError = "block";
-        console.log("Что-то не то введено");
       });
     let self = this;
     self.nav(0);
@@ -116,7 +112,6 @@ export default {
       }
       let todo = this.todos[id];
       this.$store.commit("component", todo.component);
-      //this.componentName = todo.component;
       todo.isActive = true;
       todo["--colorNav"] = "white";
     }
@@ -172,10 +167,6 @@ header {
 }
 
 header p {
-  /* margin-left: 0px;
-    margin-right: 0px;
-    padding: 10px;
-    padding-left: 20px; */
   margin: 0;
   padding: 10px;
   background-color: #41cadc;

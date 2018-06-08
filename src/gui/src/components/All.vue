@@ -85,6 +85,7 @@ export default {
         },
         toOneUser: function(id) {
             this.$store.commit('id', id);
+            this.$store.commit('id2', true); // первый вход в template
             this.$store.commit('component', 'page-one-user');
         }
     }

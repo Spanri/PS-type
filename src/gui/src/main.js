@@ -21,7 +21,8 @@ const store = new Vuex.Store({
 		all: [],
 		doc: '',
 		component: null,
-		id: ''
+		id: '',
+		id2: ''	// проверка для OneUser, является ли вход в этот template первым
 	},
 	actions: {
 	},
@@ -37,6 +38,9 @@ const store = new Vuex.Store({
 		},
 		id(state, id) {
 			state.id = id;
+		},
+		id2(state, id) {
+			state.id2 = id;
 		}
 	},
 	getters: {
@@ -51,6 +55,9 @@ const store = new Vuex.Store({
 		},
 		allId(state) {
 			return state.all[state.id]
+		},
+		id2(state) {
+			return state.id2
 		},
 	},
 	modules: {}

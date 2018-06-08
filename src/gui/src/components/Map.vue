@@ -58,7 +58,6 @@ export default {
 				})
 			})
 			all = all["0"];
-			console.log(all);
 			//var all = this.$store.getters.all[id];
 			if (this.flightPath) this.flightPath.setMap(null);
 			let geometry = Array();
@@ -70,7 +69,7 @@ export default {
 			this.flightPath = new google.maps.Polyline({
 				path: geometry,
 				geodesic: true,
-				strokeColor: "#FF0000",
+				strokeColor: "rgb(41, 59, 83)",
 				strokeOpacity: 1.0,
 				strokeWeight: 2
 			});
