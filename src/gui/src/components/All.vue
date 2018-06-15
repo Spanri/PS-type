@@ -20,7 +20,7 @@
                 <!-- Фильтруем и выводим строки (td) только те, что подходят -->
                 <tr v-for="(entry, id) in filteredData" v-bind:key="entry.id" @click="toOneUser(id)">
                     <td v-for="key in columns" v-bind:key="key.id">
-                        {{entry[key]}}
+                        {{ (key == "name" && entry["username"]  == "admin0") ? "admin0" : entry[key]}}
                     </td>
                 </tr>
             </tbody>
@@ -37,8 +37,8 @@ export default {
         filterKey: '',
         sortKey: '',
         sortOrders: {},
-        columns: ['username', 'age', 'sex'],
-        columnsName: ['Имя', 'Возраст', 'Пол'],
+        columns: ['username', 'name', 'age', 'sex'],
+        columnsName: ['Имя (username)', 'Имя (name)', 'Возраст', 'Пол'],
         data: ''
     }),
     created: function(){
@@ -85,7 +85,6 @@ export default {
         },
         toOneUser: function(id) {
             this.$store.commit('id', id);
-            this.$store.commit('id2', true); // первый вход в template
             this.$store.commit('component', 'page-one-user');
         }
     }

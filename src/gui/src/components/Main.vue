@@ -37,10 +37,11 @@ import PageAll from "./All.vue";
 import PageMap from "./Map.vue";
 import PageDoc from "./Documentation.vue";
 import PageOneUser from "./OneUser.vue";
+import OtherAccel from "./otherAccel.vue";
 
 export default {
   name: "Main",
-  components: { PageAll, PageMap, PageDoc, PageOneUser },
+  components: { PageAll, PageMap, PageDoc, PageOneUser, OtherAccel },
   data: () => ({
     displayError: "none",
     displaySuccess: "none",

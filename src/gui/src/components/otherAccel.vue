@@ -1,34 +1,40 @@
 <template>
     <div class="oneUser" :class="begin">
+        <button 
+            v-if="this.$store.getters.masForOtherAccel == this.data"
+            @click="back()"> 
+            &#8592; Назад
+        </button>
         <li>
             <div style="display:inline-block"
                 :class="{bold: isFolder}"
                 @click="toggle">
                 {{ name }}: 
                 <span v-if="isFolder || isArray">[{{ open ? '-' : '+' }}]</span>
-                <button 
-                    v-if="name == 'accel'" 
-                    @click="toOtherAccel()" >
-                    Другая версия отображения
-                </button>
             </div>
-            <p 
+            <!-- <p 
                 style="display:inline-block; margin:0" 
                 v-show="open" 
                 v-if="isArray">
                 {{ data }}
-            </p>
-            <ul style="margin:0" v-show="open" v-else-if="isFolder">
+            </p> -->
+            <ul style="margin:0" v-show="open" v-if="isArray">
                 <!-- v-if="isFolder" -->
                 
                 <item
                     class="item"
                     v-for="(value, key) in data"
                     :key="key"
-                    :model="{value: value, name: key}">
+                    :model="{value: value, name: key}"
+                    :first="false">
                 </item>
             </ul>
-            
+            <p 
+                style="display:inline-block; margin:0" 
+                v-show="open" 
+                v-else-if="isFolder">
+                {{ data }}
+            </p>
             <p style="display:inline-block; margin:0" v-else>
                 {{ data }}
             </p>
@@ -38,6 +44,7 @@
 
 <script>
 
+
 export default {
     name: 'item',           // название компонента для рекурсивного вывода
     props: {
@@ -46,27 +53,24 @@ export default {
             required: false,
             default: function () {
                 return { 
-                    value: this.$store.getters.allId,
-                    name: this.$store.getters.allId.username
+                    value: this.$store.getters.masForOtherAccel,
+                    name: 'accel'
                 }
             }
-        },       
+        }     
     },
     data: () => ({
-        open: false,        // раскрыть список детей (используется в v-show)
+        open: true,        // раскрыть список детей (используется в v-show)
     }),
-    created: function() {
-        
-        //console.log(this.data[0]);
-    },
     computed: {
+        // для оформления первого элемента (accel)
         begin: function () {
-            if(this.$store.getters.allId == this.data)
+            if(this.$store.getters.masForOtherAccel == this.data)
                 return "begin";
             else return "";
         },
         data: function () {
-            if(this.model.value == this.$store.getters.allId || this.model.value.length < 10)
+            if(this.model.value == this.$store.getters.masForOtherAccel || this.model.value.length < 10)
                 this.open = true;
             return this.model.value;
         },
@@ -97,10 +101,9 @@ export default {
                 this.open = !this.open;
             }
         },
-        toOtherAccel: async function () {
-            await this.$store.commit('masForOtherAccel', this.data);
-            this.$store.commit('component', 'other-accel'); 
-        }
+        back: function () {
+            this.$store.commit('component', 'page-one-user');
+        },
     } 
 }
 </script>
@@ -116,6 +119,10 @@ export default {
 
 .begin{
     padding: 15px;
+}
+
+button{
+    margin-bottom: 15px;
 }
 
 .item {

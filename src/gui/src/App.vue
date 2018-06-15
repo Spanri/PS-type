@@ -19,4 +19,18 @@ export default {
   color: #2c3e50;
   margin: 0px;
 }
+
+button{
+    border: 0;
+    padding: 7px;
+    font-size: 18px;
+    background-color: #8ecbd3;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover{
+    background-color: #c7e7e2;
+    color: rgb(41, 59, 83);
+}
 </style>

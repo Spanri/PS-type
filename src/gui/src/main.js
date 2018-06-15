@@ -22,7 +22,7 @@ const store = new Vuex.Store({
 		doc: '',
 		component: null,
 		id: '',
-		id2: ''	// проверка для OneUser, является ли вход в этот template первым
+		masForOtherAccel: [],
 	},
 	actions: {
 	},
@@ -39,8 +39,8 @@ const store = new Vuex.Store({
 		id(state, id) {
 			state.id = id;
 		},
-		id2(state, id) {
-			state.id2 = id;
+		masForOtherAccel(state, id) {
+			state.masForOtherAccel = id;
 		}
 	},
 	getters: {
@@ -56,8 +56,19 @@ const store = new Vuex.Store({
 		allId(state) {
 			return state.all[state.id]
 		},
-		id2(state) {
-			return state.id2
+		masForOtherAccel(state) {
+			state.masForOtherAccel.mas = [];
+			let name = Object.keys(state.masForOtherAccel)[0];
+			let length = state.masForOtherAccel[name].length; //сколько элементов в каждом массиве
+			for(let i = 0;i<length;i++) {
+				let length2 = Object.keys(state.masForOtherAccel).length - 1; //для количества элементов-названий полей в accel (9 - map(1))
+				state.masForOtherAccel.mas[i] = {};
+				for(let j = 0;j<length2;j++) {
+					let name = Object.keys(state.masForOtherAccel)[j]; // получаем имя
+					state.masForOtherAccel.mas[i][name] = (state.masForOtherAccel[name][i]);
+				}
+			}
+			return state.masForOtherAccel.mas;
 		},
 	},
 	modules: {}

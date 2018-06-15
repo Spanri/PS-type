@@ -89,20 +89,6 @@ export default {
     margin: 0px;
 }
 
-.title button{
-    border: 0;
-    padding: 10px;
-    font-size: 18px;
-    background-color: #8ecbd3;
-    color: white;
-    cursor: pointer;
-}
-
-.title button:hover{
-    background-color: #c7e7e2;
-    color: rgb(41, 59, 83);
-}
-
 .tooltip, .doc{
     margin: 30px;
     margin-top: 10px;
