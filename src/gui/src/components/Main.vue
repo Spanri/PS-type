@@ -65,7 +65,7 @@ export default {
       {
         text: "Заметки",
         component: "page-doc",
-        "--before": "'\\f15c'",
+        "--before": "'\\f040'",
         "--colorNav": "#41cadc",
         isActive: false
       },
