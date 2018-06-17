@@ -353,7 +353,7 @@ module.exports = require("regenerator-runtime");
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+	value: true
 });
 
 var _regenerator = __webpack_require__(4);
@@ -388,598 +388,643 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 var router = _express2.default.Router();
 
+//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRlc3RPYmplY3RQb2ludHMiLCJfaWQiOiI1YjI1NzIxNjQyZDI1MTAwMjBkYzIyZTIiLCJpYXQiOjE1MjkxODUwNjksImV4cCI6MTUzMDA0OTA2OX0.ye4jFLKR64SOP1Cqx1cHXOemcUSyGcgP06F5AfPLer4
+
 router.post('/change', function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee2(req, res, next) {
-    return _regenerator2.default.wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            _jsonwebtoken2.default.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', function () {
-              var _ref2 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee(err, token) {
-                var user, age, sex, name, username, experience, country, city;
-                return _regenerator2.default.wrap(function _callee$(_context) {
-                  while (1) {
-                    switch (_context.prev = _context.next) {
-                      case 0:
-                        if (!err) {
-                          _context.next = 4;
-                          break;
-                        }
+	var _ref = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee2(req, res, next) {
+		return _regenerator2.default.wrap(function _callee2$(_context2) {
+			while (1) {
+				switch (_context2.prev = _context2.next) {
+					case 0:
+						_jsonwebtoken2.default.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', function () {
+							var _ref2 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee(err, token) {
+								var user, age, sex, name, username, experience, country, city;
+								return _regenerator2.default.wrap(function _callee$(_context) {
+									while (1) {
+										switch (_context.prev = _context.next) {
+											case 0:
+												if (!err) {
+													_context.next = 4;
+													break;
+												}
 
-                        res.status(500).send({
-                          status: 'error',
-                          message: 'Verify error',
-                          message2: err.message
-                        });
-                        _context.next = 28;
-                        break;
+												res.status(500).send({
+													status: 'error',
+													message: 'Verify error',
+													message2: err.message
+												});
+												_context.next = 28;
+												break;
 
-                      case 4:
-                        user = null;
-                        _context.prev = 5;
-                        _context.next = 8;
-                        return _user2.default.findOne({ _id: token._id }).exec();
+											case 4:
+												user = null;
+												_context.prev = 5;
+												_context.next = 8;
+												return _user2.default.findOne({ _id: token._id }).exec();
 
-                      case 8:
-                        user = _context.sent;
+											case 8:
+												user = _context.sent;
 
-                        if (user) {
-                          _context.next = 11;
-                          break;
-                        }
+												if (user) {
+													_context.next = 11;
+													break;
+												}
 
-                        return _context.abrupt('return', (0, _helpers.notFound)(res));
+												return _context.abrupt('return', (0, _helpers.notFound)(res));
 
-                      case 11:
-                        age = req.body.age, sex = req.body.sex, name = req.body.name, username = req.body.username, experience = req.body.experience, country = req.body.country, city = req.body.city;
+											case 11:
+												age = req.body.age, sex = req.body.sex, name = req.body.name, username = req.body.username, experience = req.body.experience, country = req.body.country, city = req.body.city;
 
-                        if (age && age != user.age) user.age = age;
-                        if (sex && sex != user.sex) user.sex = sex;
-                        if (name && name != user.name) user.name = name;
-                        if (username && username != user.username) user.username = username;
-                        if (experience && experience != user.experience) user.experience = experience;
-                        if (country && country != user.country) user.country = country;
-                        if (city && city != user.city) user.city = city;
-                        console.log(user.username);
-                        _context.next = 22;
-                        return user.save();
+												if (age && age != user.age) user.age = age;
+												if (sex && sex != user.sex) user.sex = sex;
+												if (name && name != user.name) user.name = name;
+												if (username && username != user.username) user.username = username;
+												if (experience && experience != user.experience) user.experience = experience;
+												if (country && country != user.country) user.country = country;
+												if (city && city != user.city) user.city = city;
+												console.log(user.username);
+												_context.next = 22;
+												return user.save();
 
-                      case 22:
-                        return _context.abrupt('return', (0, _helpers.ok)(res));
+											case 22:
+												return _context.abrupt('return', (0, _helpers.ok)(res));
 
-                      case 25:
-                        _context.prev = 25;
-                        _context.t0 = _context['catch'](5);
-                        return _context.abrupt('return', (0, _helpers.dberr)(res));
+											case 25:
+												_context.prev = 25;
+												_context.t0 = _context['catch'](5);
+												return _context.abrupt('return', (0, _helpers.dberr)(res));
 
-                      case 28:
-                      case 'end':
-                        return _context.stop();
-                    }
-                  }
-                }, _callee, undefined, [[5, 25]]);
-              }));
+											case 28:
+											case 'end':
+												return _context.stop();
+										}
+									}
+								}, _callee, undefined, [[5, 25]]);
+							}));
 
-              return function (_x4, _x5) {
-                return _ref2.apply(this, arguments);
-              };
-            }());
+							return function (_x4, _x5) {
+								return _ref2.apply(this, arguments);
+							};
+						}());
 
-          case 1:
-          case 'end':
-            return _context2.stop();
-        }
-      }
-    }, _callee2, undefined);
-  }));
+					case 1:
+					case 'end':
+						return _context2.stop();
+				}
+			}
+		}, _callee2, undefined);
+	}));
 
-  return function (_x, _x2, _x3) {
-    return _ref.apply(this, arguments);
-  };
+	return function (_x, _x2, _x3) {
+		return _ref.apply(this, arguments);
+	};
 }());
 
-router.post('/all', function () {
-  var _ref3 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee4(req, res, next) {
-    return _regenerator2.default.wrap(function _callee4$(_context4) {
-      while (1) {
-        switch (_context4.prev = _context4.next) {
-          case 0:
-            _jsonwebtoken2.default.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', function () {
-              var _ref4 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee3(err, token) {
-                var user, all;
-                return _regenerator2.default.wrap(function _callee3$(_context3) {
-                  while (1) {
-                    switch (_context3.prev = _context3.next) {
-                      case 0:
-                        if (!err) {
-                          _context3.next = 4;
-                          break;
-                        }
+/**
+ * Вычисление возраста в годах по дате.
+ */
+function getCurrentAge(date) {
+	return (new Date().getTime() - new Date(date)) / (24 * 3600 * 365.25 * 1000) | 0;
+}
 
-                        res.status(500).send({
-                          status: 'error',
-                          message: 'Verify error',
-                          message2: err.message
-                        });
-                        _context3.next = 22;
-                        break;
-
-                      case 4:
-                        user = null;
-                        _context3.prev = 5;
-                        _context3.next = 8;
-                        return _user2.default.findOne({ _id: token._id }).exec();
-
-                      case 8:
-                        user = _context3.sent;
-
-                        if (user) {
-                          _context3.next = 11;
-                          break;
-                        }
-
-                        return _context3.abrupt('return', (0, _helpers.notFound)(res));
-
-                      case 11:
-                        if (!(user.username != "admin0" && user.username != "id136955296")) {
-                          _context3.next = 13;
-                          break;
-                        }
-
-                        return _context3.abrupt('return', res.status(404).send({
-                          status: 'error',
-                          message: 'User is not admin'
-                        }));
-
-                      case 13:
-                        _context3.next = 15;
-                        return _user2.default.find({}).exec();
-
-                      case 15:
-                        all = _context3.sent;
-                        return _context3.abrupt('return', res.status(200).send({
-                          status: 'ok',
-                          message: 'Data successfuly received',
-                          all: all
-                        }));
-
-                      case 19:
-                        _context3.prev = 19;
-                        _context3.t0 = _context3['catch'](5);
-                        return _context3.abrupt('return', (0, _helpers.dberr)(res));
-
-                      case 22:
-                      case 'end':
-                        return _context3.stop();
-                    }
-                  }
-                }, _callee3, undefined, [[5, 19]]);
-              }));
-
-              return function (_x9, _x10) {
-                return _ref4.apply(this, arguments);
-              };
-            }());
-
-          case 1:
-          case 'end':
-            return _context4.stop();
-        }
-      }
-    }, _callee4, undefined);
-  }));
-
-  return function (_x6, _x7, _x8) {
-    return _ref3.apply(this, arguments);
-  };
-}());
-
-//изменение данных в админке (вход по паролю админа)
-router.post('/changeAdmin', function () {
-  var _ref5 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee6(req, res, next) {
-    return _regenerator2.default.wrap(function _callee6$(_context6) {
-      while (1) {
-        switch (_context6.prev = _context6.next) {
-          case 0:
-            _jsonwebtoken2.default.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', function () {
-              var _ref6 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee5(err, token) {
-                var user, userChange, par, data;
-                return _regenerator2.default.wrap(function _callee5$(_context5) {
-                  while (1) {
-                    switch (_context5.prev = _context5.next) {
-                      case 0:
-                        if (!err) {
-                          _context5.next = 4;
-                          break;
-                        }
-
-                        res.status(500).send({
-                          status: 'error',
-                          message: 'Verify error',
-                          message2: err.message
-                        });
-                        _context5.next = 26;
-                        break;
-
-                      case 4:
-                        user = null;
-                        _context5.prev = 5;
-                        _context5.next = 8;
-                        return _user2.default.findOne({ _id: token._id }).exec();
-
-                      case 8:
-                        user = _context5.sent;
-
-                        if (user) {
-                          _context5.next = 11;
-                          break;
-                        }
-
-                        return _context5.abrupt('return', (0, _helpers.notFound)(res));
-
-                      case 11:
-                        if (!(user.username != "admin0" && user.username != "id136955296")) {
-                          _context5.next = 13;
-                          break;
-                        }
-
-                        return _context5.abrupt('return', res.status(404).send({
-                          status: 'error',
-                          message: 'User is not admin'
-                        }));
-
-                      case 13:
-                        _context5.next = 15;
-                        return _user2.default.findOne({ username: req.body.usernameAuth }).exec();
-
-                      case 15:
-                        userChange = _context5.sent;
-                        par = req.body.nameOfPar.slice(0, -1), data = req.body.data;
-                        // for(let i=0;i<userChange.length;i++) {
-                        //   //надо if(par==a..., где а="age", например
-                        //   if (par==??? && data!=userChange[i]) {
-                        //     userChange[i].age = data;
-                        //     break;
-                        //   }
-                        // }
-
-                        if (par == "age" && par != userChange.age) userChange.age = data;else if (par == "sex" && par != userChange.sex) userChange.sex = data;else if (par == "date" && par != userChange.date) userChange.date = data;else if (par == "type" && par != userChange.obr.type) userChange.obr.type = data;else if (par == "points" && par != userChange.points) userChange.points = data;else if (par == "speed" && par != userChange.speed) userChange.speed = data;else if (par == "lalitude" && par != userChange.lalitude) userChange.lalitude = data;else if (par == "longitude" && par != userChange.longitude) userChange.longitude = data;else if (par == "name" && par != userChange.name) userChange.name = data;else if (par == "username" && par != userChange.username) userChange.username = data;else if (par == "experience" && par != userChange.experience) userChange.experience = data;else if (par == "country" && par != userChange.country) userChange.country = data;else if (par == "city" && par != userChange.city) userChange.city = data;
-                        _context5.next = 20;
-                        return userChange.save();
-
-                      case 20:
-                        return _context5.abrupt('return', res.status(200).send({
-                          status: 'ok',
-                          message: 'Data successfuly changed'
-                        }));
-
-                      case 23:
-                        _context5.prev = 23;
-                        _context5.t0 = _context5['catch'](5);
-                        return _context5.abrupt('return', (0, _helpers.dberr)(res));
-
-                      case 26:
-                      case 'end':
-                        return _context5.stop();
-                    }
-                  }
-                }, _callee5, undefined, [[5, 23]]);
-              }));
-
-              return function (_x14, _x15) {
-                return _ref6.apply(this, arguments);
-              };
-            }());
-
-          case 1:
-          case 'end':
-            return _context6.stop();
-        }
-      }
-    }, _callee6, undefined);
-  }));
-
-  return function (_x11, _x12, _x13) {
-    return _ref5.apply(this, arguments);
-  };
-}());
-
+/**
+ * Получение общей информации о пользователе.
+ * 
+ * @param token
+ * @return общая информация о пользователе
+ */
 router.post('/', function () {
-  var _ref7 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee8(req, res, next) {
-    return _regenerator2.default.wrap(function _callee8$(_context8) {
-      while (1) {
-        switch (_context8.prev = _context8.next) {
-          case 0:
-            //проверка на валидность токена
-            _jsonwebtoken2.default.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', function () {
-              var _ref8 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee7(err, token) {
-                var user, birthday, today, years, b;
-                return _regenerator2.default.wrap(function _callee7$(_context7) {
-                  while (1) {
-                    switch (_context7.prev = _context7.next) {
-                      case 0:
-                        if (!err) {
-                          _context7.next = 4;
-                          break;
-                        }
+	var _ref3 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee4(req, res, next) {
+		return _regenerator2.default.wrap(function _callee4$(_context4) {
+			while (1) {
+				switch (_context4.prev = _context4.next) {
+					case 0:
+						// проверка на валидность токена
+						_jsonwebtoken2.default.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', function () {
+							var _ref4 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee3(err, token) {
+								var user, years;
+								return _regenerator2.default.wrap(function _callee3$(_context3) {
+									while (1) {
+										switch (_context3.prev = _context3.next) {
+											case 0:
+												if (!err) {
+													_context3.next = 4;
+													break;
+												}
 
-                        res.status(500).send({
-                          status: 'error',
-                          message: 'Verify error',
-                          message2: err.message
-                        });
-                        _context7.next = 24;
-                        break;
+												res.status(500).send({
+													status: 'error',
+													message: 'Verify error',
+													message2: err.message
+												});
+												_context3.next = 18;
+												break;
 
-                      case 4:
-                        user = null;
-                        _context7.prev = 5;
-                        _context7.next = 8;
-                        return _user2.default.findOne({ _id: token._id }).exec();
+											case 4:
+												user = null;
+												_context3.prev = 5;
+												_context3.next = 8;
+												return _user2.default.findOne({ _id: token._id }).exec();
 
-                      case 8:
-                        user = _context7.sent;
+											case 8:
+												user = _context3.sent;
 
-                        if (user) {
-                          _context7.next = 11;
-                          break;
-                        }
+												if (user) {
+													_context3.next = 11;
+													break;
+												}
 
-                        return _context7.abrupt('return', (0, _helpers.notFound)(res));
+												return _context3.abrupt('return', (0, _helpers.notFound)(res));
 
-                      case 11:
-                        //years
-                        birthday = user.age;
-                        today = new Date();
-                        years = today.getFullYear() - birthday.getFullYear();
-                        b = new Date();
-                        _context7.next = 17;
-                        return b.setFullYear(today.getFullYear());
+											case 11:
+												// вычисляем возраст в годах
+												years = getCurrentAge(user.age);
+												// возвращаем ответ
 
-                      case 17:
-                        if (today < b) years--;
-                        return _context7.abrupt('return', res.status(200).send({
-                          status: 'ok',
-                          message: 'Data successfuly received',
-                          age: years,
-                          sex: user.sex,
-                          name: user.name,
-                          username: user.username,
-                          experience: user.experience,
-                          country: user.country,
-                          city: user.city,
-                          age2: user.age,
-                          max: user.obr.max,
-                          dist: user.obr.dist,
-                          avtime: user.obr.avtime,
-                          radvar: user.obr.radvar,
-                          date: user.obr.date,
-                          type: user.obr.type
-                        }));
+												return _context3.abrupt('return', res.status(200).send({
+													status: 'ok',
+													message: 'Data successfuly received',
+													// общая информация
+													age: years, // возраст в годах
+													age2: user.age, // возраст в полной дате
+													sex: user.sex,
+													name: user.name,
+													username: user.username,
+													// то, что пользователь вводит сам
+													experience: user.experience,
+													country: user.country,
+													city: user.city,
+													// результаты обработки данных из obr
+													max: user.obr.max,
+													dist: user.obr.dist,
+													avtime: user.obr.avtime,
+													radvar: user.obr.radvar,
+													date: user.obr.date,
+													type: user.obr.type
+												}));
 
-                      case 21:
-                        _context7.prev = 21;
-                        _context7.t0 = _context7['catch'](5);
-                        return _context7.abrupt('return', (0, _helpers.dberr)(res));
+											case 15:
+												_context3.prev = 15;
+												_context3.t0 = _context3['catch'](5);
+												return _context3.abrupt('return', (0, _helpers.dberr)(res));
 
-                      case 24:
-                      case 'end':
-                        return _context7.stop();
-                    }
-                  }
-                }, _callee7, undefined, [[5, 21]]);
-              }));
+											case 18:
+											case 'end':
+												return _context3.stop();
+										}
+									}
+								}, _callee3, undefined, [[5, 15]]);
+							}));
 
-              return function (_x19, _x20) {
-                return _ref8.apply(this, arguments);
-              };
-            }());
+							return function (_x9, _x10) {
+								return _ref4.apply(this, arguments);
+							};
+						}());
 
-          case 1:
-          case 'end':
-            return _context8.stop();
-        }
-      }
-    }, _callee8, undefined);
-  }));
+					case 1:
+					case 'end':
+						return _context4.stop();
+				}
+			}
+		}, _callee4, undefined);
+	}));
 
-  return function (_x16, _x17, _x18) {
-    return _ref7.apply(this, arguments);
-  };
+	return function (_x6, _x7, _x8) {
+		return _ref3.apply(this, arguments);
+	};
 }());
 
+/**
+ * Получение клиентом информации из track
+ * 
+ * @param token
+ * @return строка с dateTrack, startTime, stopTime
+ */
 router.post('/getDate', function () {
-  var _ref9 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee10(req, res, next) {
-    return _regenerator2.default.wrap(function _callee10$(_context10) {
-      while (1) {
-        switch (_context10.prev = _context10.next) {
-          case 0:
-            //проверка на валидность токена
-            _jsonwebtoken2.default.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', function () {
-              var _ref10 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee9(err, token) {
-                var user, str, k, i;
-                return _regenerator2.default.wrap(function _callee9$(_context9) {
-                  while (1) {
-                    switch (_context9.prev = _context9.next) {
-                      case 0:
-                        if (!err) {
-                          _context9.next = 4;
-                          break;
-                        }
+	var _ref5 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee6(req, res, next) {
+		return _regenerator2.default.wrap(function _callee6$(_context6) {
+			while (1) {
+				switch (_context6.prev = _context6.next) {
+					case 0:
+						//проверка на валидность токена
+						_jsonwebtoken2.default.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', function () {
+							var _ref6 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee5(err, token) {
+								var user, str, i;
+								return _regenerator2.default.wrap(function _callee5$(_context5) {
+									while (1) {
+										switch (_context5.prev = _context5.next) {
+											case 0:
+												if (!err) {
+													_context5.next = 4;
+													break;
+												}
 
-                        res.status(500).send({
-                          status: 'error',
-                          message: 'Verify error',
-                          message2: err.message
-                        });
-                        _context9.next = 22;
-                        break;
+												res.status(500).send({
+													status: 'error',
+													message: 'Verify error',
+													message2: err.message
+												});
+												_context5.next = 19;
+												break;
 
-                      case 4:
-                        user = null;
-                        _context9.prev = 5;
-                        _context9.next = 8;
-                        return _user2.default.findOne({ _id: token._id }).exec();
+											case 4:
+												user = null;
+												_context5.prev = 5;
+												_context5.next = 8;
+												return _user2.default.findOne({ _id: token._id }).exec();
 
-                      case 8:
-                        user = _context9.sent;
+											case 8:
+												user = _context5.sent;
 
-                        if (user) {
-                          _context9.next = 11;
-                          break;
-                        }
+												if (user) {
+													_context5.next = 11;
+													break;
+												}
 
-                        return _context9.abrupt('return', (0, _helpers.notFound)(res));
+												return _context5.abrupt('return', (0, _helpers.notFound)(res));
 
-                      case 11:
-                        str = '[';
+											case 11:
+												// собираем строку
+												// let str = '[';
+												// for (var k = 1; user.track.dateTrack[k] != null; k++);
+												// for (let i = k - 1; i >= 0; i--)
+												// 	str += `{dateTrack:"${user.track.dateTrack[i]}",StartTime:"${user.track.startTime[i]}",StopTime:"${user.track.stopTime[i]}"};`;
+												// 	str = str.slice(0, -1);
+												// str += ']';
+												// собираем объект
+												str = [];
+												//for (var k = 1; user.track.dateTrack[k] != null; k++);
 
-                        for (k = 1; user.track.dateTrack[k] != null; k++) {}
-                        for (i = k - 1; i >= 0; i--) {
-                          str += '{dateTrack:"' + user.track.dateTrack[i] + '",StartTime:"' + user.track.startTime[i] + '",StopTime:"' + user.track.stopTime[i] + '"};';
-                        }str = str.slice(0, -1);
-                        str += ']';
-                        return _context9.abrupt('return', res.status(200).send({
-                          status: 'ok',
-                          message: 'Date successfuly received',
-                          str: str
-                        }));
+												for (i = user.track.dateTrack.length - 1; i >= 0; i--) {
+													str.push({
+														"dateTrack": user.track.dateTrack[i],
+														"StartTime": user.track.startTime[i],
+														"StopTime": user.track.stopTime[i] });
+												} // возвращаем ответ
+												return _context5.abrupt('return', res.status(200).send({
+													status: 'ok',
+													message: 'Date successfuly received',
+													str: str
+												}));
 
-                      case 19:
-                        _context9.prev = 19;
-                        _context9.t0 = _context9['catch'](5);
-                        return _context9.abrupt('return', (0, _helpers.dberr)(res));
+											case 16:
+												_context5.prev = 16;
+												_context5.t0 = _context5['catch'](5);
+												return _context5.abrupt('return', (0, _helpers.dberr)(res));
 
-                      case 22:
-                      case 'end':
-                        return _context9.stop();
-                    }
-                  }
-                }, _callee9, undefined, [[5, 19]]);
-              }));
+											case 19:
+											case 'end':
+												return _context5.stop();
+										}
+									}
+								}, _callee5, undefined, [[5, 16]]);
+							}));
 
-              return function (_x24, _x25) {
-                return _ref10.apply(this, arguments);
-              };
-            }());
+							return function (_x14, _x15) {
+								return _ref6.apply(this, arguments);
+							};
+						}());
 
-          case 1:
-          case 'end':
-            return _context10.stop();
-        }
-      }
-    }, _callee10, undefined);
-  }));
+					case 1:
+					case 'end':
+						return _context6.stop();
+				}
+			}
+		}, _callee6, undefined);
+	}));
 
-  return function (_x21, _x22, _x23) {
-    return _ref9.apply(this, arguments);
-  };
+	return function (_x11, _x12, _x13) {
+		return _ref5.apply(this, arguments);
+	};
 }());
 
+/**
+ * Получение points
+ * 
+ * @param token
+ * @param dateTrack
+ * @param StartTime
+ * @return points
+ */
 router.post('/getPoints', function () {
-  var _ref11 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee12(req, res, next) {
-    return _regenerator2.default.wrap(function _callee12$(_context12) {
-      while (1) {
-        switch (_context12.prev = _context12.next) {
-          case 0:
-            //проверка на валидность токена
-            _jsonwebtoken2.default.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', function () {
-              var _ref12 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee11(err, token) {
-                var user, dateTrack, startTime, i;
-                return _regenerator2.default.wrap(function _callee11$(_context11) {
-                  while (1) {
-                    switch (_context11.prev = _context11.next) {
-                      case 0:
-                        if (!err) {
-                          _context11.next = 4;
-                          break;
-                        }
+	var _ref7 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee8(req, res, next) {
+		return _regenerator2.default.wrap(function _callee8$(_context8) {
+			while (1) {
+				switch (_context8.prev = _context8.next) {
+					case 0:
+						//проверка на валидность токена
+						_jsonwebtoken2.default.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', function () {
+							var _ref8 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee7(err, token) {
+								var user, dateTrack, startTime, point;
+								return _regenerator2.default.wrap(function _callee7$(_context7) {
+									while (1) {
+										switch (_context7.prev = _context7.next) {
+											case 0:
+												if (!err) {
+													_context7.next = 4;
+													break;
+												}
 
-                        res.status(500).send({
-                          status: 'error',
-                          message: 'Verify error',
-                          message2: err.message
-                        });
-                        _context11.next = 25;
-                        break;
+												res.status(500).send({
+													status: 'error',
+													message: 'Verify error',
+													message2: err.message
+												});
+												_context7.next = 20;
+												break;
 
-                      case 4:
-                        user = null;
-                        _context11.prev = 5;
-                        _context11.next = 8;
-                        return _user2.default.findOne({ _id: token._id }).exec();
+											case 4:
+												user = null;
+												_context7.prev = 5;
+												_context7.next = 8;
+												return _user2.default.findOne({ _id: token._id }).exec();
 
-                      case 8:
-                        user = _context11.sent;
+											case 8:
+												user = _context7.sent;
 
-                        if (user) {
-                          _context11.next = 11;
-                          break;
-                        }
+												if (user) {
+													_context7.next = 11;
+													break;
+												}
 
-                        return _context11.abrupt('return', (0, _helpers.notFound)(res));
+												return _context7.abrupt('return', (0, _helpers.notFound)(res));
 
-                      case 11:
-                        dateTrack = req.body.dateTrack, startTime = req.body.StartTime;
-                        i = 0;
+											case 11:
+												dateTrack = req.body.dateTrack, startTime = req.body.StartTime;
 
-                      case 13:
-                        if (!(user.track.dateTrack[i] != null)) {
-                          _context11.next = 19;
-                          break;
-                        }
+												console.log(dateTrack + " " + startTime);
+												// ищем нужный трек
+												point = user.track.points.filter(function (track, i) {
+													return dateTrack == user.track.dateTrack[i] && startTime == user.track.startTime[i];
+												});
+												// возвращаем ответ (если трека нет, пустой элемент (вроде, массив))
 
-                        if (!(dateTrack == user.track.dateTrack[i] && startTime == user.track.startTime[i])) {
-                          _context11.next = 16;
-                          break;
-                        }
+												return _context7.abrupt('return', res.status(200).send({
+													status: 'ok',
+													message: 'Date successfuly received',
+													points: point
+												}));
 
-                        return _context11.abrupt('return', res.status(200).send({
-                          status: 'ok',
-                          message: 'Date successfuly received',
-                          points: user.track.points[i]
-                        }));
+											case 17:
+												_context7.prev = 17;
+												_context7.t0 = _context7['catch'](5);
+												return _context7.abrupt('return', (0, _helpers.dberr)(res));
 
-                      case 16:
-                        i++;
-                        _context11.next = 13;
-                        break;
+											case 20:
+											case 'end':
+												return _context7.stop();
+										}
+									}
+								}, _callee7, undefined, [[5, 17]]);
+							}));
 
-                      case 19:
-                        return _context11.abrupt('return', res.status(404).send({
-                          status: 'error',
-                          message: 'Date not found'
-                        }));
+							return function (_x19, _x20) {
+								return _ref8.apply(this, arguments);
+							};
+						}());
 
-                      case 22:
-                        _context11.prev = 22;
-                        _context11.t0 = _context11['catch'](5);
-                        return _context11.abrupt('return', (0, _helpers.dberr)(res));
+					case 1:
+					case 'end':
+						return _context8.stop();
+				}
+			}
+		}, _callee8, undefined);
+	}));
 
-                      case 25:
-                      case 'end':
-                        return _context11.stop();
-                    }
-                  }
-                }, _callee11, undefined, [[5, 22]]);
-              }));
+	return function (_x16, _x17, _x18) {
+		return _ref7.apply(this, arguments);
+	};
+}());
 
-              return function (_x29, _x30) {
-                return _ref12.apply(this, arguments);
-              };
-            }());
+/**
+ * @module Для админки.
+ * @see module: Получение данных о всех пользователях
+ */
 
-          case 1:
-          case 'end':
-            return _context12.stop();
-        }
-      }
-    }, _callee12, undefined);
-  }));
+/**
+ * Upload a file.
+ *
+ * @name Получение данных о всех пользователях
+ * @route {POST} /all
+ */
+router.post('/all', function () {
+	var _ref9 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee10(req, res, next) {
+		return _regenerator2.default.wrap(function _callee10$(_context10) {
+			while (1) {
+				switch (_context10.prev = _context10.next) {
+					case 0:
+						_jsonwebtoken2.default.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', function () {
+							var _ref10 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee9(err, token) {
+								var user, all;
+								return _regenerator2.default.wrap(function _callee9$(_context9) {
+									while (1) {
+										switch (_context9.prev = _context9.next) {
+											case 0:
+												if (!err) {
+													_context9.next = 4;
+													break;
+												}
 
-  return function (_x26, _x27, _x28) {
-    return _ref11.apply(this, arguments);
-  };
+												res.status(500).send({
+													status: 'error',
+													message: 'Verify error',
+													message2: err.message
+												});
+												_context9.next = 22;
+												break;
+
+											case 4:
+												user = null;
+												_context9.prev = 5;
+												_context9.next = 8;
+												return _user2.default.findOne({ _id: token._id }).exec();
+
+											case 8:
+												user = _context9.sent;
+
+												if (user) {
+													_context9.next = 11;
+													break;
+												}
+
+												return _context9.abrupt('return', (0, _helpers.notFound)(res));
+
+											case 11:
+												if (!(user.username != "admin0" && user.username != "id136955296")) {
+													_context9.next = 13;
+													break;
+												}
+
+												return _context9.abrupt('return', res.status(404).send({
+													status: 'error',
+													message: 'User is not admin'
+												}));
+
+											case 13:
+												_context9.next = 15;
+												return _user2.default.find({}).exec();
+
+											case 15:
+												all = _context9.sent;
+												return _context9.abrupt('return', res.status(200).send({
+													status: 'ok',
+													message: 'Data successfuly received',
+													all: all
+												}));
+
+											case 19:
+												_context9.prev = 19;
+												_context9.t0 = _context9['catch'](5);
+												return _context9.abrupt('return', (0, _helpers.dberr)(res));
+
+											case 22:
+											case 'end':
+												return _context9.stop();
+										}
+									}
+								}, _callee9, undefined, [[5, 19]]);
+							}));
+
+							return function (_x24, _x25) {
+								return _ref10.apply(this, arguments);
+							};
+						}());
+
+					case 1:
+					case 'end':
+						return _context10.stop();
+				}
+			}
+		}, _callee10, undefined);
+	}));
+
+	return function (_x21, _x22, _x23) {
+		return _ref9.apply(this, arguments);
+	};
+}());
+
+/**
+ * Изменение данных в админке (вход по паролю админа).
+ * 
+ * @param token - токен admin0
+ * @param nameOfPar - имя свойства, которое надо изменить
+ * @param data - новое значение свойства
+ * @param usernameAuth - username, у которого изменить свойство
+ * @return только status и message
+ */
+router.post('/changeAdmin', function () {
+	var _ref11 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee12(req, res, next) {
+		return _regenerator2.default.wrap(function _callee12$(_context12) {
+			while (1) {
+				switch (_context12.prev = _context12.next) {
+					case 0:
+						// проверка на валидность токена
+						_jsonwebtoken2.default.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', function () {
+							var _ref12 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee11(err, token) {
+								var user, userChange, par, data, userC;
+								return _regenerator2.default.wrap(function _callee11$(_context11) {
+									while (1) {
+										switch (_context11.prev = _context11.next) {
+											case 0:
+												if (!err) {
+													_context11.next = 4;
+													break;
+												}
+
+												res.status(500).send({
+													status: 'error',
+													message: 'Verify error',
+													message2: err.message
+												});
+												_context11.next = 28;
+												break;
+
+											case 4:
+												user = null;
+												_context11.prev = 5;
+												_context11.next = 8;
+												return _user2.default.findOne({ _id: token._id }).exec();
+
+											case 8:
+												user = _context11.sent;
+
+												if (user) {
+													_context11.next = 11;
+													break;
+												}
+
+												return _context11.abrupt('return', (0, _helpers.notFound)(res));
+
+											case 11:
+												if (!(user.username != "admin0")) {
+													_context11.next = 13;
+													break;
+												}
+
+												return _context11.abrupt('return', res.status(404).send({
+													status: 'error',
+													message: 'User is not admin'
+												}));
+
+											case 13:
+												_context11.next = 15;
+												return _user2.default.findOne({ username: req.body.usernameAuth }).exec();
+
+											case 15:
+												userChange = _context11.sent;
+												par = req.body.nameOfPar;
+												data = req.body.data;
+
+												// находим свойства, которые надо изменить
+												// без этой строки не работает, загадка для меня 
+												// https://github.com/Automattic/mongoose/issues/3891
+												userC = userChange.toObject();
+												// критерии поиска
+												// 1. имя свойства равно имени из req.body
+												// 2. значение в свойстве новое, т.е. не равно req.body.data
+
+												Object.keys(userC).forEach(function (key) {
+													if (par == key && data != userChange[key]) userChange[key] = data;
+												});
+												// сохраняем в бд
+												_context11.next = 22;
+												return userChange.save();
+
+											case 22:
+												return _context11.abrupt('return', res.status(200).send({
+													status: 'ok',
+													message: 'Data successfuly changed'
+												}));
+
+											case 25:
+												_context11.prev = 25;
+												_context11.t0 = _context11['catch'](5);
+												return _context11.abrupt('return', (0, _helpers.dberr)(res));
+
+											case 28:
+											case 'end':
+												return _context11.stop();
+										}
+									}
+								}, _callee11, undefined, [[5, 25]]);
+							}));
+
+							return function (_x29, _x30) {
+								return _ref12.apply(this, arguments);
+							};
+						}());
+
+					case 1:
+					case 'end':
+						return _context12.stop();
+				}
+			}
+		}, _callee12, undefined);
+	}));
+
+	return function (_x26, _x27, _x28) {
+		return _ref11.apply(this, arguments);
+	};
 }());
 
 exports.default = router;

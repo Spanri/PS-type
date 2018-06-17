@@ -361,6 +361,11 @@ var _regenerator = __webpack_require__(4);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
+/**
+ * Обработка данных пользователя
+ * @param {*} res - response, для возвращения ответов
+ * @param {*} user - объект, данные которого надо обработать
+ */
 var obr = function () {
   var _ref11 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee11(res, user) {
     var cl1, cl2, sl1, sl2, cdelta, sdelta, x, y, len, _i, lat1, lat2, long1, long2, len2, at, _i2, maxlat, minlat, maxlon, minlon, _i3;
@@ -960,9 +965,7 @@ router.post('/obr', function () {
   return function (_x21, _x22, _x23) {
     return _ref9.apply(this, arguments);
   };
-}());
-
-exports.default = router;
+}());exports.default = router;
 
 /***/ })
 /******/ ]);
