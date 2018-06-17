@@ -64,7 +64,7 @@
 
 
 <div class="description">
-    <p><h5>Route:</h5>
+    <h5>Route:</h5>
                             <table class="params">
                             <thead><tr><th>Method</th><th class="last">Path</th></tr></thead>
                             <tr>
@@ -72,32 +72,32 @@
                             <td class="name last">/signin</td>
                             </tr>
                             </table>
-                            Аутентифицирует пользователя, возвращает статус 
-приветствия и токен. Токен валиден 10 дней. Нагрузка 
-содержит имя пользователя и его ИД.
+                            Аутентифицирует пользователя, возвращает статус приветствия и токен. Токен валиден 10 дней. Нагрузка содержит имя пользователя и его ИД.
                             <h5>Query Parameters:</h5>
           <table class="params">
             <thead>
               <tr>
                 <th>Name</th>
-                <th>Type</th></p>
-<pre class="prettyprint source"><code>            &lt;th class=&quot;last&quot;>Description&lt;/th>
-          &lt;/tr>
-        &lt;/thead>
-        &lt;tr>
-        &lt;td class=&quot;name&quot;>username&lt;/td>
-        &lt;td class=&quot;type&quot;>String&lt;/td>
-
-
-        &lt;td class=&quot;description last&quot;>Имя пользователя&lt;/td>
-      &lt;/tr>&lt;tr>
-        &lt;td class=&quot;name&quot;>password&lt;/td>
-        &lt;td class=&quot;type&quot;>String&lt;/td>
-
-
-        &lt;td class=&quot;description last&quot;>Пароль&lt;/td>
-      &lt;/tr>
-      &lt;/table></code></pre>
+                <th>Type</th>
+                
+                
+                <th class="last">Description</th>
+              </tr>
+            </thead>
+            <tr>
+            <td class="name">username</td>
+            <td class="type">String</td>
+            
+            
+            <td class="description last">Имя пользователя</td>
+          </tr><tr>
+            <td class="name">password</td>
+            <td class="type">String</td>
+            
+            
+            <td class="description last">Пароль</td>
+          </tr>
+          </table>
 </div>
 
 
@@ -159,7 +159,7 @@
 
 
 <div class="description">
-    <p><h5>Route:</h5>
+    <h5>Route:</h5>
                             <table class="params">
                             <thead><tr><th>Method</th><th class="last">Path</th></tr></thead>
                             <tr>
@@ -167,110 +167,110 @@
                             <td class="name last">/signup</td>
                             </tr>
                             </table>
-                            Регистрация нового пользователя. Возвращает токен и 
-информацию о созданном пользователе.
+                            Регистрация нового пользователя. Возвращает токен и информацию о созданном пользователе.
                             <h5>Query Parameters:</h5>
           <table class="params">
             <thead>
               <tr>
                 <th>Name</th>
                 <th>Type</th>
-                <th>Attributes</th></p>
-<pre class="prettyprint source"><code>            &lt;th class=&quot;last&quot;>Description&lt;/th>
-          &lt;/tr>
-        &lt;/thead>
-        &lt;tr>
-        &lt;td class=&quot;name&quot;>username&lt;/td>
-        &lt;td class=&quot;type&quot;>String&lt;/td>
-        &lt;td class=&quot;attributes&quot;>&lt;/td>
-
-        &lt;td class=&quot;description last&quot;>Имя пользователя&lt;/td>
-      &lt;/tr>&lt;tr>
-        &lt;td class=&quot;name&quot;>password&lt;/td>
-        &lt;td class=&quot;type&quot;>String&lt;/td>
-        &lt;td class=&quot;attributes&quot;>&lt;/td>
-
-        &lt;td class=&quot;description last&quot;>Пароль&lt;/td>
-      &lt;/tr>&lt;tr>
-        &lt;td class=&quot;name&quot;>age&lt;/td>
-        &lt;td class=&quot;type&quot;>Number&lt;/td>
-        &lt;td class=&quot;attributes&quot;>optional&lt;/td>
-
-        &lt;td class=&quot;description last&quot;>Возраст&lt;/td>
-      &lt;/tr>&lt;tr>
-        &lt;td class=&quot;name&quot;>sex&lt;/td>
-        &lt;td class=&quot;type&quot;>String&lt;/td>
-        &lt;td class=&quot;attributes&quot;>optional&lt;/td>
-
-        &lt;td class=&quot;description last&quot;>Пол&lt;/td>
-      &lt;/tr>&lt;tr>
-        &lt;td class=&quot;name&quot;>name&lt;/td>
-        &lt;td class=&quot;type&quot;>String&lt;/td>
-        &lt;td class=&quot;attributes&quot;>optional&lt;/td>
-
-        &lt;td class=&quot;description last&quot;>Имя&lt;/td>
-      &lt;/tr>&lt;tr>
-        &lt;td class=&quot;name&quot;>experience&lt;/td>
-        &lt;td class=&quot;type&quot;>String&lt;/td>
-        &lt;td class=&quot;attributes&quot;>optional&lt;/td>
-
-        &lt;td class=&quot;description last&quot;>Опыт&lt;/td>
-      &lt;/tr>&lt;tr>
-        &lt;td class=&quot;name&quot;>country&lt;/td>
-        &lt;td class=&quot;type&quot;>String&lt;/td>
-        &lt;td class=&quot;attributes&quot;>optional&lt;/td>
-
-        &lt;td class=&quot;description last&quot;>Страна&lt;/td>
-      &lt;/tr>&lt;tr>
-        &lt;td class=&quot;name&quot;>city&lt;/td>
-        &lt;td class=&quot;type&quot;>String&lt;/td>
-        &lt;td class=&quot;attributes&quot;>optional&lt;/td>
-
-        &lt;td class=&quot;description last&quot;>Город&lt;/td>
-      &lt;/tr>&lt;tr>
-        &lt;td class=&quot;name&quot;>max&lt;/td>
-        &lt;td class=&quot;type&quot;>Number&lt;/td>
-        &lt;td class=&quot;attributes&quot;>optional&lt;/td>
-
-        &lt;td class=&quot;description last&quot;>Максимальная скорость&lt;/td>
-      &lt;/tr>&lt;tr>
-        &lt;td class=&quot;name&quot;>dist&lt;/td>
-        &lt;td class=&quot;type&quot;>Number&lt;/td>
-        &lt;td class=&quot;attributes&quot;>optional&lt;/td>
-
-        &lt;td class=&quot;description last&quot;>Максимальная дистанция&lt;/td>
-      &lt;/tr>&lt;tr>
-        &lt;td class=&quot;name&quot;>time&lt;/td>
-        &lt;td class=&quot;type&quot;>Date&lt;/td>
-        &lt;td class=&quot;attributes&quot;>optional&lt;/td>
-
-        &lt;td class=&quot;description last&quot;>Максимальное время&lt;/td>
-      &lt;/tr>&lt;tr>
-        &lt;td class=&quot;name&quot;>avtime&lt;/td>
-        &lt;td class=&quot;type&quot;>Date&lt;/td>
-        &lt;td class=&quot;attributes&quot;>optional&lt;/td>
-
-        &lt;td class=&quot;description last&quot;>Среднее время&lt;/td>
-      &lt;/tr>&lt;tr>
-        &lt;td class=&quot;name&quot;>radvar&lt;/td>
-        &lt;td class=&quot;type&quot;>Number&lt;/td>
-        &lt;td class=&quot;attributes&quot;>optional&lt;/td>
-
-        &lt;td class=&quot;description last&quot;>radius variation&lt;/td>
-      &lt;/tr>&lt;tr>
-        &lt;td class=&quot;name&quot;>date&lt;/td>
-        &lt;td class=&quot;type&quot;>Date&lt;/td>
-        &lt;td class=&quot;attributes&quot;>optional&lt;/td>
-
-        &lt;td class=&quot;description last&quot;>Дата&lt;/td>
-      &lt;/tr>&lt;tr>
-        &lt;td class=&quot;name&quot;>type&lt;/td>
-        &lt;td class=&quot;type&quot;>String&lt;/td>
-        &lt;td class=&quot;attributes&quot;>optional&lt;/td>
-
-        &lt;td class=&quot;description last&quot;>Тип&lt;/td>
-      &lt;/tr>
-      &lt;/table></code></pre>
+                <th>Attributes</th>
+                
+                <th class="last">Description</th>
+              </tr>
+            </thead>
+            <tr>
+            <td class="name">username</td>
+            <td class="type">String</td>
+            <td class="attributes"></td>
+            
+            <td class="description last">Имя пользователя</td>
+          </tr><tr>
+            <td class="name">password</td>
+            <td class="type">String</td>
+            <td class="attributes"></td>
+            
+            <td class="description last">Пароль</td>
+          </tr><tr>
+            <td class="name">age</td>
+            <td class="type">Number</td>
+            <td class="attributes">optional</td>
+            
+            <td class="description last">Возраст</td>
+          </tr><tr>
+            <td class="name">sex</td>
+            <td class="type">String</td>
+            <td class="attributes">optional</td>
+            
+            <td class="description last">Пол</td>
+          </tr><tr>
+            <td class="name">name</td>
+            <td class="type">String</td>
+            <td class="attributes">optional</td>
+            
+            <td class="description last">Имя</td>
+          </tr><tr>
+            <td class="name">experience</td>
+            <td class="type">String</td>
+            <td class="attributes">optional</td>
+            
+            <td class="description last">Опыт</td>
+          </tr><tr>
+            <td class="name">country</td>
+            <td class="type">String</td>
+            <td class="attributes">optional</td>
+            
+            <td class="description last">Страна</td>
+          </tr><tr>
+            <td class="name">city</td>
+            <td class="type">String</td>
+            <td class="attributes">optional</td>
+            
+            <td class="description last">Город</td>
+          </tr><tr>
+            <td class="name">max</td>
+            <td class="type">Number</td>
+            <td class="attributes">optional</td>
+            
+            <td class="description last">Максимальная скорость</td>
+          </tr><tr>
+            <td class="name">dist</td>
+            <td class="type">Number</td>
+            <td class="attributes">optional</td>
+            
+            <td class="description last">Максимальная дистанция</td>
+          </tr><tr>
+            <td class="name">time</td>
+            <td class="type">Date</td>
+            <td class="attributes">optional</td>
+            
+            <td class="description last">Максимальное время</td>
+          </tr><tr>
+            <td class="name">avtime</td>
+            <td class="type">Date</td>
+            <td class="attributes">optional</td>
+            
+            <td class="description last">Среднее время</td>
+          </tr><tr>
+            <td class="name">radvar</td>
+            <td class="type">Number</td>
+            <td class="attributes">optional</td>
+            
+            <td class="description last">radius variation</td>
+          </tr><tr>
+            <td class="name">date</td>
+            <td class="type">Date</td>
+            <td class="attributes">optional</td>
+            
+            <td class="description last">Дата</td>
+          </tr><tr>
+            <td class="name">type</td>
+            <td class="type">String</td>
+            <td class="attributes">optional</td>
+            
+            <td class="description last">Тип</td>
+          </tr>
+          </table>
 </div>
 
 
@@ -344,7 +344,7 @@
 
 
 <div class="description">
-    <p>Взять токен, время жизни - 10 дней, secret смотреть в app.js. Нужна для route &quot;/signup&quot;</p>
+    Взять токен, время жизни - 10 дней, secret смотреть в app.js. Нужна для route "/signup"
 </div>
 
 
@@ -391,7 +391,7 @@
 
             
 
-            <td class="description last"><p>require, для обработки</p></td>
+            <td class="description last">require, для обработки</td>
         </tr>
 
     
@@ -409,7 +409,7 @@
 
             
 
-            <td class="description last"><p>чето</p></td>
+            <td class="description last">чето</td>
         </tr>
 
     
@@ -492,7 +492,7 @@
 
 
 <div class="description">
-    <p>Валидация пароля, условия в models/user.js. Нужна для route &quot;/signup&quot;.</p>
+    Валидация пароля, условия в models/user.js. Нужна для route "/signup".
 </div>
 
 
@@ -539,7 +539,7 @@
 
             
 
-            <td class="description last"><p>пользователь, пароль которого проверяем</p></td>
+            <td class="description last">пользователь, пароль которого проверяем</td>
         </tr>
 
     
@@ -557,7 +557,7 @@
 
             
 
-            <td class="description last"><p>пароль, который проверяется</p></td>
+            <td class="description last">пароль, который проверяется</td>
         </tr>
 
     
@@ -648,7 +648,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Jun 17 2018 06:32:09 GMT+0200 (RTZ 1 (зима))
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Jun 17 2018 06:43:35 GMT+0200 (RTZ 1 (зима))
 </footer>
 
 <script> prettyPrint(); </script>

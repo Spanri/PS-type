@@ -8,7 +8,7 @@
         "includePattern": ".+\\.js(doc|x)?$",
         "excludePattern": "(^|\\/|\\\\)_"
     },
-    "plugins": ["jsdoc-route-plugin", "plugins/markdown"],
+    "plugins": ["jsdoc-route-plugin"],
     "templates": {
         "cleverLinks": false,
         "monospaceLinks": false
