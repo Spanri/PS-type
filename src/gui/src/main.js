@@ -57,14 +57,20 @@ const store = new Vuex.Store({
 			return state.all[state.id]
 		},
 		masForOtherAccel(state) {
+			// для расположения в нужном нам порядке
+			let filterKey = ['date', 'time', 'lon', 'lat', 'x', 'y', 'z', 'type'];
+			// создаем mas
 			state.masForOtherAccel.mas = [];
+			// имя первого элемента и сколько элементов в каждом массиве
 			let name = Object.keys(state.masForOtherAccel)[0];
-			let length = state.masForOtherAccel[name].length; //сколько элементов в каждом массиве
+			let length = state.masForOtherAccel[name].length; 
+			// заполняем mas
 			for(let i = 0;i<length;i++) {
-				let length2 = Object.keys(state.masForOtherAccel).length - 1; //для количества элементов-названий полей в accel (9 - map(1))
+				//для количества элементов-названий полей в accel (9 - map(1))
+				let length2 = Object.keys(state.masForOtherAccel).length - 1; 
 				state.masForOtherAccel.mas[i] = {};
 				for(let j = 0;j<length2;j++) {
-					let name = Object.keys(state.masForOtherAccel)[j]; // получаем имя
+					let name = Object.keys(state.masForOtherAccel).filter(name => name == filterKey[j]);
 					state.masForOtherAccel.mas[i][name] = (state.masForOtherAccel[name][i]);
 				}
 			}

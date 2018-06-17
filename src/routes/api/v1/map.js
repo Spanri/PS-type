@@ -159,6 +159,11 @@ router.post('/obr', async (req, res, next) => {
   });
 });
 
+/**
+ * Обработка данных пользователя
+ * @param {*} res - response, для возвращения ответов
+ * @param {*} user - объект, данные которого надо обработать
+ */
 async function obr(res, user) {
   try{
     //max speed

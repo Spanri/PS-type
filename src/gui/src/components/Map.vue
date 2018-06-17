@@ -8,14 +8,26 @@
 			<div class="k" 
 				v-for="(key, index) in filteredData"
 				:key="index"
-				@click="userOnMap(key._id)">
+				@click="showDate(key._id)"
+				v-show="open">
 				{{key.username}}
         	</div>
+			<div class="oneUser" v-if="!open">
+				<div class="k" @click="back">&#8592; Назад</div>
+				<p> {{name}} </p>
+				<div class="k" 
+					@click="userOnMap(index)"
+					v-for="(key, index) in filteredDate"
+					:key="index">
+					{{key}}
+				</div>
+			</div>
 		</div>
     </div>
 </template>
 
 <script>
+// @click="userOnMap(key._id)"
 export default {
 	name: "google-map",
 	data: () => ({
@@ -24,11 +36,22 @@ export default {
 		all: "",
 		flightPath: "",
 		filterKey: '',
+		open: true,
+		i: ''
 	}),
 	created: function() {
 		this.all = this.$store.getters.all;
 	},
 	computed: {
+		name: function () {
+			let id = this.i;
+			let all = this.filteredData.filter(function (row) {
+				return Object.keys(row).some(function (key) {
+					return String(row[key]).toLowerCase().indexOf(id) > -1;
+				})
+			});
+			return all["0"].username;
+		},
 		filteredData: function () {
             var filterKey = this.filterKey && this.filterKey.toLowerCase();
             var data = this.all;
@@ -40,6 +63,24 @@ export default {
                 })
             }
             return data;
+        },
+		filteredDate: function () {
+			var data = this.all;
+			let id = this.i;
+            let all = data.filter(function (row) {
+				return Object.keys(row).some(function (key) {
+					return String(row[key]).toLowerCase().indexOf(id) > -1;
+				})
+			})["0"].track.dateTrack;
+			var filterKey = this.filterKey && this.filterKey.toLowerCase();
+            if (filterKey) {
+                all = all.filter(function (row) {
+                    return Object.keys(row).some(function (key) {
+                        return String(row[key]).toLowerCase().indexOf(filterKey) > -1;
+                    })
+                })
+            }
+			return all;
         }
 	},
 	mounted: function() {
@@ -51,13 +92,21 @@ export default {
 		this.map = new google.maps.Map(element, options);
 	},
 	methods: {
-		userOnMap: async function(id) {
-			let all = await this.all.filter(function (row) {
+		showDate: async function (id) {
+			this.i = id;
+			this.open = false;
+			this.filterKey = "";
+		},
+		userOnMap: async function(index) {
+			var data = this.all;
+			let id = this.i;
+            let all = data.filter(function (row) {
 				return Object.keys(row).some(function (key) {
 					return String(row[key]).toLowerCase().indexOf(id) > -1;
 				})
-			})
-			all = all["0"];
+			})["0"].track.points[index];
+			//all = JSON.parse(all);
+			console.log(all);
 			//var all = this.$store.getters.all[id];
 			if (this.flightPath) this.flightPath.setMap(null);
 			let geometry = Array();
@@ -74,7 +123,10 @@ export default {
 				strokeWeight: 2
 			});
 			this.flightPath.setMap(this.map);
-			}
+		},
+		back: function () {
+            this.open = true
+        },
 	}
 };
 </script>
@@ -120,6 +172,10 @@ input{
 	background-color: #8ecbd3;
 	color: white;
 	cursor: pointer;
+}
+
+button{
+	margin: 10px;
 }
 
 </style>

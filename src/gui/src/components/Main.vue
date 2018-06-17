@@ -36,12 +36,13 @@ import axios from "axios";
 import PageAll from "./All.vue";
 import PageMap from "./Map.vue";
 import PageDoc from "./Documentation.vue";
+import PageDoc2 from "./Documentation2.vue";
 import PageOneUser from "./OneUser.vue";
 import OtherAccel from "./otherAccel.vue";
 
 export default {
   name: "Main",
-  components: { PageAll, PageMap, PageDoc, PageOneUser, OtherAccel },
+  components: { PageAll, PageMap, PageDoc, PageDoc2, PageOneUser, OtherAccel },
   data: () => ({
     displayError: "none",
     displaySuccess: "none",
@@ -62,8 +63,15 @@ export default {
         isActive: false
       },
       {
-        text: "Документация",
+        text: "Заметки",
         component: "page-doc",
+        "--before": "'\\f15c'",
+        "--colorNav": "#41cadc",
+        isActive: false
+      },
+      {
+        text: "Документация",
+        component: "page-doc2",
         "--before": "'\\f15c'",
         "--colorNav": "#41cadc",
         isActive: false
@@ -148,10 +156,9 @@ export default {
 
 .main {
   margin: 0;
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
   color: rgb(37, 73, 121);
-
   font-size: 18px;
 }
 
@@ -185,8 +192,8 @@ header p {
 
 .i {
   background-image: url(../assets/home.svg);
-  width: 50.5px;
-  height: 50.5px;
+  width: 50px;
+  height: 50px;
   position: absolute;
   top: 10px;
   left: 10px;
@@ -226,5 +233,12 @@ header p {
 
 #success {
   grid-template-columns: max-content auto;
+  -moz-box-sizing: border-box; /* Для Firefox */
+  -webkit-box-sizing: border-box; /* Для Safari и Chrome */
+  box-sizing: border-box; /* Для IE и Opera */
+}
+
+.right {
+  overflow-x: hidden;
 }
 </style>

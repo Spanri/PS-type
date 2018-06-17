@@ -59,6 +59,7 @@ export default {
 .inp input{
     color: rgb(55, 63, 48);
     background: #ffffff;
+    width: 200px;
     padding: 5px;
     margin: 10px;
     font-size: 18px;
@@ -80,14 +81,14 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill{
   background-size: 12% ;
   background-repeat: no-repeat;
   background-position: center center;
-  width: 225.2px;
+  width: 210px;
+  margin: 10px;
+  margin-bottom: 20px;
   height: 30.8px;
   color: white;
   border: none;
   padding-left: 30px;
   padding-right: 30px;
-  margin: 10px;
-  margin-bottom: 20px;
   font-size: 18px;
 }
 
