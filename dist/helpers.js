@@ -71,9 +71,14 @@
 "use strict";
 
 
-//There is func for input error
+/** @see module:helpers */
+/** @module helpers */
 
-//common error
+/**
+ * Общие ошибки.
+ * @function
+ * @param {} res - response
+ */
 
 Object.defineProperty(exports, "__esModule", {
     value: true
@@ -90,7 +95,11 @@ function dberr(res) {
     });
 }
 
-//for change.js
+/**
+ * Для change js.
+ * @function
+ * @param {} res - response
+ */
 function ok(res) {
     return res.status(200).send({
         status: 'ok',
@@ -98,7 +107,11 @@ function ok(res) {
     });
 }
 
-//for authorization
+/**
+ * Для авторизации.
+ * @function
+ * @param {} res - response
+ */
 function notFound(res) {
     return res.status(404).send({
         status: 'error',
@@ -106,7 +119,11 @@ function notFound(res) {
     });
 }
 
-//for validation of token (time of life - 10days) ???
+/**
+ * Для валидации по токену (время жизни - 10 дней).
+ * @function
+ * @param {} res - response
+ */
 function valerr(res, err) {
     if (err.name === 'ValidationError') {
         var firstErr = err.errors[Object.keys(err.errors)[0]];

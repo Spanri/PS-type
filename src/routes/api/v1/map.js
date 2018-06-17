@@ -7,6 +7,19 @@ import jwt_decode from 'jwt-decode';
 import jwt from 'jsonwebtoken';
 const router = express.Router();
 
+/** @see module:api/v1/map/* */
+/** @module api/v1/map/* */
+
+/**
+ * Занесение accel в бд.
+ * 
+ * @name Accel в бд
+ * @route {POST} /get1
+ * @queryparam {String} token Токен
+ * @queryparam {Date} date Дата
+ * @queryparam {Date} firstTime Первое время
+ * @queryparam {Date} lastTime Последнее время
+ */
 router.post('/get1', async (req, res, next) => {
   //проверка на валидность токена
   jwt.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', async (err, token) => {
@@ -36,7 +49,6 @@ router.post('/get1', async (req, res, next) => {
                 }
           }
         }
-
         return res.status(200).send({
           status: 'ok',
           message: 'Date successfuly received',
@@ -47,6 +59,21 @@ router.post('/get1', async (req, res, next) => {
   });
 });
 
+/**
+ * Занесение одного объекта с координатами в бд.
+ * Добавляет местоположение в массив с координатами пользователя.
+ * Примечание: долгота, широта и скорость не заданы на сервере 
+ * как обязательные (техническая необходимость), будет выдавать 
+ * ошибку casterror в случае отсутствия чего-либо их этого.
+ * 
+ * @name Координаты в бд
+ * @route {POST} /pos
+ * @queryparam {String} token Токен
+ * @queryparam {Number} latitude Широта
+ * @queryparam {Number} longitude Долгота
+ * @queryparam {Number} speed Скорость
+ * @queryparam {Date} date Дата
+ */
 router.post('/pos', async (req, res, next) => {
   jwt.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', async (err, token) => {
     if(err){
@@ -77,6 +104,15 @@ router.post('/pos', async (req, res, next) => {
   });
 });
 
+/**
+ * Занесение dateTrack, startTime в бд.
+ * 
+ * @name dateTrack, startTime в бд
+ * @route {POST} /startPos
+ * @queryparam {String} token Токен
+ * @queryparam {String} dateTrack Дата трека
+ * @queryparam {String} StartTime Начальное время
+ */
 router.post('/startPos', async (req, res, next) => {
   jwt.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', async (err, token) => {
     if (err) {
@@ -102,6 +138,15 @@ router.post('/startPos', async (req, res, next) => {
   });
 });
 
+/**
+ * Занесение stopTime, points в бд.
+ * 
+ * @name stopTime, points в бд.
+ * @route {POST} /getLastData
+ * @queryparam {String} token Токен
+ * @queryparam {Array} points Массив из данных о треке за промежуток времени
+ * @queryparam {String} StopTime Конечное время
+ */
 router.post('/getLastData', async (req, res, next) => {
   jwt.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', async (err, token) => {
     if(err){
@@ -133,6 +178,16 @@ router.post('/getLastData', async (req, res, next) => {
   });
 });
 
+/**
+ * Обрабатывает данные и вычисляет тип водителя. 
+ * Пока что доступны градации по скорости - лихач, 
+ * черепашка, обычный человек.
+ * Вызывать каждый раз по окончании режима водителя.
+ * 
+ * @name Обработка данных
+ * @route {POST} /obr
+ * @queryparam {String} token Токен
+ */
 router.post('/obr', async (req, res, next) => {
   jwt.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', async (err, token) => {
     if(err){
@@ -160,9 +215,12 @@ router.post('/obr', async (req, res, next) => {
 });
 
 /**
- * Обработка данных пользователя
- * @param {*} res - response, для возвращения ответов
- * @param {*} user - объект, данные которого надо обработать
+ * Обработка данных пользователя, ф-ция нужна для route "/obr".
+ * 
+ * @function
+ * @async
+ * @param {} res - response, для возвращения ответов
+ * @param {} user - объект, данные которого надо обработать
  */
 async function obr(res, user) {
   try{
@@ -231,7 +289,5 @@ async function obr(res, user) {
 
   } catch (err) { valerr(res, err); console.error(err); }
 }
-
-
 
 export default router;

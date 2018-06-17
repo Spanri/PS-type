@@ -246,9 +246,14 @@ module.exports = mongoose.model('User', userSchema);
 "use strict";
 
 
-//There is func for input error
+/** @see module:helpers */
+/** @module helpers */
 
-//common error
+/**
+ * Общие ошибки.
+ * @function
+ * @param {} res - response
+ */
 
 Object.defineProperty(exports, "__esModule", {
     value: true
@@ -265,7 +270,11 @@ function dberr(res) {
     });
 }
 
-//for change.js
+/**
+ * Для change js.
+ * @function
+ * @param {} res - response
+ */
 function ok(res) {
     return res.status(200).send({
         status: 'ok',
@@ -273,7 +282,11 @@ function ok(res) {
     });
 }
 
-//for authorization
+/**
+ * Для авторизации.
+ * @function
+ * @param {} res - response
+ */
 function notFound(res) {
     return res.status(404).send({
         status: 'error',
@@ -281,7 +294,11 @@ function notFound(res) {
     });
 }
 
-//for validation of token (time of life - 10days) ???
+/**
+ * Для валидации по токену (время жизни - 10 дней).
+ * @function
+ * @param {} res - response
+ */
 function valerr(res, err) {
     if (err.name === 'ValidationError') {
         var firstErr = err.errors[Object.keys(err.errors)[0]];
@@ -387,13 +404,31 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 var router = _express2.default.Router();
 
-//get token, time of life - 10days, secret in app.js
+/** @see module:api/v1/* */
+/** @module api/v1/* */
+
+/**
+ * Взять токен, время жизни - 10 дней, secret смотреть в app.js. Нужна для route "/signup"
+ * 
+ * @function
+ * @name Генерация токена
+ * @param {} req - require, для обработки
+ * @param {} payload - чето
+ */
 var getToken = function getToken(req, payload) {
   return _jsonwebtoken2.default.sign(payload, req.app.get('secret'), {
     expiresIn: '10d'
   });
 };
 
+/**
+ * Валидация пароля, условия в models/user.js. Нужна для route "/signup".
+ * 
+ * @function
+ * @name Проверка пароля
+ * @param {} user - пользователь, пароль которого проверяем
+ * @param {} password - пароль, который проверяется
+ */
 var verifyPassword = function verifyPassword(user, password) {
   return new Promise(function (resolve, reject) {
     user.verifyPassword(password, function (err, isValid) {
@@ -402,6 +437,28 @@ var verifyPassword = function verifyPassword(user, password) {
   });
 };
 
+/**
+ * Регистрация нового пользователя. Возвращает токен и 
+ * информацию о созданном пользователе.
+ * 
+ * @name Регистрация
+ * @route {POST} /signup
+ * @queryparam {String} username Имя пользователя
+ * @queryparam {String} password Пароль
+ * @queryparam {Number} [age] Возраст
+ * @queryparam {String} [sex] Пол
+ * @queryparam {String} [name] Имя
+ * @queryparam {String} [experience] Опыт
+ * @queryparam {String} [country] Страна
+ * @queryparam {String} [city] Город
+ * @queryparam {Number} [max] Максимальная скорость
+ * @queryparam {Number} [dist] Максимальная дистанция
+ * @queryparam {Date} [time] Максимальное время
+ * @queryparam {Date} [avtime] Среднее время
+ * @queryparam {Number} [radvar] radius variation
+ * @queryparam {Date} [date] Дата
+ * @queryparam {String} [type] Тип
+ */
 router.post('/signup', function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee(req, res, next) {
     var userToCreate, user, payload, firstErr, message;
@@ -409,7 +466,7 @@ router.post('/signup', function () {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            //create object with info about user
+            // create object with info about user
             userToCreate = {
               username: req.body.username,
               password: req.body.password,
@@ -468,6 +525,16 @@ router.post('/signup', function () {
   };
 }());
 
+/**
+ * Аутентифицирует пользователя, возвращает статус 
+ * приветствия и токен. Токен валиден 10 дней. Нагрузка 
+ * содержит имя пользователя и его ИД.
+ * 
+ * @name Авторизация
+ * @route {POST} /signin
+ * @queryparam {String} username Имя пользователя
+ * @queryparam {String} password Пароль
+ */
 router.post('/signin', function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee2(req, res, next) {
     var user, payload;
@@ -581,8 +648,24 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 var router = _express2.default.Router();
 
-//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRlc3RPYmplY3RQb2ludHMiLCJfaWQiOiI1YjI1NzIxNjQyZDI1MTAwMjBkYzIyZTIiLCJpYXQiOjE1MjkxODUwNjksImV4cCI6MTUzMDA0OTA2OX0.ye4jFLKR64SOP1Cqx1cHXOemcUSyGcgP06F5AfPLer4
+/** @see module:api/v1/data/* */
+/** @module api/v1/data/* */
 
+/**
+ * Изменение общей информации (age, name, experience и т.д.).
+ * Age вводить в формате en-Us (мм-дд-гг).
+ * 
+ * @name Изменение общей информации
+ * @route {POST} /all
+ * @queryparam {String} token Токен
+ * @queryparam {String} username Имя пользователя
+ * @queryparam {Number} [age] Возраст
+ * @queryparam {String} [sex] Пол
+ * @queryparam {String} [name] Имя
+ * @queryparam {String} [experience] Опыт
+ * @queryparam {String} [country] Страна
+ * @queryparam {String} [city] Город
+ */
 router.post('/change', function () {
 	var _ref = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee2(req, res, next) {
 		return _regenerator2.default.wrap(function _callee2$(_context2) {
@@ -674,7 +757,11 @@ router.post('/change', function () {
 }());
 
 /**
- * Вычисление возраста в годах по дате.
+ * Вычисление возраста в годах по дате, нужна для route "/"
+ * 
+ * @function
+ * @param {} date - полная дата
+ * @return дата в годах
  */
 function getCurrentAge(date) {
 	return (new Date().getTime() - new Date(date)) / (24 * 3600 * 365.25 * 1000) | 0;
@@ -682,9 +769,13 @@ function getCurrentAge(date) {
 
 /**
  * Получение общей информации о пользователе.
+ * Возвращает данные о пользователе: `age`, `sex`, 
+ * `type`, `name`, `experience`, `country`, `city`.
+ * Age в годах, например 19, age2 в дате.
  * 
- * @param token
- * @return общая информация о пользователе
+ * @name Общая информация
+ * @route {POST} /
+ * @queryparam {String} token Токен
  */
 router.post('/', function () {
 	var _ref3 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee4(req, res, next) {
@@ -788,10 +879,11 @@ router.post('/', function () {
 }());
 
 /**
- * Получение клиентом информации из track
+ * Получение клиентом информации из track.
  * 
- * @param token
- * @return строка с dateTrack, startTime, stopTime
+ * @name Информация из track
+ * @route {POST} /getDate
+ * @queryparam {String} token Токен
  */
 router.post('/getDate', function () {
 	var _ref5 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee6(req, res, next) {
@@ -892,12 +984,14 @@ router.post('/getDate', function () {
 }());
 
 /**
- * Получение points
+ * Получение клиентом points из бд.
  * 
- * @param token
- * @param dateTrack
- * @param StartTime
- * @return points
+ * @name Points
+ * @route {POST} /getPoints
+ * @queryparam {String} token Токен
+ * @queryparam {String} dateTrack Дата трека
+ * @queryparam {String} StartTime Начальное время
+ * @queryparam {Array} points Массив из данных о треке за промежуток времени
  */
 router.post('/getPoints', function () {
 	var _ref7 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee8(req, res, next) {
@@ -989,16 +1083,15 @@ router.post('/getPoints', function () {
 	};
 }());
 
-/**
- * @module Для админки.
- * @see module: Получение данных о всех пользователях
- */
+/** @see module:api/v1/data/* для админки */
+/** @module api/v1/data/* для админки */
 
 /**
- * Upload a file.
- *
- * @name Получение данных о всех пользователях
+ * Получение данных о всех пользователях.
+ * 
+ * @name Все пользователи
  * @route {POST} /all
+ * @queryparam {String} token Токен от admin0
  */
 router.post('/all', function () {
 	var _ref9 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee10(req, res, next) {
@@ -1099,11 +1192,12 @@ router.post('/all', function () {
 /**
  * Изменение данных в админке (вход по паролю админа).
  * 
- * @param token - токен admin0
- * @param nameOfPar - имя свойства, которое надо изменить
- * @param data - новое значение свойства
- * @param usernameAuth - username, у которого изменить свойство
- * @return только status и message
+ * @name Изменение данных
+ * @route {POST} /changeAdmin
+ * @queryparam {String} token Токен от admin0
+ * @queryparam {String} nameOfPar Имя свойства, которое надо изменить
+ * @queryparam {String} data Новое значение свойства
+ * @queryparam {String} usernameAuth Username, у которого изменить свойство
  */
 router.post('/changeAdmin', function () {
 	var _ref11 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee12(req, res, next) {
@@ -1238,9 +1332,12 @@ var _regenerator = __webpack_require__(4);
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
 /**
- * Обработка данных пользователя
- * @param {*} res - response, для возвращения ответов
- * @param {*} user - объект, данные которого надо обработать
+ * Обработка данных пользователя, ф-ция нужна для route "/obr".
+ * 
+ * @function
+ * @async
+ * @param {} res - response, для возвращения ответов
+ * @param {} user - объект, данные которого надо обработать
  */
 var obr = function () {
   var _ref11 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee11(res, user) {
@@ -1380,6 +1477,19 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 var router = _express2.default.Router();
 
+/** @see module:api/v1/map/* */
+/** @module api/v1/map/* */
+
+/**
+ * Занесение accel в бд.
+ * 
+ * @name Accel в бд
+ * @route {POST} /get1
+ * @queryparam {String} token Токен
+ * @queryparam {Date} date Дата
+ * @queryparam {Date} firstTime Первое время
+ * @queryparam {Date} lastTime Последнее время
+ */
 router.post('/get1', function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee2(req, res, next) {
     return _regenerator2.default.wrap(function _callee2$(_context2) {
@@ -1439,7 +1549,6 @@ router.post('/get1', function () {
                             }
                           }
                         }
-
                         return _context.abrupt('return', res.status(200).send({
                           status: 'ok',
                           message: 'Date successfuly received',
@@ -1477,6 +1586,21 @@ router.post('/get1', function () {
   };
 }());
 
+/**
+ * Занесение одного объекта с координатами в бд.
+ * Добавляет местоположение в массив с координатами пользователя.
+ * Примечание: долгота, широта и скорость не заданы на сервере 
+ * как обязательные (техническая необходимость), будет выдавать 
+ * ошибку casterror в случае отсутствия чего-либо их этого.
+ * 
+ * @name Координаты в бд
+ * @route {POST} /pos
+ * @queryparam {String} token Токен
+ * @queryparam {Number} latitude Широта
+ * @queryparam {Number} longitude Долгота
+ * @queryparam {Number} speed Скорость
+ * @queryparam {Date} date Дата
+ */
 router.post('/pos', function () {
   var _ref3 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee4(req, res, next) {
     return _regenerator2.default.wrap(function _callee4$(_context4) {
@@ -1567,6 +1691,15 @@ router.post('/pos', function () {
   };
 }());
 
+/**
+ * Занесение dateTrack, startTime в бд.
+ * 
+ * @name dateTrack, startTime в бд
+ * @route {POST} /startPos
+ * @queryparam {String} token Токен
+ * @queryparam {String} dateTrack Дата трека
+ * @queryparam {String} StartTime Начальное время
+ */
 router.post('/startPos', function () {
   var _ref5 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee6(req, res, next) {
     return _regenerator2.default.wrap(function _callee6$(_context6) {
@@ -1652,6 +1785,15 @@ router.post('/startPos', function () {
   };
 }());
 
+/**
+ * Занесение stopTime, points в бд.
+ * 
+ * @name stopTime, points в бд.
+ * @route {POST} /getLastData
+ * @queryparam {String} token Токен
+ * @queryparam {Array} points Массив из данных о треке за промежуток времени
+ * @queryparam {String} StopTime Конечное время
+ */
 router.post('/getLastData', function () {
   var _ref7 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee8(req, res, next) {
     return _regenerator2.default.wrap(function _callee8$(_context8) {
@@ -1750,6 +1892,16 @@ router.post('/getLastData', function () {
   };
 }());
 
+/**
+ * Обрабатывает данные и вычисляет тип водителя. 
+ * Пока что доступны градации по скорости - лихач, 
+ * черепашка, обычный человек.
+ * Вызывать каждый раз по окончании режима водителя.
+ * 
+ * @name Обработка данных
+ * @route {POST} /obr
+ * @queryparam {String} token Токен
+ */
 router.post('/obr', function () {
   var _ref9 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee10(req, res, next) {
     return _regenerator2.default.wrap(function _callee10$(_context10) {
@@ -1886,7 +2038,16 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 var router = _express2.default.Router();
 
-//принять данные акселерометра
+/** @see module:api/v1/accel/* */
+/** @module api/v1/accel/* */
+
+/**
+ * Занесение данных об акселерометре в бд.
+ * 
+ * @name Accel в бд
+ * @route {POST} /set
+ * @queryparam {String} token Токен
+ */
 router.post('/set', function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee2(req, res, next) {
     return _regenerator2.default.wrap(function _callee2$(_context2) {

@@ -42,6 +42,237 @@
 
 
 
+    <section>
+        <article><h1>:fire: PSTYPE V1 :cat2:</h1><h2>О приложении</h2><p>Полное название - psychotype. Определяет психотип водителя по характеру его движения.</p>
+<h2>Технологии</h2><h3>Для панели администратора</h3><table>
+<thead>
+<tr>
+<th>Название</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>vue</td>
+<td>фреймворк для админки</td>
+</tr>
+<tr>
+<td>vue-router</td>
+<td>фреймворк для vue, маршрутизация</td>
+</tr>
+<tr>
+<td>vuex</td>
+<td>фреймворк для vue, хранение данных</td>
+</tr>
+<tr>
+<td>axios</td>
+<td>фреймворк для vue, http-запросы</td>
+</tr>
+<tr>
+<td>google maps</td>
+<td>гугл карты для админки</td>
+</tr>
+</tbody>
+</table>
+<h3>Для сервера</h3><table>
+<thead>
+<tr>
+<th>Название</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Babel</td>
+<td>перевод в ES2015</td>
+</tr>
+<tr>
+<td>Webpack</td>
+<td>для babel (+ юзается в панели администратора)</td>
+</tr>
+<tr>
+<td>npm-run-all</td>
+<td>параллельный запуск команд</td>
+</tr>
+<tr>
+<td>express</td>
+<td>фреймворк для сервера</td>
+</tr>
+<tr>
+<td>jwt</td>
+<td>токен</td>
+</tr>
+<tr>
+<td>mongoose</td>
+<td>NoSQL база данных</td>
+</tr>
+<tr>
+<td>JSDoc</td>
+<td>Документирование</td>
+</tr>
+<tr>
+<td>JSdoc-route-plugin</td>
+<td>Плагин для JSDoc, параметры для описания route</td>
+</tr>
+</tbody>
+</table>
+<h2>Как пользоваться</h2><p>Параметры принимаются в JSON.
+Ответы возвращаются в JSON и всегда содержат <code>status</code> (короткая строка, характеризующая результат выполнения) и <code>message</code> (Более подробное описание результата выполнения).</p>
+<h2>Ссылка на сервер</h2><p><a href="https://pstype.herokuapp.com">Heroku</a></p>
+<h2>Документация по маршрутам</h2><p><a href="https://pstype.herokuapp.com/doc">Документация</a></p>
+<h2>Ответы:</h2><h3>Статус &quot;ок&quot;</h3><table>
+<thead>
+<tr>
+<th>Сообщение</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ok</code></td>
+<td>Для запроса на вход</td>
+</tr>
+<tr>
+<td><code>User successfuly authorized</code></td>
+<td>Пользователь успешно авторизован. В этом случае ответ также будет содержать <code>token</code></td>
+</tr>
+<tr>
+<td><code>User successfuly created</code></td>
+<td>Пользователь успешно создан. В этом случае ответ также содежит <code>token</code> и поле <code>user</code>с нагрузкой токена</td>
+</tr>
+<tr>
+<td><code>User successfuly changed</code></td>
+<td>Пользователь успешно изменен</td>
+</tr>
+<tr>
+<td><code>Data successfuly processed</code></td>
+<td>Данные успешно обработаны</td>
+</tr>
+<tr>
+<td><code>Data successfuly received</code></td>
+<td>Данные успешно получены</td>
+</tr>
+</tbody>
+</table>
+<h3>Ошибки логина, пароля, id или логина вк</h3><table>
+<thead>
+<tr>
+<th>Сообщение</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Verify error</code></td>
+<td>Ошибка верификации токена (скорее всего истек срок действия)</td>
+</tr>
+<tr>
+<td><code>User not found</code></td>
+<td>Пользователь с таким именем не найден</td>
+</tr>
+<tr>
+<td><code>Wrong password</code></td>
+<td>Пользователь найден, но пароль неверен</td>
+</tr>
+<tr>
+<td><code>Database error</code></td>
+<td>Возникла ошибка при работе с базой данных</td>
+</tr>
+<tr>
+<td><code>User with this username already exists</code></td>
+<td>Пользователь с таким именем уже существует</td>
+</tr>
+<tr>
+<td><code>Username is required</code></td>
+<td>Отсутствует имя пользователя</td>
+</tr>
+<tr>
+<td><code>Password is required</code></td>
+<td>Отсутствует пароль</td>
+</tr>
+<tr>
+<td><code>Usernamevk is required</code></td>
+<td>Отсутствует логин</td>
+</tr>
+<tr>
+<td><code>idvk is required</code></td>
+<td>Отсутствует id</td>
+</tr>
+</tbody>
+</table>
+<p><code>Verify error</code> также имеет поле message2, где можно посмотреть конкретное описание ошибки (генерируется само).</p>
+<h3>Ошибки координат, возраста, пола</h3><table>
+<thead>
+<tr>
+<th>Сообщение</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Shirota is required</code></td>
+<td>Отсутствует широта</td>
+</tr>
+<tr>
+<td><code>Dolgota is required</code></td>
+<td>Отсутствует долгота</td>
+</tr>
+<tr>
+<td><code>Speed is required</code></td>
+<td>Отсутствует скорость</td>
+</tr>
+<tr>
+<td><code>Age must be &gt;= 14</code></td>
+<td>Возраст должен быть больше либо равен 14</td>
+</tr>
+<tr>
+<td><code>Age must be &lt;= 110</code></td>
+<td>Возраст должен быть меньше либо равен 110</td>
+</tr>
+<tr>
+<td><code>Sex must be &gt;= 0</code></td>
+<td>Пол должен быть больше либо равен 0</td>
+</tr>
+<tr>
+<td><code>Sex must be &lt;= 2</code></td>
+<td>Пол должен быть меньше либо равен 2</td>
+</tr>
+<tr>
+<td><code>Age must be &gt; 14 and &lt; 110</code></td>
+<td>Возраст должен быть от 14 до 110</td>
+</tr>
+<tr>
+<td><code>Sex must be an integer</code></td>
+<td>Пол должен быть целым числом (0 - default, 1 - м, 2 - ж)</td>
+</tr>
+</tbody>
+</table>
+<p>Примечание: при неправильном типе широты, долготы или скорости выдается ошибка типа &quot;Cast to [number] failed for value \&quot;[\&quot;25p\&quot;]\&quot; at path \&quot;latitude\&quot; (она сама формируется)</p>
+<h3>Другие ошибки</h3><table>
+<thead>
+<tr>
+<th>Сообщение</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Unexpected error</code></td>
+<td>Неизвестная ошибка</td>
+</tr>
+<tr>
+<td><code>Database error</code></td>
+<td>Возникла ошибка при работе с базой данных</td>
+</tr>
+<tr>
+<td><code>Error in saving</code></td>
+<td>Ошибка сохранения, в .../map/obr</td>
+</tr>
+</tbody>
+</table>
+<p>Примечание: При ошибке &quot;Database error&quot; также есть message2, где описана ошибка (генерируется сама). Если вдруг она возникла, можно для интереса послать этот же запрос + переменную message2.</p></article>
+    </section>
+
 
 
 
@@ -50,13 +281,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-%25D0%2594%25D0%25BB%25D1%258F%2520%25D0%25B0%25D0%25B4%25D0%25BC%25D0%25B8%25D0%25BD%25D0%25BA%25D0%25B8..html">Для админки.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getCurrentAge">getCurrentAge</a></li><li><a href="global.html#obr">obr</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-api_v1__.html">api/v1/*</a></li><li><a href="module-api_v1_accel__.html">api/v1/accel/*</a></li><li><a href="module-api_v1_data__.html">api/v1/data/*</a></li><li><a href="module-api_v1_data__%2520%25D0%25B4%25D0%25BB%25D1%258F%2520%25D0%25B0%25D0%25B4%25D0%25BC%25D0%25B8%25D0%25BD%25D0%25BA%25D0%25B8.html">api/v1/data/* для админки</a></li><li><a href="module-api_v1_map__.html">api/v1/map/*</a></li><li><a href="module-helpers.html">helpers</a></li><li><a href="module-%25D0%2593%25D0%25BB%25D0%25BE%25D0%25B1%25D0%25B0%25D0%25BB%25D1%258C%25D0%25BD%25D1%258B%25D0%25B5%2520%25D0%25BC%25D0%25B5%25D1%2582%25D0%25BE%25D0%25B4%25D1%258B.html">Глобальные методы</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Jun 17 2018 01:57:27 GMT+0200 (RTZ 1 (зима))
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Jun 17 2018 06:32:09 GMT+0200 (RTZ 1 (зима))
 </footer>
 
 <script> prettyPrint(); </script>

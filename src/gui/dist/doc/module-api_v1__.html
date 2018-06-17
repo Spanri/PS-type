@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Module: api/v1/*</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Module: api/v1/*</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id="%D0%90%D0%B2%D1%82%D0%BE%D1%80%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F"><span class="type-signature">(route) </span>Авторизация<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p><h5>Route:</h5>
+                            <table class="params">
+                            <thead><tr><th>Method</th><th class="last">Path</th></tr></thead>
+                            <tr>
+                            <td class="type">POST</td>
+                            <td class="name last">/signin</td>
+                            </tr>
+                            </table>
+                            Аутентифицирует пользователя, возвращает статус 
+приветствия и токен. Токен валиден 10 дней. Нагрузка 
+содержит имя пользователя и его ИД.
+                            <h5>Query Parameters:</h5>
+          <table class="params">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Type</th></p>
+<pre class="prettyprint source"><code>            &lt;th class=&quot;last&quot;>Description&lt;/th>
+          &lt;/tr>
+        &lt;/thead>
+        &lt;tr>
+        &lt;td class=&quot;name&quot;>username&lt;/td>
+        &lt;td class=&quot;type&quot;>String&lt;/td>
+
+
+        &lt;td class=&quot;description last&quot;>Имя пользователя&lt;/td>
+      &lt;/tr>&lt;tr>
+        &lt;td class=&quot;name&quot;>password&lt;/td>
+        &lt;td class=&quot;type&quot;>String&lt;/td>
+
+
+        &lt;td class=&quot;description last&quot;>Пароль&lt;/td>
+      &lt;/tr>
+      &lt;/table></code></pre>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="routes_api_v1_auth.js.html">routes/api/v1/auth.js</a>, <a href="routes_api_v1_auth.js.html#line99">line 99</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="%D0%A0%D0%B5%D0%B3%D0%B8%D1%81%D1%82%D1%80%D0%B0%D1%86%D0%B8%D1%8F"><span class="type-signature">(route) </span>Регистрация<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p><h5>Route:</h5>
+                            <table class="params">
+                            <thead><tr><th>Method</th><th class="last">Path</th></tr></thead>
+                            <tr>
+                            <td class="type">POST</td>
+                            <td class="name last">/signup</td>
+                            </tr>
+                            </table>
+                            Регистрация нового пользователя. Возвращает токен и 
+информацию о созданном пользователе.
+                            <h5>Query Parameters:</h5>
+          <table class="params">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Attributes</th></p>
+<pre class="prettyprint source"><code>            &lt;th class=&quot;last&quot;>Description&lt;/th>
+          &lt;/tr>
+        &lt;/thead>
+        &lt;tr>
+        &lt;td class=&quot;name&quot;>username&lt;/td>
+        &lt;td class=&quot;type&quot;>String&lt;/td>
+        &lt;td class=&quot;attributes&quot;>&lt;/td>
+
+        &lt;td class=&quot;description last&quot;>Имя пользователя&lt;/td>
+      &lt;/tr>&lt;tr>
+        &lt;td class=&quot;name&quot;>password&lt;/td>
+        &lt;td class=&quot;type&quot;>String&lt;/td>
+        &lt;td class=&quot;attributes&quot;>&lt;/td>
+
+        &lt;td class=&quot;description last&quot;>Пароль&lt;/td>
+      &lt;/tr>&lt;tr>
+        &lt;td class=&quot;name&quot;>age&lt;/td>
+        &lt;td class=&quot;type&quot;>Number&lt;/td>
+        &lt;td class=&quot;attributes&quot;>optional&lt;/td>
+
+        &lt;td class=&quot;description last&quot;>Возраст&lt;/td>
+      &lt;/tr>&lt;tr>
+        &lt;td class=&quot;name&quot;>sex&lt;/td>
+        &lt;td class=&quot;type&quot;>String&lt;/td>
+        &lt;td class=&quot;attributes&quot;>optional&lt;/td>
+
+        &lt;td class=&quot;description last&quot;>Пол&lt;/td>
+      &lt;/tr>&lt;tr>
+        &lt;td class=&quot;name&quot;>name&lt;/td>
+        &lt;td class=&quot;type&quot;>String&lt;/td>
+        &lt;td class=&quot;attributes&quot;>optional&lt;/td>
+
+        &lt;td class=&quot;description last&quot;>Имя&lt;/td>
+      &lt;/tr>&lt;tr>
+        &lt;td class=&quot;name&quot;>experience&lt;/td>
+        &lt;td class=&quot;type&quot;>String&lt;/td>
+        &lt;td class=&quot;attributes&quot;>optional&lt;/td>
+
+        &lt;td class=&quot;description last&quot;>Опыт&lt;/td>
+      &lt;/tr>&lt;tr>
+        &lt;td class=&quot;name&quot;>country&lt;/td>
+        &lt;td class=&quot;type&quot;>String&lt;/td>
+        &lt;td class=&quot;attributes&quot;>optional&lt;/td>
+
+        &lt;td class=&quot;description last&quot;>Страна&lt;/td>
+      &lt;/tr>&lt;tr>
+        &lt;td class=&quot;name&quot;>city&lt;/td>
+        &lt;td class=&quot;type&quot;>String&lt;/td>
+        &lt;td class=&quot;attributes&quot;>optional&lt;/td>
+
+        &lt;td class=&quot;description last&quot;>Город&lt;/td>
+      &lt;/tr>&lt;tr>
+        &lt;td class=&quot;name&quot;>max&lt;/td>
+        &lt;td class=&quot;type&quot;>Number&lt;/td>
+        &lt;td class=&quot;attributes&quot;>optional&lt;/td>
+
+        &lt;td class=&quot;description last&quot;>Максимальная скорость&lt;/td>
+      &lt;/tr>&lt;tr>
+        &lt;td class=&quot;name&quot;>dist&lt;/td>
+        &lt;td class=&quot;type&quot;>Number&lt;/td>
+        &lt;td class=&quot;attributes&quot;>optional&lt;/td>
+
+        &lt;td class=&quot;description last&quot;>Максимальная дистанция&lt;/td>
+      &lt;/tr>&lt;tr>
+        &lt;td class=&quot;name&quot;>time&lt;/td>
+        &lt;td class=&quot;type&quot;>Date&lt;/td>
+        &lt;td class=&quot;attributes&quot;>optional&lt;/td>
+
+        &lt;td class=&quot;description last&quot;>Максимальное время&lt;/td>
+      &lt;/tr>&lt;tr>
+        &lt;td class=&quot;name&quot;>avtime&lt;/td>
+        &lt;td class=&quot;type&quot;>Date&lt;/td>
+        &lt;td class=&quot;attributes&quot;>optional&lt;/td>
+
+        &lt;td class=&quot;description last&quot;>Среднее время&lt;/td>
+      &lt;/tr>&lt;tr>
+        &lt;td class=&quot;name&quot;>radvar&lt;/td>
+        &lt;td class=&quot;type&quot;>Number&lt;/td>
+        &lt;td class=&quot;attributes&quot;>optional&lt;/td>
+
+        &lt;td class=&quot;description last&quot;>radius variation&lt;/td>
+      &lt;/tr>&lt;tr>
+        &lt;td class=&quot;name&quot;>date&lt;/td>
+        &lt;td class=&quot;type&quot;>Date&lt;/td>
+        &lt;td class=&quot;attributes&quot;>optional&lt;/td>
+
+        &lt;td class=&quot;description last&quot;>Дата&lt;/td>
+      &lt;/tr>&lt;tr>
+        &lt;td class=&quot;name&quot;>type&lt;/td>
+        &lt;td class=&quot;type&quot;>String&lt;/td>
+        &lt;td class=&quot;attributes&quot;>optional&lt;/td>
+
+        &lt;td class=&quot;description last&quot;>Тип&lt;/td>
+      &lt;/tr>
+      &lt;/table></code></pre>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="routes_api_v1_auth.js.html">routes/api/v1/auth.js</a>, <a href="routes_api_v1_auth.js.html#line41">line 41</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~%D0%93%D0%B5%D0%BD%D0%B5%D1%80%D0%B0%D1%86%D0%B8%D1%8F%D1%82%D0%BE%D0%BA%D0%B5%D0%BD%D0%B0"><span class="type-signature">(inner) </span>Генерация токена<span class="signature">(req, payload)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Взять токен, время жизни - 10 дней, secret смотреть в app.js. Нужна для route &quot;/signup&quot;</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>req</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>require, для обработки</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>payload</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>чето</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="routes_api_v1_auth.js.html">routes/api/v1/auth.js</a>, <a href="routes_api_v1_auth.js.html#line13">line 13</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~%D0%9F%D1%80%D0%BE%D0%B2%D0%B5%D1%80%D0%BA%D0%B0%D0%BF%D0%B0%D1%80%D0%BE%D0%BB%D1%8F"><span class="type-signature">(inner) </span>Проверка пароля<span class="signature">(user, password)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Валидация пароля, условия в models/user.js. Нужна для route &quot;/signup&quot;.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>user</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>пользователь, пароль которого проверяем</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>password</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>пароль, который проверяется</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="routes_api_v1_auth.js.html">routes/api/v1/auth.js</a>, <a href="routes_api_v1_auth.js.html#line25">line 25</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-api_v1__.html">api/v1/*</a></li><li><a href="module-api_v1_accel__.html">api/v1/accel/*</a></li><li><a href="module-api_v1_data__.html">api/v1/data/*</a></li><li><a href="module-api_v1_data__%2520%25D0%25B4%25D0%25BB%25D1%258F%2520%25D0%25B0%25D0%25B4%25D0%25BC%25D0%25B8%25D0%25BD%25D0%25BA%25D0%25B8.html">api/v1/data/* для админки</a></li><li><a href="module-api_v1_map__.html">api/v1/map/*</a></li><li><a href="module-helpers.html">helpers</a></li><li><a href="module-%25D0%2593%25D0%25BB%25D0%25BE%25D0%25B1%25D0%25B0%25D0%25BB%25D1%258C%25D0%25BD%25D1%258B%25D0%25B5%2520%25D0%25BC%25D0%25B5%25D1%2582%25D0%25BE%25D0%25B4%25D1%258B.html">Глобальные методы</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Jun 17 2018 06:32:09 GMT+0200 (RTZ 1 (зима))
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

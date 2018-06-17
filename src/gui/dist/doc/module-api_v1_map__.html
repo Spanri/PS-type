@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Module: api/v1/map/*</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Module: api/v1/map/*</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id="Accel%D0%B2%D0%B1%D0%B4"><span class="type-signature">(route) </span>Accel в бд<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p><h5>Route:</h5>
+                            <table class="params">
+                            <thead><tr><th>Method</th><th class="last">Path</th></tr></thead>
+                            <tr>
+                            <td class="type">POST</td>
+                            <td class="name last">/get1</td>
+                            </tr>
+                            </table>
+                            Занесение accel в бд.
+                            <h5>Query Parameters:</h5>
+          <table class="params">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Type</th></p>
+<pre class="prettyprint source"><code>            &lt;th class=&quot;last&quot;>Description&lt;/th>
+          &lt;/tr>
+        &lt;/thead>
+        &lt;tr>
+        &lt;td class=&quot;name&quot;>token&lt;/td>
+        &lt;td class=&quot;type&quot;>String&lt;/td>
+
+
+        &lt;td class=&quot;description last&quot;>Токен&lt;/td>
+      &lt;/tr>&lt;tr>
+        &lt;td class=&quot;name&quot;>date&lt;/td>
+        &lt;td class=&quot;type&quot;>Date&lt;/td>
+
+
+        &lt;td class=&quot;description last&quot;>Дата&lt;/td>
+      &lt;/tr>&lt;tr>
+        &lt;td class=&quot;name&quot;>firstTime&lt;/td>
+        &lt;td class=&quot;type&quot;>Date&lt;/td>
+
+
+        &lt;td class=&quot;description last&quot;>Первое время&lt;/td>
+      &lt;/tr>&lt;tr>
+        &lt;td class=&quot;name&quot;>lastTime&lt;/td>
+        &lt;td class=&quot;type&quot;>Date&lt;/td>
+
+
+        &lt;td class=&quot;description last&quot;>Последнее время&lt;/td>
+      &lt;/tr>
+      &lt;/table></code></pre>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="routes_api_v1_map.js.html">routes/api/v1/map.js</a>, <a href="routes_api_v1_map.js.html#line13">line 13</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="%D0%9A%D0%BE%D0%BE%D1%80%D0%B4%D0%B8%D0%BD%D0%B0%D1%82%D1%8B%D0%B2%D0%B1%D0%B4"><span class="type-signature">(route) </span>Координаты в бд<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p><h5>Route:</h5>
+                            <table class="params">
+                            <thead><tr><th>Method</th><th class="last">Path</th></tr></thead>
+                            <tr>
+                            <td class="type">POST</td>
+                            <td class="name last">/pos</td>
+                            </tr>
+                            </table>
+                            Занесение одного объекта с координатами в бд.
+Добавляет местоположение в массив с координатами пользователя.
+Примечание: долгота, широта и скорость не заданы на сервере 
+как обязательные (техническая необходимость), будет выдавать 
+ошибку casterror в случае отсутствия чего-либо их этого.
+                            <h5>Query Parameters:</h5>
+          <table class="params">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Type</th></p>
+<pre class="prettyprint source"><code>            &lt;th class=&quot;last&quot;>Description&lt;/th>
+          &lt;/tr>
+        &lt;/thead>
+        &lt;tr>
+        &lt;td class=&quot;name&quot;>token&lt;/td>
+        &lt;td class=&quot;type&quot;>String&lt;/td>
+
+
+        &lt;td class=&quot;description last&quot;>Токен&lt;/td>
+      &lt;/tr>&lt;tr>
+        &lt;td class=&quot;name&quot;>latitude&lt;/td>
+        &lt;td class=&quot;type&quot;>Number&lt;/td>
+
+
+        &lt;td class=&quot;description last&quot;>Широта&lt;/td>
+      &lt;/tr>&lt;tr>
+        &lt;td class=&quot;name&quot;>longitude&lt;/td>
+        &lt;td class=&quot;type&quot;>Number&lt;/td>
+
+
+        &lt;td class=&quot;description last&quot;>Долгота&lt;/td>
+      &lt;/tr>&lt;tr>
+        &lt;td class=&quot;name&quot;>speed&lt;/td>
+        &lt;td class=&quot;type&quot;>Number&lt;/td>
+
+
+        &lt;td class=&quot;description last&quot;>Скорость&lt;/td>
+      &lt;/tr>&lt;tr>
+        &lt;td class=&quot;name&quot;>date&lt;/td>
+        &lt;td class=&quot;type&quot;>Date&lt;/td>
+
+
+        &lt;td class=&quot;description last&quot;>Дата&lt;/td>
+      &lt;/tr>
+      &lt;/table></code></pre>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="routes_api_v1_map.js.html">routes/api/v1/map.js</a>, <a href="routes_api_v1_map.js.html#line62">line 62</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="%D0%9E%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85"><span class="type-signature">(route) </span>Обработка данных<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p><h5>Route:</h5>
+                            <table class="params">
+                            <thead><tr><th>Method</th><th class="last">Path</th></tr></thead>
+                            <tr>
+                            <td class="type">POST</td>
+                            <td class="name last">/obr</td>
+                            </tr>
+                            </table>
+                            Обрабатывает данные и вычисляет тип водителя. 
+Пока что доступны градации по скорости - лихач, 
+черепашка, обычный человек.
+Вызывать каждый раз по окончании режима водителя.
+                            <h5>Query Parameters:</h5>
+          <table class="params">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Type</th></p>
+<pre class="prettyprint source"><code>            &lt;th class=&quot;last&quot;>Description&lt;/th>
+          &lt;/tr>
+        &lt;/thead>
+        &lt;tr>
+        &lt;td class=&quot;name&quot;>token&lt;/td>
+        &lt;td class=&quot;type&quot;>String&lt;/td>
+
+
+        &lt;td class=&quot;description last&quot;>Токен&lt;/td>
+      &lt;/tr>
+      &lt;/table></code></pre>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="routes_api_v1_map.js.html">routes/api/v1/map.js</a>, <a href="routes_api_v1_map.js.html#line181">line 181</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~obr"><span class="type-signature">(async, inner) </span>obr<span class="signature">(res, user)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Обработка данных пользователя, ф-ция нужна для route &quot;/obr&quot;.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>res</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>response, для возвращения ответов</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>user</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>объект, данные которого надо обработать</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="routes_api_v1_map.js.html">routes/api/v1/map.js</a>, <a href="routes_api_v1_map.js.html#line225">line 225</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-api_v1__.html">api/v1/*</a></li><li><a href="module-api_v1_accel__.html">api/v1/accel/*</a></li><li><a href="module-api_v1_data__.html">api/v1/data/*</a></li><li><a href="module-api_v1_data__%2520%25D0%25B4%25D0%25BB%25D1%258F%2520%25D0%25B0%25D0%25B4%25D0%25BC%25D0%25B8%25D0%25BD%25D0%25BA%25D0%25B8.html">api/v1/data/* для админки</a></li><li><a href="module-api_v1_map__.html">api/v1/map/*</a></li><li><a href="module-helpers.html">helpers</a></li><li><a href="module-%25D0%2593%25D0%25BB%25D0%25BE%25D0%25B1%25D0%25B0%25D0%25BB%25D1%258C%25D0%25BD%25D1%258B%25D0%25B5%2520%25D0%25BC%25D0%25B5%25D1%2582%25D0%25BE%25D0%25B4%25D1%258B.html">Глобальные методы</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Jun 17 2018 06:32:09 GMT+0200 (RTZ 1 (зима))
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

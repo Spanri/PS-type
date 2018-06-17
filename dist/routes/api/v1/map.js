@@ -246,9 +246,14 @@ module.exports = mongoose.model('User', userSchema);
 "use strict";
 
 
-//There is func for input error
+/** @see module:helpers */
+/** @module helpers */
 
-//common error
+/**
+ * Общие ошибки.
+ * @function
+ * @param {} res - response
+ */
 
 Object.defineProperty(exports, "__esModule", {
     value: true
@@ -265,7 +270,11 @@ function dberr(res) {
     });
 }
 
-//for change.js
+/**
+ * Для change js.
+ * @function
+ * @param {} res - response
+ */
 function ok(res) {
     return res.status(200).send({
         status: 'ok',
@@ -273,7 +282,11 @@ function ok(res) {
     });
 }
 
-//for authorization
+/**
+ * Для авторизации.
+ * @function
+ * @param {} res - response
+ */
 function notFound(res) {
     return res.status(404).send({
         status: 'error',
@@ -281,7 +294,11 @@ function notFound(res) {
     });
 }
 
-//for validation of token (time of life - 10days) ???
+/**
+ * Для валидации по токену (время жизни - 10 дней).
+ * @function
+ * @param {} res - response
+ */
 function valerr(res, err) {
     if (err.name === 'ValidationError') {
         var firstErr = err.errors[Object.keys(err.errors)[0]];
@@ -362,9 +379,12 @@ var _regenerator = __webpack_require__(4);
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
 /**
- * Обработка данных пользователя
- * @param {*} res - response, для возвращения ответов
- * @param {*} user - объект, данные которого надо обработать
+ * Обработка данных пользователя, ф-ция нужна для route "/obr".
+ * 
+ * @function
+ * @async
+ * @param {} res - response, для возвращения ответов
+ * @param {} user - объект, данные которого надо обработать
  */
 var obr = function () {
   var _ref11 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee11(res, user) {
@@ -504,6 +524,19 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 var router = _express2.default.Router();
 
+/** @see module:api/v1/map/* */
+/** @module api/v1/map/* */
+
+/**
+ * Занесение accel в бд.
+ * 
+ * @name Accel в бд
+ * @route {POST} /get1
+ * @queryparam {String} token Токен
+ * @queryparam {Date} date Дата
+ * @queryparam {Date} firstTime Первое время
+ * @queryparam {Date} lastTime Последнее время
+ */
 router.post('/get1', function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee2(req, res, next) {
     return _regenerator2.default.wrap(function _callee2$(_context2) {
@@ -563,7 +596,6 @@ router.post('/get1', function () {
                             }
                           }
                         }
-
                         return _context.abrupt('return', res.status(200).send({
                           status: 'ok',
                           message: 'Date successfuly received',
@@ -601,6 +633,21 @@ router.post('/get1', function () {
   };
 }());
 
+/**
+ * Занесение одного объекта с координатами в бд.
+ * Добавляет местоположение в массив с координатами пользователя.
+ * Примечание: долгота, широта и скорость не заданы на сервере 
+ * как обязательные (техническая необходимость), будет выдавать 
+ * ошибку casterror в случае отсутствия чего-либо их этого.
+ * 
+ * @name Координаты в бд
+ * @route {POST} /pos
+ * @queryparam {String} token Токен
+ * @queryparam {Number} latitude Широта
+ * @queryparam {Number} longitude Долгота
+ * @queryparam {Number} speed Скорость
+ * @queryparam {Date} date Дата
+ */
 router.post('/pos', function () {
   var _ref3 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee4(req, res, next) {
     return _regenerator2.default.wrap(function _callee4$(_context4) {
@@ -691,6 +738,15 @@ router.post('/pos', function () {
   };
 }());
 
+/**
+ * Занесение dateTrack, startTime в бд.
+ * 
+ * @name dateTrack, startTime в бд
+ * @route {POST} /startPos
+ * @queryparam {String} token Токен
+ * @queryparam {String} dateTrack Дата трека
+ * @queryparam {String} StartTime Начальное время
+ */
 router.post('/startPos', function () {
   var _ref5 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee6(req, res, next) {
     return _regenerator2.default.wrap(function _callee6$(_context6) {
@@ -776,6 +832,15 @@ router.post('/startPos', function () {
   };
 }());
 
+/**
+ * Занесение stopTime, points в бд.
+ * 
+ * @name stopTime, points в бд.
+ * @route {POST} /getLastData
+ * @queryparam {String} token Токен
+ * @queryparam {Array} points Массив из данных о треке за промежуток времени
+ * @queryparam {String} StopTime Конечное время
+ */
 router.post('/getLastData', function () {
   var _ref7 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee8(req, res, next) {
     return _regenerator2.default.wrap(function _callee8$(_context8) {
@@ -874,6 +939,16 @@ router.post('/getLastData', function () {
   };
 }());
 
+/**
+ * Обрабатывает данные и вычисляет тип водителя. 
+ * Пока что доступны градации по скорости - лихач, 
+ * черепашка, обычный человек.
+ * Вызывать каждый раз по окончании режима водителя.
+ * 
+ * @name Обработка данных
+ * @route {POST} /obr
+ * @queryparam {String} token Токен
+ */
 router.post('/obr', function () {
   var _ref9 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee10(req, res, next) {
     return _regenerator2.default.wrap(function _callee10$(_context10) {

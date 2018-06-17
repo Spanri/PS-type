@@ -246,9 +246,14 @@ module.exports = mongoose.model('User', userSchema);
 "use strict";
 
 
-//There is func for input error
+/** @see module:helpers */
+/** @module helpers */
 
-//common error
+/**
+ * Общие ошибки.
+ * @function
+ * @param {} res - response
+ */
 
 Object.defineProperty(exports, "__esModule", {
     value: true
@@ -265,7 +270,11 @@ function dberr(res) {
     });
 }
 
-//for change.js
+/**
+ * Для change js.
+ * @function
+ * @param {} res - response
+ */
 function ok(res) {
     return res.status(200).send({
         status: 'ok',
@@ -273,7 +282,11 @@ function ok(res) {
     });
 }
 
-//for authorization
+/**
+ * Для авторизации.
+ * @function
+ * @param {} res - response
+ */
 function notFound(res) {
     return res.status(404).send({
         status: 'error',
@@ -281,7 +294,11 @@ function notFound(res) {
     });
 }
 
-//for validation of token (time of life - 10days) ???
+/**
+ * Для валидации по токену (время жизни - 10 дней).
+ * @function
+ * @param {} res - response
+ */
 function valerr(res, err) {
     if (err.name === 'ValidationError') {
         var firstErr = err.errors[Object.keys(err.errors)[0]];
@@ -387,13 +404,31 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 var router = _express2.default.Router();
 
-//get token, time of life - 10days, secret in app.js
+/** @see module:api/v1/* */
+/** @module api/v1/* */
+
+/**
+ * Взять токен, время жизни - 10 дней, secret смотреть в app.js. Нужна для route "/signup"
+ * 
+ * @function
+ * @name Генерация токена
+ * @param {} req - require, для обработки
+ * @param {} payload - чето
+ */
 var getToken = function getToken(req, payload) {
   return _jsonwebtoken2.default.sign(payload, req.app.get('secret'), {
     expiresIn: '10d'
   });
 };
 
+/**
+ * Валидация пароля, условия в models/user.js. Нужна для route "/signup".
+ * 
+ * @function
+ * @name Проверка пароля
+ * @param {} user - пользователь, пароль которого проверяем
+ * @param {} password - пароль, который проверяется
+ */
 var verifyPassword = function verifyPassword(user, password) {
   return new Promise(function (resolve, reject) {
     user.verifyPassword(password, function (err, isValid) {
@@ -402,6 +437,28 @@ var verifyPassword = function verifyPassword(user, password) {
   });
 };
 
+/**
+ * Регистрация нового пользователя. Возвращает токен и 
+ * информацию о созданном пользователе.
+ * 
+ * @name Регистрация
+ * @route {POST} /signup
+ * @queryparam {String} username Имя пользователя
+ * @queryparam {String} password Пароль
+ * @queryparam {Number} [age] Возраст
+ * @queryparam {String} [sex] Пол
+ * @queryparam {String} [name] Имя
+ * @queryparam {String} [experience] Опыт
+ * @queryparam {String} [country] Страна
+ * @queryparam {String} [city] Город
+ * @queryparam {Number} [max] Максимальная скорость
+ * @queryparam {Number} [dist] Максимальная дистанция
+ * @queryparam {Date} [time] Максимальное время
+ * @queryparam {Date} [avtime] Среднее время
+ * @queryparam {Number} [radvar] radius variation
+ * @queryparam {Date} [date] Дата
+ * @queryparam {String} [type] Тип
+ */
 router.post('/signup', function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee(req, res, next) {
     var userToCreate, user, payload, firstErr, message;
@@ -409,7 +466,7 @@ router.post('/signup', function () {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            //create object with info about user
+            // create object with info about user
             userToCreate = {
               username: req.body.username,
               password: req.body.password,
@@ -468,6 +525,16 @@ router.post('/signup', function () {
   };
 }());
 
+/**
+ * Аутентифицирует пользователя, возвращает статус 
+ * приветствия и токен. Токен валиден 10 дней. Нагрузка 
+ * содержит имя пользователя и его ИД.
+ * 
+ * @name Авторизация
+ * @route {POST} /signin
+ * @queryparam {String} username Имя пользователя
+ * @queryparam {String} password Пароль
+ */
 router.post('/signin', function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee2(req, res, next) {
     var user, payload;

@@ -7,8 +7,24 @@ import jwt_decode from 'jwt-decode';
 import jwt from 'jsonwebtoken';
 const router = express.Router();
 
-//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRlc3RPYmplY3RQb2ludHMiLCJfaWQiOiI1YjI1NzIxNjQyZDI1MTAwMjBkYzIyZTIiLCJpYXQiOjE1MjkxODUwNjksImV4cCI6MTUzMDA0OTA2OX0.ye4jFLKR64SOP1Cqx1cHXOemcUSyGcgP06F5AfPLer4
+/** @see module:api/v1/data/* */
+/** @module api/v1/data/* */
 
+/**
+ * Изменение общей информации (age, name, experience и т.д.).
+ * Age вводить в формате en-Us (мм-дд-гг).
+ * 
+ * @name Изменение общей информации
+ * @route {POST} /all
+ * @queryparam {String} token Токен
+ * @queryparam {String} username Имя пользователя
+ * @queryparam {Number} [age] Возраст
+ * @queryparam {String} [sex] Пол
+ * @queryparam {String} [name] Имя
+ * @queryparam {String} [experience] Опыт
+ * @queryparam {String} [country] Страна
+ * @queryparam {String} [city] Город
+ */
 router.post('/change', async (req, res, next) => {
 	jwt.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', async (err, token) => {
 		if(err){
@@ -40,10 +56,12 @@ router.post('/change', async (req, res, next) => {
 	});
 });
 
-
-
 /**
- * Вычисление возраста в годах по дате.
+ * Вычисление возраста в годах по дате, нужна для route "/"
+ * 
+ * @function
+ * @param {} date - полная дата
+ * @return дата в годах
  */
 function getCurrentAge(date) {
 	return ((new Date().getTime() - new Date(date)) / (24 * 3600 * 365.25 * 1000)) | 0;
@@ -51,9 +69,13 @@ function getCurrentAge(date) {
 
 /**
  * Получение общей информации о пользователе.
+ * Возвращает данные о пользователе: `age`, `sex`, 
+ * `type`, `name`, `experience`, `country`, `city`.
+ * Age в годах, например 19, age2 в дате.
  * 
- * @param token
- * @return общая информация о пользователе
+ * @name Общая информация
+ * @route {POST} /
+ * @queryparam {String} token Токен
  */
 router.post('/', async (req, res, next) => {
 	// проверка на валидность токена
@@ -100,10 +122,11 @@ router.post('/', async (req, res, next) => {
 });
 
 /**
- * Получение клиентом информации из track
+ * Получение клиентом информации из track.
  * 
- * @param token
- * @return строка с dateTrack, startTime, stopTime
+ * @name Информация из track
+ * @route {POST} /getDate
+ * @queryparam {String} token Токен
  */
 router.post('/getDate', async (req, res, next) => {
 	//проверка на валидность токена
@@ -146,12 +169,14 @@ router.post('/getDate', async (req, res, next) => {
 });
 
 /**
- * Получение points
+ * Получение клиентом points из бд.
  * 
- * @param token
- * @param dateTrack
- * @param StartTime
- * @return points
+ * @name Points
+ * @route {POST} /getPoints
+ * @queryparam {String} token Токен
+ * @queryparam {String} dateTrack Дата трека
+ * @queryparam {String} StartTime Начальное время
+ * @queryparam {Array} points Массив из данных о треке за промежуток времени
  */
 router.post('/getPoints', async (req, res, next) => {
 	//проверка на валидность токена
@@ -190,16 +215,15 @@ router.post('/getPoints', async (req, res, next) => {
 	});
 });
 
-/**
- * @module Для админки.
- * @see module: Получение данных о всех пользователях
- */
+/** @see module:api/v1/data/* для админки */
+/** @module api/v1/data/* для админки */
 
 /**
- * Upload a file.
- *
- * @name Получение данных о всех пользователях
+ * Получение данных о всех пользователях.
+ * 
+ * @name Все пользователи
  * @route {POST} /all
+ * @queryparam {String} token Токен от admin0
  */
 router.post('/all', async (req, res, next) => {
 	jwt.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', async (err, token) => {
@@ -234,11 +258,12 @@ router.post('/all', async (req, res, next) => {
 /**
  * Изменение данных в админке (вход по паролю админа).
  * 
- * @param token - токен admin0
- * @param nameOfPar - имя свойства, которое надо изменить
- * @param data - новое значение свойства
- * @param usernameAuth - username, у которого изменить свойство
- * @return только status и message
+ * @name Изменение данных
+ * @route {POST} /changeAdmin
+ * @queryparam {String} token Токен от admin0
+ * @queryparam {String} nameOfPar Имя свойства, которое надо изменить
+ * @queryparam {String} data Новое значение свойства
+ * @queryparam {String} usernameAuth Username, у которого изменить свойство
  */
 router.post('/changeAdmin', async (req, res, next) => {
 	// проверка на валидность токена

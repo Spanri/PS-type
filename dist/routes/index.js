@@ -90,7 +90,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var router = _express2.default.Router();
 
-//common information about server and project
+/** @see module:Глобальные методы */
+/** @module Глобальные методы */
+
+/**
+ * Общая информация о сервере и проекте + версия.
+ * @name Общая информация
+ * @route {GET} /
+ */
 router.get('/', function (req, res, next) {
   res.json({
     name: "PSType API",

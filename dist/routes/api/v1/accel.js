@@ -246,9 +246,14 @@ module.exports = mongoose.model('User', userSchema);
 "use strict";
 
 
-//There is func for input error
+/** @see module:helpers */
+/** @module helpers */
 
-//common error
+/**
+ * Общие ошибки.
+ * @function
+ * @param {} res - response
+ */
 
 Object.defineProperty(exports, "__esModule", {
     value: true
@@ -265,7 +270,11 @@ function dberr(res) {
     });
 }
 
-//for change.js
+/**
+ * Для change js.
+ * @function
+ * @param {} res - response
+ */
 function ok(res) {
     return res.status(200).send({
         status: 'ok',
@@ -273,7 +282,11 @@ function ok(res) {
     });
 }
 
-//for authorization
+/**
+ * Для авторизации.
+ * @function
+ * @param {} res - response
+ */
 function notFound(res) {
     return res.status(404).send({
         status: 'error',
@@ -281,7 +294,11 @@ function notFound(res) {
     });
 }
 
-//for validation of token (time of life - 10days) ???
+/**
+ * Для валидации по токену (время жизни - 10 дней).
+ * @function
+ * @param {} res - response
+ */
 function valerr(res, err) {
     if (err.name === 'ValidationError') {
         var firstErr = err.errors[Object.keys(err.errors)[0]];
@@ -390,7 +407,16 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 var router = _express2.default.Router();
 
-//принять данные акселерометра
+/** @see module:api/v1/accel/* */
+/** @module api/v1/accel/* */
+
+/**
+ * Занесение данных об акселерометре в бд.
+ * 
+ * @name Accel в бд
+ * @route {POST} /set
+ * @queryparam {String} token Токен
+ */
 router.post('/set', function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee2(req, res, next) {
     return _regenerator2.default.wrap(function _callee2$(_context2) {

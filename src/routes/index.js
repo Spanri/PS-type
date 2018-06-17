@@ -2,7 +2,14 @@
 import express from 'express';
 const router = express.Router();
 
-//common information about server and project
+/** @see module:Глобальные методы */
+/** @module Глобальные методы */
+
+/**
+ * Общая информация о сервере и проекте + версия.
+ * @name Общая информация
+ * @route {GET} /
+ */
 router.get('/', (req, res, next) => {
   res.json({
     name: "PSType API",

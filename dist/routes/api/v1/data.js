@@ -246,9 +246,14 @@ module.exports = mongoose.model('User', userSchema);
 "use strict";
 
 
-//There is func for input error
+/** @see module:helpers */
+/** @module helpers */
 
-//common error
+/**
+ * Общие ошибки.
+ * @function
+ * @param {} res - response
+ */
 
 Object.defineProperty(exports, "__esModule", {
     value: true
@@ -265,7 +270,11 @@ function dberr(res) {
     });
 }
 
-//for change.js
+/**
+ * Для change js.
+ * @function
+ * @param {} res - response
+ */
 function ok(res) {
     return res.status(200).send({
         status: 'ok',
@@ -273,7 +282,11 @@ function ok(res) {
     });
 }
 
-//for authorization
+/**
+ * Для авторизации.
+ * @function
+ * @param {} res - response
+ */
 function notFound(res) {
     return res.status(404).send({
         status: 'error',
@@ -281,7 +294,11 @@ function notFound(res) {
     });
 }
 
-//for validation of token (time of life - 10days) ???
+/**
+ * Для валидации по токену (время жизни - 10 дней).
+ * @function
+ * @param {} res - response
+ */
 function valerr(res, err) {
     if (err.name === 'ValidationError') {
         var firstErr = err.errors[Object.keys(err.errors)[0]];
@@ -388,8 +405,24 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 var router = _express2.default.Router();
 
-//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRlc3RPYmplY3RQb2ludHMiLCJfaWQiOiI1YjI1NzIxNjQyZDI1MTAwMjBkYzIyZTIiLCJpYXQiOjE1MjkxODUwNjksImV4cCI6MTUzMDA0OTA2OX0.ye4jFLKR64SOP1Cqx1cHXOemcUSyGcgP06F5AfPLer4
+/** @see module:api/v1/data/* */
+/** @module api/v1/data/* */
 
+/**
+ * Изменение общей информации (age, name, experience и т.д.).
+ * Age вводить в формате en-Us (мм-дд-гг).
+ * 
+ * @name Изменение общей информации
+ * @route {POST} /all
+ * @queryparam {String} token Токен
+ * @queryparam {String} username Имя пользователя
+ * @queryparam {Number} [age] Возраст
+ * @queryparam {String} [sex] Пол
+ * @queryparam {String} [name] Имя
+ * @queryparam {String} [experience] Опыт
+ * @queryparam {String} [country] Страна
+ * @queryparam {String} [city] Город
+ */
 router.post('/change', function () {
 	var _ref = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee2(req, res, next) {
 		return _regenerator2.default.wrap(function _callee2$(_context2) {
@@ -481,7 +514,11 @@ router.post('/change', function () {
 }());
 
 /**
- * Вычисление возраста в годах по дате.
+ * Вычисление возраста в годах по дате, нужна для route "/"
+ * 
+ * @function
+ * @param {} date - полная дата
+ * @return дата в годах
  */
 function getCurrentAge(date) {
 	return (new Date().getTime() - new Date(date)) / (24 * 3600 * 365.25 * 1000) | 0;
@@ -489,9 +526,13 @@ function getCurrentAge(date) {
 
 /**
  * Получение общей информации о пользователе.
+ * Возвращает данные о пользователе: `age`, `sex`, 
+ * `type`, `name`, `experience`, `country`, `city`.
+ * Age в годах, например 19, age2 в дате.
  * 
- * @param token
- * @return общая информация о пользователе
+ * @name Общая информация
+ * @route {POST} /
+ * @queryparam {String} token Токен
  */
 router.post('/', function () {
 	var _ref3 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee4(req, res, next) {
@@ -595,10 +636,11 @@ router.post('/', function () {
 }());
 
 /**
- * Получение клиентом информации из track
+ * Получение клиентом информации из track.
  * 
- * @param token
- * @return строка с dateTrack, startTime, stopTime
+ * @name Информация из track
+ * @route {POST} /getDate
+ * @queryparam {String} token Токен
  */
 router.post('/getDate', function () {
 	var _ref5 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee6(req, res, next) {
@@ -699,12 +741,14 @@ router.post('/getDate', function () {
 }());
 
 /**
- * Получение points
+ * Получение клиентом points из бд.
  * 
- * @param token
- * @param dateTrack
- * @param StartTime
- * @return points
+ * @name Points
+ * @route {POST} /getPoints
+ * @queryparam {String} token Токен
+ * @queryparam {String} dateTrack Дата трека
+ * @queryparam {String} StartTime Начальное время
+ * @queryparam {Array} points Массив из данных о треке за промежуток времени
  */
 router.post('/getPoints', function () {
 	var _ref7 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee8(req, res, next) {
@@ -796,16 +840,15 @@ router.post('/getPoints', function () {
 	};
 }());
 
-/**
- * @module Для админки.
- * @see module: Получение данных о всех пользователях
- */
+/** @see module:api/v1/data/* для админки */
+/** @module api/v1/data/* для админки */
 
 /**
- * Upload a file.
- *
- * @name Получение данных о всех пользователях
+ * Получение данных о всех пользователях.
+ * 
+ * @name Все пользователи
  * @route {POST} /all
+ * @queryparam {String} token Токен от admin0
  */
 router.post('/all', function () {
 	var _ref9 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee10(req, res, next) {
@@ -906,11 +949,12 @@ router.post('/all', function () {
 /**
  * Изменение данных в админке (вход по паролю админа).
  * 
- * @param token - токен admin0
- * @param nameOfPar - имя свойства, которое надо изменить
- * @param data - новое значение свойства
- * @param usernameAuth - username, у которого изменить свойство
- * @return только status и message
+ * @name Изменение данных
+ * @route {POST} /changeAdmin
+ * @queryparam {String} token Токен от admin0
+ * @queryparam {String} nameOfPar Имя свойства, которое надо изменить
+ * @queryparam {String} data Новое значение свойства
+ * @queryparam {String} usernameAuth Username, у которого изменить свойство
  */
 router.post('/changeAdmin', function () {
 	var _ref11 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee12(req, res, next) {

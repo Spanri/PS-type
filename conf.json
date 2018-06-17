@@ -4,11 +4,11 @@
         "dictionaries": ["jsdoc","closure"]
     },
     "source": {
-        "include": ["./src/routes/api/v1"],
+        "include": ["./src/routes", "./src/helpers.js", "README.md"],
         "includePattern": ".+\\.js(doc|x)?$",
         "excludePattern": "(^|\\/|\\\\)_"
     },
-    "plugins": ["jsdoc-route-plugin"],
+    "plugins": ["jsdoc-route-plugin", "plugins/markdown"],
     "templates": {
         "cleverLinks": false,
         "monospaceLinks": false
