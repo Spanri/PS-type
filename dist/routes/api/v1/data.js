@@ -410,14 +410,15 @@ var router = _express2.default.Router();
 
 /**
  * Изменение общей информации (age, name, experience и т.д.).
- * Age вводить в формате en-Us (мм-дд-гг).
+ * Age вводить в формате Fri Jun 18 1992 02:00:00 GMT+0200 (RTZ 1 (зима)).
+ * Ввод age в других форматах у меня не работает, я хз, почему.
  * 
  * @name Изменение общей информации
- * @route {POST} /all
+ * @route {POST} /change
  * @queryparam {String} token Токен
  * @queryparam {String} username Имя пользователя
- * @queryparam {Number} [age] Возраст
- * @queryparam {String} [sex] Пол
+ * @queryparam {Date} [age] Возраст
+ * @queryparam {Number} [sex] Пол
  * @queryparam {String} [name] Имя
  * @queryparam {String} [experience] Опыт
  * @queryparam {String} [country] Страна
@@ -431,7 +432,7 @@ router.post('/change', function () {
 					case 0:
 						_jsonwebtoken2.default.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', function () {
 							var _ref2 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee(err, token) {
-								var user, age, sex, name, username, experience, country, city;
+								var user, data, key, userC;
 								return _regenerator2.default.wrap(function _callee$(_context) {
 									while (1) {
 										switch (_context.prev = _context.next) {
@@ -446,7 +447,7 @@ router.post('/change', function () {
 													message: 'Verify error',
 													message2: err.message
 												});
-												_context.next = 28;
+												_context.next = 24;
 												break;
 
 											case 4:
@@ -466,33 +467,47 @@ router.post('/change', function () {
 												return _context.abrupt('return', (0, _helpers.notFound)(res));
 
 											case 11:
-												age = req.body.age, sex = req.body.sex, name = req.body.name, username = req.body.username, experience = req.body.experience, country = req.body.country, city = req.body.city;
+												// заносим данные из req.body в отдельный объект data
+												data = {};
 
-												if (age && age != user.age) user.age = age;
-												if (sex && sex != user.sex) user.sex = sex;
-												if (name && name != user.name) user.name = name;
-												if (username && username != user.username) user.username = username;
-												if (experience && experience != user.experience) user.experience = experience;
-												if (country && country != user.country) user.country = country;
-												if (city && city != user.city) user.city = city;
-												console.log(user.username);
-												_context.next = 22;
+												for (key in req.body) {
+													if (req.body.hasOwnProperty(key) && key != "token") {
+														data[key] = req.body[key];
+													}
+												}
+												// если данные элемента от клиента есть и они отличаются
+												// от тех, что в user, меняем элемент в user
+												// подробнее есть в функции api/v1/data/changeAdmin
+												userC = user.toObject();
+												_context.next = 16;
+												return Object.keys(userC).forEach(function (key, i) {
+													// имя параметра из data = имя параметра из user
+													// значение из data = значение из user
+													Object.keys(data).forEach(function (key2, i) {
+														if (key2 == key && data[key2] != user[key]) {
+															user[key] = data[key];
+														}
+													});
+												});
+
+											case 16:
+												_context.next = 18;
 												return user.save();
 
-											case 22:
+											case 18:
 												return _context.abrupt('return', (0, _helpers.ok)(res));
 
-											case 25:
-												_context.prev = 25;
+											case 21:
+												_context.prev = 21;
 												_context.t0 = _context['catch'](5);
 												return _context.abrupt('return', (0, _helpers.dberr)(res));
 
-											case 28:
+											case 24:
 											case 'end':
 												return _context.stop();
 										}
 									}
-								}, _callee, undefined, [[5, 25]]);
+								}, _callee, undefined, [[5, 21]]);
 							}));
 
 							return function (_x4, _x5) {
@@ -686,16 +701,8 @@ router.post('/getDate', function () {
 												return _context5.abrupt('return', (0, _helpers.notFound)(res));
 
 											case 11:
-												// собираем строку
-												// let str = '[';
-												// for (var k = 1; user.track.dateTrack[k] != null; k++);
-												// for (let i = k - 1; i >= 0; i--)
-												// 	str += `{dateTrack:"${user.track.dateTrack[i]}",StartTime:"${user.track.startTime[i]}",StopTime:"${user.track.stopTime[i]}"};`;
-												// 	str = str.slice(0, -1);
-												// str += ']';
 												// собираем объект
 												str = [];
-												//for (var k = 1; user.track.dateTrack[k] != null; k++);
 
 												for (i = user.track.dateTrack.length - 1; i >= 0; i--) {
 													str.push({
@@ -756,7 +763,7 @@ router.post('/getPoints', function () {
 			while (1) {
 				switch (_context8.prev = _context8.next) {
 					case 0:
-						//проверка на валидность токена
+						// проверка на валидность токена
 						_jsonwebtoken2.default.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', function () {
 							var _ref8 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee7(err, token) {
 								var user, dateTrack, startTime, point;

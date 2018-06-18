@@ -12,14 +12,15 @@ const router = express.Router();
 
 /**
  * Изменение общей информации (age, name, experience и т.д.).
- * Age вводить в формате en-Us (мм-дд-гг).
+ * Age вводить в формате Fri Jun 18 1992 02:00:00 GMT+0200 (RTZ 1 (зима)).
+ * Ввод age в других форматах у меня не работает, я хз, почему.
  * 
  * @name Изменение общей информации
- * @route {POST} /all
+ * @route {POST} /change
  * @queryparam {String} token Токен
  * @queryparam {String} username Имя пользователя
- * @queryparam {Number} [age] Возраст
- * @queryparam {String} [sex] Пол
+ * @queryparam {Date} [age] Возраст
+ * @queryparam {Number} [sex] Пол
  * @queryparam {String} [name] Имя
  * @queryparam {String} [experience] Опыт
  * @queryparam {String} [country] Страна
@@ -34,22 +35,33 @@ router.post('/change', async (req, res, next) => {
 				message2: err.message
 		});
 		}else{
-			let user = null;
-			try { //выношу из токена данные в user
+			var user = null;
+			try { 
+				// выносим из токена данные в user
 				user = await User.findOne({ _id: token._id }).exec();
 				if (!user) return notFound(res);
-				let age = req.body.age, sex = req.body.sex, name = req.body.name,
-					username = req.body.username, experience = req.body.experience, 
-					country = req.body.country, city = req.body.city;
-				if (age && age!=user.age) user.age = age; 
-				if (sex && sex!=user.sex) user.sex = sex;
-				if (name && name!=user.name) user.name = name; 
-				if (username && username!=user.username) user.username = username;
-				if (experience && experience!=user.experience) user.experience = experience; 
-				if (country && country!=user.country) user.country = country; 
-				if (city && city!=user.city) user.city = city; 
-				console.log(user.username);
-				await user.save(); //сохраняю
+				// заносим данные из req.body в отдельный объект data
+				let data = {};
+				for(var key in req.body) {
+					if(req.body.hasOwnProperty(key) && key != "token"){
+						data[key] = req.body[key];
+					}
+				}
+				// если данные элемента от клиента есть и они отличаются
+				// от тех, что в user, меняем элемент в user
+				// подробнее есть в функции api/v1/data/changeAdmin
+				let userC = user.toObject();
+				await (Object.keys(userC)).forEach((key, i) => {
+					// имя параметра из data = имя параметра из user
+					// значение из data = значение из user
+					(Object.keys(data)).forEach((key2, i) => {
+						if(key2 == key && data[key2] != user[key]){
+							user[key] = data[key];
+						}
+					});	
+				});
+				// сохранение user в бд
+				await user.save();
 				return ok(res);
 			} catch (err) { return dberr(res); }
 		}
@@ -142,16 +154,8 @@ router.post('/getDate', async (req, res, next) => {
 			try { //выносим из токена данные в user
 				user = await User.findOne({ _id: token._id }).exec();
 				if (!user) return notFound(res);
-				// собираем строку
-				// let str = '[';
-				// for (var k = 1; user.track.dateTrack[k] != null; k++);
-				// for (let i = k - 1; i >= 0; i--)
-				// 	str += `{dateTrack:"${user.track.dateTrack[i]}",StartTime:"${user.track.startTime[i]}",StopTime:"${user.track.stopTime[i]}"};`;
-				// 	str = str.slice(0, -1);
-				// str += ']';
 				// собираем объект
 				let str = [];
-				//for (var k = 1; user.track.dateTrack[k] != null; k++);
 				for (let i = user.track.dateTrack.length - 1; i >= 0; i--)
 					str.push({
 						"dateTrack": user.track.dateTrack[i],
@@ -179,7 +183,7 @@ router.post('/getDate', async (req, res, next) => {
  * @queryparam {Array} points Массив из данных о треке за промежуток времени
  */
 router.post('/getPoints', async (req, res, next) => {
-	//проверка на валидность токена
+	// проверка на валидность токена
 	jwt.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', async (err, token) => {
 		if (err) {
 			res.status(500).send({
@@ -189,7 +193,7 @@ router.post('/getPoints', async (req, res, next) => {
 			});
 		} else {
 			let user = null;
-			try { //выношу из токена данные в user
+			try { // выносим из токена данные в user
 				user = await User.findOne({ _id: token._id }).exec();
 				if (!user) return notFound(res);
 		
@@ -205,11 +209,6 @@ router.post('/getPoints', async (req, res, next) => {
 					message: 'Date successfuly received',
 					points: point
 				});
-				// это теперь не надо
-				// return res.status(404).send({
-				// 	status: 'error',
-				// 	message: 'Date not found'
-				// });
 			} catch (err) { return dberr(res); }
 		}
 	});

@@ -19,8 +19,6 @@
                 {{ data }}
             </p>
             <ul style="margin:0" v-show="open" v-else-if="isFolder">
-                <!-- v-if="isFolder" -->
-                
                 <item
                     class="item"
                     v-for="(value, key) in data"
@@ -28,7 +26,6 @@
                     :model="{value: value, name: key}">
                 </item>
             </ul>
-            
             <p style="display:inline-block; margin:0" v-else>
                 {{ data }}
             </p>
@@ -76,19 +73,18 @@ export default {
         isFolder: function () {
             if(typeof(this.data) == "object" && !Array.isArray(this.data)) {
                 return Object.keys(this.data);
-            }    
-            else {
-                return false;
+            }   
+            else if(this.name == "points") {
+                console.log(this.name);
+                return this.data;
             }
+            else return false;
         },
         isArray: function () {
-            if(Array.isArray(this.data) && this.data.length != 0) {
+            if(Array.isArray(this.data) && this.data.length != 0 && this.name != "points") {
                 return this.data;
             }    
-            else {
-                
-                return false;
-            }
+            else return false;
         }
     },
     methods: {

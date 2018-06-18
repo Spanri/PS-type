@@ -12,15 +12,7 @@
                 {{ name }}: 
                 <span v-if="isFolder || isArray">[{{ open ? '-' : '+' }}]</span>
             </div>
-            <!-- <p 
-                style="display:inline-block; margin:0" 
-                v-show="open" 
-                v-if="isArray">
-                {{ data }}
-            </p> -->
             <ul style="margin:0" v-show="open" v-if="isArray">
-                <!-- v-if="isFolder" -->
-                
                 <item
                     class="item"
                     v-for="(value, key) in data"

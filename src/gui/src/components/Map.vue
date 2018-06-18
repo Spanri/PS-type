@@ -105,24 +105,30 @@ export default {
 					return String(row[key]).toLowerCase().indexOf(id) > -1;
 				})
 			})["0"].track.points[index];
-			//all = JSON.parse(all);
+			console.log(all);
+			all = JSON.parse(all);
 			console.log(all);
 			//var all = this.$store.getters.all[id];
 			if (this.flightPath) this.flightPath.setMap(null);
-			let geometry = Array();
-
+			let Latlng = [];
+			// формируем в Latlng массив координат
 			for (let i = 0; i < all.longitude.length; i++) {
-				await geometry.push({ lat: all.latitude[i], lng: all.longitude[i] });
+				await Latlng.push({ lat: all.latitude[i], lng: all.longitude[i] });
 			}
-
+			// рисуем координаты на карте и обновляем карту
 			this.flightPath = new google.maps.Polyline({
-				path: geometry,
+				path: Latlng,
 				geodesic: true,
 				strokeColor: "rgb(41, 59, 83)",
 				strokeOpacity: 1.0,
 				strokeWeight: 2
 			});
 			this.flightPath.setMap(this.map);
+			// масштабируем карту под координаты
+			var bounds = new google.maps.LatLngBounds();
+			Latlng.forEach(e => bounds.extend(e));
+			bounds.getCenter();     
+			this.map.fitBounds(bounds);
 		},
 		back: function () {
             this.open = true

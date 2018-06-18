@@ -528,9 +528,9 @@ var router = _express2.default.Router();
 /** @module api/v1/map/* */
 
 /**
- * Занесение accel в бд.
+ * Возвращение accel клиенту.
  * 
- * @name Accel в бд
+ * @name Accel клиенту
  * @route {POST} /get1
  * @queryparam {String} token Токен
  * @queryparam {Date} date Дата
@@ -849,7 +849,7 @@ router.post('/getLastData', function () {
           case 0:
             _jsonwebtoken2.default.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', function () {
               var _ref8 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee7(err, token) {
-                var user;
+                var user, p;
                 return _regenerator2.default.wrap(function _callee7$(_context7) {
                   while (1) {
                     switch (_context7.prev = _context7.next) {
@@ -864,7 +864,7 @@ router.post('/getLastData', function () {
                           message: 'Verify error',
                           message2: err.message
                         });
-                        _context7.next = 25;
+                        _context7.next = 27;
                         break;
 
                       case 4:
@@ -885,7 +885,10 @@ router.post('/getLastData', function () {
 
                       case 11:
                         _context7.prev = 11;
-                        _context7.next = 14;
+                        p = JSON.parse(req.body.points);
+
+                        console.log(p);
+                        _context7.next = 16;
                         return _user2.default.update({ _id: user._id }, {
                           $push: {
                             'track.stopTime': { $each: [req.body.StopTime] },
@@ -893,32 +896,32 @@ router.post('/getLastData', function () {
                           }
                         });
 
-                      case 14:
-                        _context7.next = 19;
+                      case 16:
+                        _context7.next = 21;
                         break;
 
-                      case 16:
-                        _context7.prev = 16;
+                      case 18:
+                        _context7.prev = 18;
                         _context7.t0 = _context7['catch'](11);
                         return _context7.abrupt('return', res.status(404).send({
                           status: 'error',
                           message: 'Error in saving'
                         }));
 
-                      case 19:
+                      case 21:
                         return _context7.abrupt('return', (0, _helpers.ok)(res));
 
-                      case 22:
-                        _context7.prev = 22;
+                      case 24:
+                        _context7.prev = 24;
                         _context7.t1 = _context7['catch'](5);
                         return _context7.abrupt('return', (0, _helpers.dberr)(res));
 
-                      case 25:
+                      case 27:
                       case 'end':
                         return _context7.stop();
                     }
                   }
-                }, _callee7, undefined, [[5, 22], [11, 16]]);
+                }, _callee7, undefined, [[5, 24], [11, 18]]);
               }));
 
               return function (_x19, _x20) {

@@ -11,9 +11,9 @@ const router = express.Router();
 /** @module api/v1/map/* */
 
 /**
- * Занесение accel в бд.
+ * Возвращение accel клиенту.
  * 
- * @name Accel в бд
+ * @name Accel клиенту
  * @route {POST} /get1
  * @queryparam {String} token Токен
  * @queryparam {Date} date Дата
