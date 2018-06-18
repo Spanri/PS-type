@@ -94,11 +94,10 @@ var message = function message(name) {
 };
 
 var obr = {
-  max: Number,
-  time: Date,
-  dist: Number,
-  avtime: Date,
-  radvar: Number,
+  maxSpeed: Number,
+  time: Number,
+  maxDist: Number,
+  radVar: Number,
   date: {
     type: [Date],
     required: false
@@ -1347,8 +1346,8 @@ var _regenerator2 = _interopRequireDefault(_regenerator);
  * @param {} user - объект, данные которого надо обработать
  */
 var obr = function () {
-  var _ref11 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee11(res, user) {
-    var cl1, cl2, sl1, sl2, cdelta, sdelta, x, y, len, _i, lat1, lat2, long1, long2, len2, at, _i2, maxlat, minlat, maxlon, minlon, _i3;
+  var _ref11 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee11(user) {
+    var cl1, cl2, sl1, sl2, cdelta, sdelta, x, y, len, i, lat1, lat2, long1, long2, time1, time2, maxlat, minlat, maxlon, minlon, _i;
 
     return _regenerator2.default.wrap(function _callee11$(_context11) {
       while (1) {
@@ -1359,99 +1358,76 @@ var obr = function () {
             return Math.max.apply(Math, user.speed);
 
           case 3:
-            user.obr.max = _context11.sent;
+            user.obr.maxSpeed = _context11.sent;
 
-            if (user.obr.max > 100) user.obr.type = "Лихач";else if (user.obr.max < 40) user.obr.type = "Черепашка";else user.obr.type = "Обычный человек";
+            if (user.obr.maxSpeed > 100) user.obr.type = "Лихач";else if (user.obr.maxSpeed < 40) user.obr.type = "Черепашка";else user.obr.type = "Обычный человек";
 
-            //max dist
+            // максимальная дистанция
             cl1 = void 0, cl2 = void 0, sl1 = void 0, sl2 = void 0, cdelta = void 0, sdelta = void 0, x = void 0, y = void 0;
 
-            user.obr.dist = 0;
+            user.obr.maxDist = 0;
             len = 0;
 
-            for (_i = 1; user.date[_i] != null; _i++) {
+            for (i = 1; user.date[i] != null; i++) {
               len++;
-              lat1 = user.latitude[_i - 1] * M_PI / 180;
-              lat2 = user.latitude[_i] * M_PI / 180;
-              long1 = user.longitude[_i - 1] * M_PI / 180;
-              long2 = user.longitude[_i] * M_PI / 180;
+              lat1 = user.latitude[i - 1] * Math.M_PI / 180;
+              lat2 = user.latitude[i] * Math.M_PI / 180;
+              long1 = user.longitude[i - 1] * Math.M_PI / 180;
+              long2 = user.longitude[i] * Math.M_PI / 180;
 
 
-              cl1 = cos(lat1);
-              cl2 = cos(lat2);
-              sl1 = sin(lat1);
-              sl2 = sin(lat2);
-              cdelta = cos(long2 - long1);
-              sdelta = sin(long2 - long1);
+              cl1 = Math.cos(lat1);
+              cl2 = Math.cos(lat2);
+              sl1 = Math.sin(lat1);
+              sl2 = Math.sin(lat2);
+              cdelta = Math.cos(long2 - long1);
+              sdelta = Math.sin(long2 - long1);
 
-              y = sqrt(pow(cl2 * sdelta, 2) + pow(cl1 * sl2 - sl1 * cl2 * cdelta, 2));
+              y = Math.sqrt(Math.pow(cl2 * sdelta, 2) + Math.pow(cl1 * sl2 - sl1 * cl2 * cdelta, 2));
               x = sl1 * sl2 + cl1 * cl2 * cdelta;
 
-              user.obr.dist += atan2(y, x) * 6372795;
+              user.obr.dist += Math.atan2(y, x) * 6372795;
             }
             user.obr.dist /= 1000;
 
-            //max time
-            len2 = 0;
+            // общее время (максимальное - минимальное) в ms
+            time1 = new Date(user.date[user.date.length - 1]).getTime();
+            time2 = new Date(user.date[0]).getTime();
 
-            while (user.obr.time[i] != null) {
-              len2++;
-            }user.obr.time[len2 + 1] = user.date[len] - user.date[0];
+            user.obr.time = time1 - time2;
 
-            //average time
-            at = 0;
-
-            for (_i2 = 1; user.obr.time[_i2] != null; _i2++) {
-              at += user.obr.time[_i2];
-            }user.obr.avtime = at / (len2 + 1);
-
-            //the radius variation
+            // the radius variation
             maxlat = 0, minlat = 5, maxlon = 0, minlon = 5;
 
-            for (_i3 = 0; user.latitude[_i3] != null; _i3++) {
-              if (user.latitude[_i3] > maxlat) maxlat = user.latitude[_i3];
-              if (user.latitude[_i3] < minlat) minlat = user.latitude[_i3];
-              if (user.longitude[_i3] > maxlat) maxlat = user.longitude[_i3];
-              if (user.longitude[_i3] < minlat) minlat = user.longitude[_i3];
+            for (_i = 0; user.latitude[_i] != null; _i++) {
+              if (user.latitude[_i] > maxlat) maxlat = user.latitude[_i];
+              if (user.latitude[_i] < minlat) minlat = user.latitude[_i];
+              if (user.longitude[_i] > maxlat) maxlat = user.longitude[_i];
+              if (user.longitude[_i] < minlat) minlat = user.longitude[_i];
             }
-            _context11.next = 20;
-            return sqrt(pow(maxlat - minlat, 2) + pow(maxlon - minlon, 2));
+            _context11.next = 17;
+            return Math.sqrt(Math.pow(maxlat - minlat, 2) + Math.pow(maxlon - minlon, 2));
 
-          case 20:
-            user.obr.radvar = _context11.sent;
-            _context11.next = 23;
-            return function () {
-              for (var _i4 = 0; user.date[_i4] != null; _i4++) {
-                user.date[_i4] = null;
-                user.speed[_i4] = null;
-                user.latitude[_i4] = null;
-                user.longitude[_i4] = null;
-              }
-            };
+          case 17:
+            user.obr.radVar = _context11.sent;
+            return _context11.abrupt('return', user);
 
-          case 23:
-            _context11.t0 = _context11.sent;
-            (0, _context11.t0)();
-            _context11.next = 27;
-            return user.save();
+          case 21:
+            _context11.prev = 21;
+            _context11.t0 = _context11['catch'](0);
 
-          case 27:
-            _context11.next = 33;
-            break;
+            console.log(_context11.t0);
+            return _context11.abrupt('return', user);
 
-          case 29:
-            _context11.prev = 29;
-            _context11.t1 = _context11['catch'](0);
-            (0, _helpers.valerr)(res, _context11.t1);console.error(_context11.t1);
-          case 33:
+          case 25:
           case 'end':
             return _context11.stop();
         }
       }
-    }, _callee11, this, [[0, 29]]);
+    }, _callee11, this, [[0, 21]]);
   }));
 
-  return function obr(_x26, _x27) {
+  return function obr(_x26) {
     return _ref11.apply(this, arguments);
   };
 }();
@@ -1932,7 +1908,7 @@ router.post('/obr', function () {
                           message: 'Verify error',
                           message2: err.message
                         });
-                        _context9.next = 25;
+                        _context9.next = 28;
                         break;
 
                       case 4:
@@ -1954,34 +1930,39 @@ router.post('/obr', function () {
                       case 11:
                         _context9.prev = 11;
                         _context9.next = 14;
-                        return obr(res, user);
+                        return obr(user);
 
                       case 14:
-                        _context9.next = 19;
+                        user = _context9.sent;
+                        _context9.next = 17;
+                        return user.save();
+
+                      case 17:
+                        _context9.next = 22;
                         break;
 
-                      case 16:
-                        _context9.prev = 16;
+                      case 19:
+                        _context9.prev = 19;
                         _context9.t0 = _context9['catch'](11);
                         return _context9.abrupt('return', res.status(404).send({
                           status: 'error',
                           message: 'Error in saving'
                         }));
 
-                      case 19:
+                      case 22:
                         return _context9.abrupt('return', (0, _helpers.ok)(res));
 
-                      case 22:
-                        _context9.prev = 22;
+                      case 25:
+                        _context9.prev = 25;
                         _context9.t1 = _context9['catch'](5);
                         return _context9.abrupt('return', (0, _helpers.dberr)(res));
 
-                      case 25:
+                      case 28:
                       case 'end':
                         return _context9.stop();
                     }
                   }
-                }, _callee9, undefined, [[5, 22], [11, 16]]);
+                }, _callee9, undefined, [[5, 25], [11, 19]]);
               }));
 
               return function (_x24, _x25) {

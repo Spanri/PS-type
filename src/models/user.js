@@ -9,11 +9,10 @@ function validator(v) {
 const message = name => `${name} must be longer than 6 symbols`;
 
 const obr = {
-  max: Number,
-  time: Date,
-  dist: Number,
-  avtime: Date,
-  radvar: Number,
+  maxSpeed: Number,
+  time: Number,
+  maxDist: Number,
+  radVar: Number,
   date: {
     type: [Date],
     required: false

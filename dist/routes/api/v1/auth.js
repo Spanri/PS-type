@@ -94,11 +94,10 @@ var message = function message(name) {
 };
 
 var obr = {
-  max: Number,
-  time: Date,
-  dist: Number,
-  avtime: Date,
-  radvar: Number,
+  maxSpeed: Number,
+  time: Number,
+  maxDist: Number,
+  radVar: Number,
   date: {
     type: [Date],
     required: false
