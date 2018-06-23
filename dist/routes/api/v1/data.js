@@ -409,8 +409,6 @@ var router = _express2.default.Router();
 
 /**
  * Изменение общей информации (age, name, experience и т.д.).
- * Age вводить в формате Fri Jun 18 1992 02:00:00 GMT+0200 (RTZ 1 (зима)).
- * Ввод age в других форматах у меня не работает, я хз, почему.
  * 
  * @name Изменение общей информации
  * @route {POST} /change
@@ -431,7 +429,7 @@ router.post('/change', function () {
 					case 0:
 						_jsonwebtoken2.default.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', function () {
 							var _ref2 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee(err, token) {
-								var user, data, key, userC;
+								var user, data, key, name;
 								return _regenerator2.default.wrap(function _callee$(_context) {
 									while (1) {
 										switch (_context.prev = _context.next) {
@@ -446,7 +444,7 @@ router.post('/change', function () {
 													message: 'Verify error',
 													message2: err.message
 												});
-												_context.next = 24;
+												_context.next = 25;
 												break;
 
 											case 4:
@@ -474,39 +472,41 @@ router.post('/change', function () {
 														data[key] = req.body[key];
 													}
 												}
-												// если данные элемента от клиента есть и они отличаются
-												// от тех, что в user, меняем элемент в user
-												// подробнее есть в функции api/v1/data/changeAdmin
-												userC = user.toObject();
-												_context.next = 16;
-												return Object.keys(userC).forEach(function (key, i) {
-													// имя параметра из data = имя параметра из user
-													// значение из data = значение из user
-													Object.keys(data).forEach(function (key2, i) {
-														if (key2 == key && data[key2] != user[key]) {
-															user[key] = data[key];
-														}
+												// массив из того, что можно добавлять/изменять через этот метод
+												name = ['username', 'age', 'sex', 'name', 'experience', 'country', 'city'];
+
+												Object.keys(data).filter(function (key) {
+													name.filter(function (n) {
+														return n == key;
 													});
 												});
+												// если данные элемента от клиента есть и они отличаются
+												// от тех, что в user, меняем элемент в user
+												_context.next = 17;
+												return Object.keys(data).forEach(function (key, i) {
+													if (user[key] != data[key]) {
+														user[key] = data[key];
+													}
+												});
 
-											case 16:
-												_context.next = 18;
+											case 17:
+												_context.next = 19;
 												return user.save();
 
-											case 18:
+											case 19:
 												return _context.abrupt('return', (0, _helpers.ok)(res));
 
-											case 21:
-												_context.prev = 21;
+											case 22:
+												_context.prev = 22;
 												_context.t0 = _context['catch'](5);
 												return _context.abrupt('return', (0, _helpers.dberr)(res));
 
-											case 24:
+											case 25:
 											case 'end':
 												return _context.stop();
 										}
 									}
-								}, _callee, undefined, [[5, 21]]);
+								}, _callee, undefined, [[5, 22]]);
 							}));
 
 							return function (_x4, _x5) {

@@ -12,8 +12,6 @@ const router = express.Router();
 
 /**
  * Изменение общей информации (age, name, experience и т.д.).
- * Age вводить в формате Fri Jun 18 1992 02:00:00 GMT+0200 (RTZ 1 (зима)).
- * Ввод age в других форматах у меня не работает, я хз, почему.
  * 
  * @name Изменение общей информации
  * @route {POST} /change
@@ -47,18 +45,17 @@ router.post('/change', async (req, res, next) => {
 						data[key] = req.body[key];
 					}
 				}
+				// массив из того, что можно добавлять/изменять через этот метод
+				let name = ['username', 'age', 'sex', 'name', 'experience', 'country', 'city'];
+				(Object.keys(data)).filter(key => {
+					name.filter(n => n == key);
+				});
 				// если данные элемента от клиента есть и они отличаются
 				// от тех, что в user, меняем элемент в user
-				// подробнее есть в функции api/v1/data/changeAdmin
-				let userC = user.toObject();
-				await (Object.keys(userC)).forEach((key, i) => {
-					// имя параметра из data = имя параметра из user
-					// значение из data = значение из user
-					(Object.keys(data)).forEach((key2, i) => {
-						if(key2 == key && data[key2] != user[key]){
-							user[key] = data[key];
-						}
-					});	
+				await (Object.keys(data)).forEach((key, i) => {
+					if(user[key] != data[key]){
+						user[key] = data[key];
+					}
 				});
 				// сохранение user в бд
 				await user.save();
