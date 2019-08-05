@@ -2,7 +2,9 @@ import http from 'http'
 import { env, mongo, port, ip, apiRoot } from './config'
 import mongoose from './services/mongoose'
 import express from './services/express'
-import api from './api'
+import ejwt from 'express-jwt';
+import path from 'path';
+import api from './api/api'
 
 const app = express(apiRoot, api)
 const server = http.createServer(app)
@@ -10,7 +12,19 @@ const server = http.createServer(app)
 mongoose.connect(mongo.uri)
 mongoose.Promise = Promise
 
-app.use(express.static(path.join(__dirname, '/dist')));
+app.set('', path.join(__dirname, 'dist'));
+
+// app.use(express.static(path.join(__dirname, '/dist')));
+
+// app.use(ejwt({
+//   secret: app.get('secret')
+// }).unless({
+//   method: 'OPTIONS',
+//   path: [
+//     '/',
+//     /\/api\/v\d(\/sign(in|up))?\/?/i
+//   ]
+// }));
 
 setImmediate(() => {
   server.listen(port, ip, () => {

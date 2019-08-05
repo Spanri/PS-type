@@ -1,9 +1,22 @@
-import { Router } from 'express'
-import v1 from './v1';
+"use strict";
+import express from 'express';
+const router = express.Router();
 
-const router = new Router()
+/** @see module:Глобальные методы */
+/** @module Глобальные методы */
 
-// version
-router.use('/v1', v1);
+/**
+ * Общая информация о сервере и проекте + версия.
+ * @name Общая информация
+ * @route {GET} /
+ */
+router.get('/', (req, res, next) => {
+  res.json({
+    name: "PSType API",
+    madeBy: "Anna, Valya",
+    versionOfServer: "0.1.1",
+    versionOfClient: "0.0.1"
+  });
+});
 
-export default router
+export default router;

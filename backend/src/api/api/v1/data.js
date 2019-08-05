@@ -1,7 +1,7 @@
 "use strict";
 import express from 'express';
-import User from '../../models/user';
-import { dberr, ok, notFound } from '../../helpers';
+import User from '../../../models/user';
+import { dberr, ok, notFound } from '../../../helpers';
 import jwt from 'jsonwebtoken';
 const router = express.Router();
 
