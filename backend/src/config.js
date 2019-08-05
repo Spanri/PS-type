@@ -26,7 +26,7 @@ const config = {
     port: process.env.PORT || 9000,
     ip: process.env.IP || 'localhost',
     apiRoot: process.env.API_ROOT || '',
-    masterKey: requireProcessEnv('MASTER_KEY'),
+    masterKey: requireProcessEnv('SECRET_KEY'),
     mongo: {
       options: {
         db: {

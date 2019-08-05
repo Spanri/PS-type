@@ -31,7 +31,7 @@ const requireProcessEnv = (name) => {
  * @queryparam {String} [city] Город
  */
 router.post('/change', async (req, res, next) => {
-	jwt.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', async (err, token) => {
+  jwt.verify(req.body.token, requireProcessEnv('SECRET_KEY'), async (err, token) => {
 		if(err){
 			res.status(500).send({
 				status: 'error',
@@ -94,7 +94,7 @@ function getCurrentAge(date) {
  */
 router.post('/', async (req, res, next) => {
 	// проверка на валидность токена
-	jwt.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', async (err, token) => {
+  jwt.verify(req.body.token, requireProcessEnv('SECRET_KEY'), async (err, token) => {
 		if (err) {
 			res.status(500).send({
 				status: 'error',
@@ -145,7 +145,7 @@ router.post('/', async (req, res, next) => {
  */
 router.post('/getDate', async (req, res, next) => {
 	//проверка на валидность токена
-	jwt.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', async (err, token) => {
+  jwt.verify(req.body.token, requireProcessEnv('SECRET_KEY'), async (err, token) => {
 		if (err) {
 			res.status(500).send({
 				status: 'error',
@@ -187,7 +187,7 @@ router.post('/getDate', async (req, res, next) => {
  */
 router.post('/getPoints', async (req, res, next) => {
 	// проверка на валидность токена
-	jwt.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', async (err, token) => {
+  jwt.verify(req.body.token, requireProcessEnv('SECRET_KEY'), async (err, token) => {
 		if (err) {
 			res.status(500).send({
 				status: 'error',
@@ -228,7 +228,7 @@ router.post('/getPoints', async (req, res, next) => {
  * @queryparam {String} token Токен от admin0
  */
 router.post('/all', async (req, res, next) => {
-  jwt.verify(req.body.token, requireProcessEnv('TOKEN_ADMIN'), async (err, token) => {
+  jwt.verify(req.body.token, requireProcessEnv('SECRET_KEY'), async (err, token) => {
 		if (err) {
 			res.status(500).send({
 				status: 'error',
@@ -269,7 +269,7 @@ router.post('/all', async (req, res, next) => {
  */
 router.post('/changeAdmin', async (req, res, next) => {
 	// проверка на валидность токена
-  jwt.verify(req.body.token, requireProcessEnv('TOKEN_ADMIN'), async (err, token) => {
+  jwt.verify(req.body.token, requireProcessEnv('SECRET_KEY'), async (err, token) => {
 		if (err) {
 			res.status(500).send({
 				status: 'error',
