@@ -1,6 +1,5 @@
 <template>
 	<div class="main">
-		
 		<div id="error" v-bind:style="{ display: displayError }">
 			<p>Ошибка. Кажется, вы пропустили процедуру аутентификации.</p>
 			<router-link to="/">
@@ -14,11 +13,11 @@
 					<p style="display:inline-block">Панель управления</p>
 				</div>
 				<div class="nav">
-					<div class="nav2" 
-							v-bind:class="{ colorNav: todo.component == 'page-doc2' ? todos[3].isActive : todo.isActive}" 
-							v-bind:style="todo.component == 'page-doc2' ? todos[3] : todo" 
-							v-bind:key="todo.id" 
-							v-for='(todo, id) of todos' 
+					<div class="nav2"
+							v-bind:class="{ colorNav: todo.component == 'page-doc2' ? todos[3].isActive : todo.isActive}"
+							v-bind:style="todo.component == 'page-doc2' ? todos[3] : todo"
+							v-bind:key="todo.id"
+							v-for='(todo, id) of todos'
 							@click="nav(id)">
 						{{ todo.text }}
 					</div>

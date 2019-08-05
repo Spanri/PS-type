@@ -5,6 +5,14 @@ import { dberr, ok, notFound } from '../../../helpers';
 import jwt from 'jsonwebtoken';
 const router = express.Router();
 
+/* istanbul ignore next */
+const requireProcessEnv = (name) => {
+  if (!process.env[name]) {
+    throw new Error('You must set the ' + name + ' environment variable')
+  }
+  return process.env[name]
+}
+
 /** @see module:api/v1/data/* */
 /** @module api/v1/data/* */
 
@@ -220,7 +228,7 @@ router.post('/getPoints', async (req, res, next) => {
  * @queryparam {String} token Токен от admin0
  */
 router.post('/all', async (req, res, next) => {
-	jwt.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', async (err, token) => {
+  jwt.verify(req.body.token, requireProcessEnv('TOKEN_ADMIN'), async (err, token) => {
 		if (err) {
 			res.status(500).send({
 				status: 'error',
@@ -255,13 +263,13 @@ router.post('/all', async (req, res, next) => {
  * @name Изменение данных
  * @route {POST} /changeAdmin
  * @queryparam {String} token Токен от admin0
- * @queryparam {String} nameOfPar Имя свойства, которое надо изменить
+ * @queryparam nameOfPar {String} Имя свойства, которое надо изменить
  * @queryparam {String} data Новое значение свойства
  * @queryparam {String} usernameAuth Username, у которого изменить свойство
  */
 router.post('/changeAdmin', async (req, res, next) => {
 	// проверка на валидность токена
-	jwt.verify(req.body.token, '5i39Tq2wX00PC0QEuA350vi7oDB2nnq3', async (err, token) => {
+  jwt.verify(req.body.token, requireProcessEnv('TOKEN_ADMIN'), async (err, token) => {
 		if (err) {
 			res.status(500).send({
 				status: 'error',

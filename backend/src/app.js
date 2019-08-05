@@ -4,7 +4,7 @@ import mongoose from './services/mongoose'
 import express from './services/express'
 import ejwt from 'express-jwt';
 import path from 'path';
-import api from './api/api'
+import api from './routes'
 
 const app = express(apiRoot, api)
 const server = http.createServer(app)

@@ -1,5 +1,7 @@
 "use strict";
 import express from 'express';
+import api from './api';
+
 const router = express.Router();
 
 /** @see module:Глобальные методы */
@@ -10,6 +12,9 @@ const router = express.Router();
  * @name Общая информация
  * @route {GET} /
  */
+
+router.use('/api', api);
+
 router.get('/', (req, res, next) => {
   res.json({
     name: "PSType API",

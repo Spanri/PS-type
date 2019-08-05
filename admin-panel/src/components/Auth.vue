@@ -2,14 +2,14 @@
   <div class="auth">
     <p class="title">Авторизация</p>
     <div class="inp">
-        <input id="username" type="text" v-model="username" placeholder="Логин" />
+      <input id="username" type="text" v-model="username" placeholder="Логин" />
     </div>
     <div class="inp">
-        <input id="password" type="password" v-model="password" placeholder="Пароль"/>
+      <input id="password" type="password" v-model="password" placeholder="Пароль"/>
     </div>
     <input id="login" type="submit" value="" v-on:click="login"/>
     <div id="error" v-bind:style="{ display: displayError }">
-        Всё плохо.
+      Всё плохо.
     </div>
   </div>
 </template>
@@ -27,16 +27,13 @@ export default {
   methods: {
     login: function (event) {
         this.displayError = 'none';
-        // отправка запроса
-        this.http.post('api/v1/signin', {
-            "username": this.username, "password": this.password 
+        axios.post('api/v1/signin', {
+            "username": this.username, "password": this.password
         })
-        // ответ на запрос
         .then(res => {
             sessionStorage.setItem('token', res.data.token);
             this.$router.push({ path: '/main' });
         })
-        // обработка ошибок
         .catch(e => {
             console.log(e);
             this.displayError = 'block';
@@ -76,7 +73,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill{
 .inp input::-webkit-input-placeholder {color:rgb(255, 255, 255);}
 
 #login{
-  
+
   background: #41cadc url('../assets/login_ico.png');
   background-size: 12% ;
   background-repeat: no-repeat;
