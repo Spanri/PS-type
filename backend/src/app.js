@@ -10,6 +10,8 @@ const server = http.createServer(app)
 mongoose.connect(mongo.uri)
 mongoose.Promise = Promise
 
+app.use(express.static(path.join(__dirname, '/dist')));
+
 setImmediate(() => {
   server.listen(port, ip, () => {
     console.log('Express server listening on http://%s:%d, in %s mode', ip, port, env)

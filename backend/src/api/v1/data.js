@@ -1,9 +1,7 @@
 "use strict";
-import path from 'path';
 import express from 'express';
-import User, {validator} from '../../../models/user';
-import { dberr, ok, notFound, valerr } from '../../../helpers';
-import jwt_decode from 'jwt-decode';
+import User from '../../models/user';
+import { dberr, ok, notFound } from '../../helpers';
 import jwt from 'jsonwebtoken';
 const router = express.Router();
 
@@ -12,7 +10,7 @@ const router = express.Router();
 
 /**
  * Изменение общей информации (age, name, experience и т.д.).
- * 
+ *
  * @name Изменение общей информации
  * @route {POST} /change
  * @queryparam {String} token Токен
@@ -34,7 +32,7 @@ router.post('/change', async (req, res, next) => {
 		});
 		}else{
 			var user = null;
-			try { 
+			try {
 				// выносим из токена данные в user
 				user = await User.findOne({ _id: token._id }).exec();
 				if (!user) return notFound(res);
@@ -67,7 +65,7 @@ router.post('/change', async (req, res, next) => {
 
 /**
  * Вычисление возраста в годах по дате, нужна для route "/"
- * 
+ *
  * @function
  * @param {} date - полная дата
  * @return дата в годах
@@ -78,10 +76,10 @@ function getCurrentAge(date) {
 
 /**
  * Получение общей информации о пользователе.
- * Возвращает данные о пользователе: `age`, `sex`, 
+ * Возвращает данные о пользователе: `age`, `sex`,
  * `type`, `name`, `experience`, `country`, `city`.
  * Age в годах, например 19, age2 в дате.
- * 
+ *
  * @name Общая информация
  * @route {POST} /
  * @queryparam {String} token Токен
@@ -97,7 +95,7 @@ router.post('/', async (req, res, next) => {
 			});
 		} else {
 			let user = null;
-			try { 
+			try {
 				// выносим из токена данные в user
 				user = await User.findOne({ _id: token._id }).exec();
 				if (!user) return notFound(res);
@@ -132,7 +130,7 @@ router.post('/', async (req, res, next) => {
 
 /**
  * Получение клиентом информации из track.
- * 
+ *
  * @name Информация из track
  * @route {POST} /getDate
  * @queryparam {String} token Токен
@@ -171,7 +169,7 @@ router.post('/getDate', async (req, res, next) => {
 
 /**
  * Получение клиентом points из бд.
- * 
+ *
  * @name Points
  * @route {POST} /getPoints
  * @queryparam {String} token Токен
@@ -193,12 +191,12 @@ router.post('/getPoints', async (req, res, next) => {
 			try { // выносим из токена данные в user
 				user = await User.findOne({ _id: token._id }).exec();
 				if (!user) return notFound(res);
-		
-				let dateTrack = req.body.dateTrack, 
+
+				let dateTrack = req.body.dateTrack,
 					startTime = req.body.StartTime;
 				console.log(dateTrack + " "+startTime);
 				// ищем нужный трек
-				let point = user.track.points.filter((track, i) => 
+				let point = user.track.points.filter((track, i) =>
 					dateTrack == user.track.dateTrack[i] && startTime == user.track.startTime[i]);
 				// возвращаем ответ (если трека нет, пустой элемент (вроде, массив))
 				return res.status(200).send({
@@ -216,7 +214,7 @@ router.post('/getPoints', async (req, res, next) => {
 
 /**
  * Получение данных о всех пользователях.
- * 
+ *
  * @name Все пользователи
  * @route {POST} /all
  * @queryparam {String} token Токен от admin0
@@ -253,7 +251,7 @@ router.post('/all', async (req, res, next) => {
 
 /**
  * Изменение данных в админке (вход по паролю админа).
- * 
+ *
  * @name Изменение данных
  * @route {POST} /changeAdmin
  * @queryparam {String} token Токен от admin0
@@ -283,10 +281,10 @@ router.post('/changeAdmin', async (req, res, next) => {
 						message: 'User is not admin'
 					});
 				var	userChange = await User.findOne({ username: req.body.usernameAuth }).exec(),
-					par = req.body.nameOfPar, 
+					par = req.body.nameOfPar,
 					data = req.body.data;
 				// находим свойства, которые надо изменить
-				// без этой строки не работает, загадка для меня 
+				// без этой строки не работает, загадка для меня
 				// https://github.com/Automattic/mongoose/issues/3891
 				let userC = userChange.toObject();
 				// критерии поиска
@@ -294,7 +292,7 @@ router.post('/changeAdmin', async (req, res, next) => {
 				// 2. значение в свойстве новое, т.е. не равно req.body.data
 				(Object.keys(userC)).forEach(key => {
 					if (par == key && data != userChange[key])
-						userChange[key] = data;	
+						userChange[key] = data;
 				});
 				// сохраняем в бд
 				await userChange.save();

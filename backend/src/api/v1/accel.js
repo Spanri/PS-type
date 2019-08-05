@@ -1,9 +1,8 @@
 "use strict";
 import path from 'path';
 import express from 'express';
-import User, {validator} from '../../../models/user';
-import { dberr, ok, notFound, valerr } from '../../../helpers';
-import jwt_decode from 'jwt-decode';
+import User from '../../models/user';
+import { dberr, ok, notFound, valerr } from '../../helpers';
 import jwt from 'jsonwebtoken';
 const router = express.Router();
 
@@ -12,7 +11,7 @@ const router = express.Router();
 
 /**
  * Занесение данных об акселерометре в бд.
- * 
+ *
  * @name Accel в бд
  * @route {POST} /set
  * @queryparam {String} token Токен

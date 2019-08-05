@@ -1,9 +1,7 @@
 "use strict";
-import path from 'path';
 import express from 'express';
-import User from '../../../models/user';
-import { dberr, ok, notFound, valerr } from '../../../helpers';
-import jwt_decode from 'jwt-decode';
+import User from '../../models/user';
+import { dberr, ok, notFound } from '../../helpers';
 import jwt from 'jsonwebtoken';
 const router = express.Router();
 
@@ -12,7 +10,7 @@ const router = express.Router();
 
 /**
  * Возвращение accel клиенту.
- * 
+ *
  * @name Accel клиенту
  * @route {POST} /get1
  * @queryparam {String} token Токен
@@ -40,10 +38,10 @@ router.post('/get1', async (req, res, next) => {
           if(user.accel.date[k] == req.body.date) {
               if(user.accel.time[k] < req.body.lastTime && user.accel.time[k] > req.body.firstTime){
                   mas.push({
-                    x: user.accel.x[k], 
-                    y: user.accel.y[k], 
-                    z: user.accel.z[k], 
-                    lon: user.accel.lon[k], 
+                    x: user.accel.x[k],
+                    y: user.accel.y[k],
+                    z: user.accel.z[k],
+                    lon: user.accel.lon[k],
                     lat: user.accel.lat[k]
                   });
                 }
@@ -62,10 +60,10 @@ router.post('/get1', async (req, res, next) => {
 /**
  * Занесение одного объекта с координатами в бд.
  * Добавляет местоположение в массив с координатами пользователя.
- * Примечание: долгота, широта и скорость не заданы на сервере 
- * как обязательные (техническая необходимость), будет выдавать 
+ * Примечание: долгота, широта и скорость не заданы на сервере
+ * как обязательные (техническая необходимость), будет выдавать
  * ошибку casterror в случае отсутствия чего-либо их этого.
- * 
+ *
  * @name Координаты в бд
  * @route {POST} /pos
  * @queryparam {String} token Токен
@@ -106,7 +104,7 @@ router.post('/pos', async (req, res, next) => {
 
 /**
  * Занесение dateTrack, startTime в бд.
- * 
+ *
  * @name dateTrack, startTime в бд
  * @route {POST} /startPos
  * @queryparam {String} token Токен
@@ -140,7 +138,7 @@ router.post('/startPos', async (req, res, next) => {
 
 /**
  * Занесение stopTime, points в бд.
- * 
+ *
  * @name stopTime, points в бд.
  * @route {POST} /getLastData
  * @queryparam {String} token Токен
@@ -170,7 +168,7 @@ router.post('/getLastData', async (req, res, next) => {
         } catch (err) { return res.status(404).send({
           status: 'error',
           message: 'Error in saving'
-          }); 
+          });
         }
         return ok(res);
       } catch (err) { return dberr(res); }
@@ -179,11 +177,11 @@ router.post('/getLastData', async (req, res, next) => {
 });
 
 /**
- * Обрабатывает данные и вычисляет тип водителя. 
- * Пока что доступны градации по скорости - лихач, 
+ * Обрабатывает данные и вычисляет тип водителя.
+ * Пока что доступны градации по скорости - лихач,
  * черепашка, обычный человек.
  * Вызывать каждый раз по окончании режима водителя.
- * 
+ *
  * @name Обработка данных
  * @route {POST} /obr
  * @queryparam {String} token Токен
@@ -209,7 +207,7 @@ router.post('/obr', async (req, res, next) => {
 		} catch (err) { return res.status(404).send({
 			status: 'error',
 			message: 'Error in saving'
-			}); 
+			});
         }
         return ok(res);
       } catch (err) { return dberr(res); }
@@ -219,7 +217,7 @@ router.post('/obr', async (req, res, next) => {
 
 /**
  * Обработка данных пользователя, ф-ция нужна для route "/obr".
- * 
+ *
  * @function
  * @async
  * @param {} res - response, для возвращения ответов
@@ -243,7 +241,7 @@ async function obr(user) {
 			let lat2 = user.latitude[i] * Math.M_PI / 180;
 			let long1 = user.longitude[i-1] * Math.M_PI / 180;
 			let long2 = user.longitude[i] * Math.M_PI / 180;
-		
+
 			cl1 = Math.cos(lat1);
 			cl2 = Math.cos(lat2);
 			sl1 = Math.sin(lat1);
@@ -253,7 +251,7 @@ async function obr(user) {
 
 			y = Math.sqrt(Math.pow(cl2 * sdelta, 2) + Math.pow(cl1 * sl2 - sl1 * cl2 * cdelta, 2));
 			x = sl1 * sl2 + cl1 * cl2 * cdelta;
-		
+
 			user.obr.dist += Math.atan2(y, x) * 6372795;
 		}
 		user.obr.dist /= 1000;
@@ -288,7 +286,7 @@ async function obr(user) {
 		return user;
 	} catch (err) {
 		console.log(err);
-		return user; 
+		return user;
 	}
 }
 

@@ -1,10 +1,8 @@
 "use strict";
-import path from 'path';
 import express from 'express';
-import User from '../../../models/user';
+import User from '../../models/user';
 import jwt from 'jsonwebtoken';
-import { dberr,notFound } from '../../../helpers';
-import jwt_decode from 'jwt-decode';
+import { dberr,notFound } from '../../helpers';
 const router = express.Router();
 
 /** @see module:api/v1/* */
@@ -12,7 +10,7 @@ const router = express.Router();
 
 /**
  * Взять токен, время жизни - 10 дней, secret смотреть в app.js. Нужна для route "/signup"
- * 
+ *
  * @function
  * @name Генерация токена
  * @param {} req - require, для обработки
@@ -24,7 +22,7 @@ const getToken = (req, payload) => jwt.sign(payload, req.app.get('secret'), {
 
 /**
  * Валидация пароля, условия в models/user.js. Нужна для route "/signup".
- * 
+ *
  * @function
  * @name Проверка пароля
  * @param {} user - пользователь, пароль которого проверяем
@@ -39,9 +37,9 @@ const verifyPassword = (user, password) => new Promise((resolve, reject) => {
 });
 
 /**
- * Регистрация нового пользователя. Возвращает токен и 
+ * Регистрация нового пользователя. Возвращает токен и
  * информацию о созданном пользователе.
- * 
+ *
  * @name Регистрация
  * @route {POST} /signup
  * @queryparam {String} username Имя пользователя
@@ -97,10 +95,10 @@ router.post('/signup', async (req, res, next) => {
 });
 
 /**
- * Аутентифицирует пользователя, возвращает статус 
- * приветствия и токен. Токен валиден 10 дней. Нагрузка 
+ * Аутентифицирует пользователя, возвращает статус
+ * приветствия и токен. Токен валиден 10 дней. Нагрузка
  * содержит имя пользователя и его ИД.
- * 
+ *
  * @name Авторизация
  * @route {POST} /signin
  * @queryparam {String} username Имя пользователя
