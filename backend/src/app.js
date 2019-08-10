@@ -6,6 +6,8 @@ import ejwt from 'express-jwt';
 import path from 'path';
 import api from './routes'
 
+var serveStatic = require('serve-static')
+
 /* istanbul ignore next */
 const requireProcessEnv = (name) => {
   if (!process.env[name]) {
@@ -14,15 +16,20 @@ const requireProcessEnv = (name) => {
   return process.env[name]
 }
 
+
 const app = express(apiRoot, api)
 const server = http.createServer(app)
+
+app.use(serveStatic(path.join(__dirname, 'dist')))
 
 mongoose.connect(mongo.uri)
 mongoose.Promise = Promise
 
-// app.set('', path.join(__dirname, 'dist'));
+// app.set('a', path.join(__dirname, 'dist'));
 app.set('secret', requireProcessEnv('SECRET_KEY'));
 
+// app.use(express.static('public'));
+// app.use('/static', express.static(__dirname + '/dist'))
 // app.use(express.static(path.join(__dirname, '/dist')));
 
 // app.use(ejwt({

@@ -1,6 +1,7 @@
 "use strict";
 import express from 'express';
 import api from './api';
+// import * as a from '../../dist';
 
 const router = express.Router();
 
@@ -15,13 +16,19 @@ const router = express.Router();
 
 router.use('/api', api);
 
-router.get('/', (req, res, next) => {
-  res.json({
-    name: "PSType API",
-    madeBy: "Anna, Valya",
-    versionOfServer: "0.1.1",
-    versionOfClient: "0.0.1"
-  });
+router.use('/static', express.static(__dirname + '/dist'))
+
+router.get('/', (req, res) => {
+  res.sendFile(__dirname, '/dist/index.html');
 });
+
+// router.get('/', (req, res, next) => {
+//   res.json({
+//     name: "PSType API",
+//     madeBy: "Anna, Valya",
+//     versionOfServer: "0.1.1",
+//     versionOfClient: "0.0.1"
+//   });
+// });
 
 export default router;
