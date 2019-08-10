@@ -1,7 +1,9 @@
 "use strict";
 import express from 'express';
+import expressOrig from 'express';
 import api from './api';
 // import * as a from '../../dist';
+import path from 'path';
 
 const router = express.Router();
 
@@ -16,11 +18,13 @@ const router = express.Router();
 
 router.use('/api', api);
 
-router.use('/static', express.static(__dirname + '/dist'))
+// router.use('/static', express.static(__dirname + '/dist'))
 
 router.get('/', (req, res) => {
-  res.sendFile(__dirname, '/dist/index.html');
+  res.sendFile(path.join(__dirname + '../../../dist/index.html'));
 });
+
+router.use('/static', expressOrig.static(path.join(__dirname + '../../../dist/static')))
 
 // router.get('/', (req, res, next) => {
 //   res.json({

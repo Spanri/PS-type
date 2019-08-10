@@ -5,7 +5,7 @@
 			<form id="search">
             	<input name="query" v-model="filterKey">
         	</form>
-			<div class="k" 
+			<div class="k"
 				v-for="(key, index) in filteredData"
 				:key="index"
 				@click="showDate(key._id)"
@@ -34,7 +34,7 @@
 					</div>
 				</div>
 			</div>
-			
+
 		</div>
     </div>
 </template>
@@ -98,7 +98,7 @@ export default {
             }
 			return all;
 		},
-		
+
 	},
 	mounted: function() {
 		const element = document.getElementById(this.mapName);
@@ -153,7 +153,7 @@ export default {
 		userOnMap: async function(key, key2) {
 			var data = this.all;
 			let id = this.i;
-            let all0 = data.filter(function (row) {
+      let all0 = data.filter(function (row) {
 				return Object.keys(row).some(function (key) {
 					return String(row[key]).toLowerCase().indexOf(id) > -1;
 				})
@@ -189,7 +189,7 @@ export default {
 			// масштабируем карту под координаты
 			var bounds = new google.maps.LatLngBounds();
 			Latlng.forEach(e => bounds.extend(e));
-			bounds.getCenter();     
+			bounds.getCenter();
 			this.map.fitBounds(bounds);
 		},
 		back: function () {
