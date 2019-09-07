@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
+import Auth from './views/Auth.vue';
+import About from './views/About.vue';
 import store from './store';
 
 Vue.use(Router);
@@ -21,17 +23,17 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home,
-      beforeEnter: ifAuthenticated,
+      // beforeEnter: ifAuthenticated,
     },
     {
       path: '/auth',
       name: 'auth',
-      component: () => import('./views/Auth.vue'),
+      component: Auth,
     },
     {
       path: '/about',
       name: 'about',
-      component: () => import('./views/About.vue'),
+      component: About,
       beforeEnter: ifAuthenticated,
     },
   ],

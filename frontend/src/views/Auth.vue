@@ -1,7 +1,7 @@
 <template>
   <div class="auth-parent">
+    <p class="title">Авторизация</p>
     <div class="auth">
-      <p class="auth__title">Авторизация</p>
       <div class="input">
         <p>Логин</p>
         <input id="username" type="text" v-model="username" placeholder="Введите логин" />
@@ -12,7 +12,7 @@
       </div>
       <button @click="login()">ОК</button>
     </div>
-    <div id="error" v-if="error">{{ error }}</div>
+    <div id="error">&#8195;{{ error }}</div>
   </div>
 </template>
 
@@ -53,26 +53,36 @@ export default {
 
 .auth-parent {
   height: 100vh;
-  max-width: 350px;
   display: flex;
   justify-content: center;
   align-content: center;
   flex-direction: column;
+  background-image: url('../assets/background.svg');
+  background-size: cover;
+}
+
+.title{
+  background: rgb(37, 73, 121);
+  width: 270px;
   margin: 0 auto;
+  color: white;
+  margin-top: 0;
+  margin-bottom: 10px;
+  padding: 15px;
+
+  @media (max-width: 700px) {
+    background: rgb(26, 55, 94);
+    color: white;
+  }
 }
 
 .auth {
   background: #c7e7e2;
+  width: 300px;
+  margin: 0 auto;
+  padding-top: 10px;
 
-  &__title{
-    background: #41cadc;
-    color: #ffffff;
-    margin-top: 0;
-    margin-bottom: 10px;
-    padding: 10px;
-  }
-
-  button{
+  button {
     width: 70px;
     margin: 15px auto 25px auto;
     background: #41cadc;
@@ -82,16 +92,18 @@ export default {
     padding: 7px;
   }
 
-  button:hover{
+  button:hover {
     background: #2d919e;
     cursor: pointer;
   }
 }
 
-#error{
-    padding: 15px;
-    margin: 0;
+#error {
+  padding: 15px;
+  margin: 0;
+  color: #03424b;
 }
+
 .input {
   p {
     margin: 0;
@@ -110,18 +122,17 @@ export default {
     border: none;
     box-shadow: inset 0 0 0 50px #ffffffda;
     -webkit-text-fill-color: rgb(55, 63, 48);
+  
+    &::-webkit-input-placeholder {
+      color:rgb(255, 255, 255);
+    }
+
+    &:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill{
+      background-color: rgb(37, 73, 121);
+    }
   }
 
-  input::-webkit-input-placeholder {
-    color:rgb(255, 255, 255);
-  }
 }
 
-input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill{
-    background-color: rgb(37, 73, 121);
-}
 
-#error{
-  color: #03424b;
-}
 </style>
