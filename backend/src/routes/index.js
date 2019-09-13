@@ -18,13 +18,17 @@ const router = express.Router();
 
 router.use('/api', api);
 
+var serveStatic = require('serve-static')
+router.use('/', serveStatic(__dirname + "../../../dist"));
+router.use('/assets', serveStatic(__dirname + "../../../dist/css"));
+
 // router.use('/static', express.static(__dirname + '/dist'))
 
-router.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname + '../../../dist/index.html'));
-});
+// router.get('/m', (req, res) => {
+//   res.sendFile(path.join(__dirname + '../../../dist/index.html'));
+// });
 
-router.use('/static', expressOrig.static(path.join(__dirname + '../../../dist/static')))
+// router.use('/static', expressOrig.static(path.join(__dirname + '../../../dist/static')))
 
 // router.get('/', (req, res, next) => {
 //   res.json({
