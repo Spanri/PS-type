@@ -1,17 +1,10 @@
 "use strict";
 import express from 'express';
 import User from '../../../models/user';
+import { masterKey } from '../../../config'
 import { dberr, ok, notFound } from '../../../helpers';
 import jwt from 'jsonwebtoken';
 const router = express.Router();
-
-/* istanbul ignore next */
-const requireProcessEnv = (name) => {
-  if (!process.env[name]) {
-    throw new Error('You must set the ' + name + ' environment variable')
-  }
-  return process.env[name]
-}
 
 /** @see module:api/v1/data/* */
 /** @module api/v1/data/* */
@@ -31,7 +24,7 @@ const requireProcessEnv = (name) => {
  * @queryparam {String} [city] Город
  */
 router.post('/change', async (req, res, next) => {
-  jwt.verify(req.body.token, requireProcessEnv('SECRET_KEY'), async (err, token) => {
+  jwt.verify(req.body.token, masterKey, async (err, token) => {
 		if(err){
 			res.status(500).send({
 				status: 'error',
@@ -94,7 +87,7 @@ function getCurrentAge(date) {
  */
 router.post('/', async (req, res, next) => {
 	// проверка на валидность токена
-  jwt.verify(req.body.token, requireProcessEnv('SECRET_KEY'), async (err, token) => {
+  jwt.verify(req.body.token, masterKey, async (err, token) => {
 		if (err) {
 			res.status(500).send({
 				status: 'error',
@@ -145,7 +138,7 @@ router.post('/', async (req, res, next) => {
  */
 router.post('/getDate', async (req, res, next) => {
 	//проверка на валидность токена
-  jwt.verify(req.body.token, requireProcessEnv('SECRET_KEY'), async (err, token) => {
+  jwt.verify(req.body.token, masterKey, async (err, token) => {
 		if (err) {
 			res.status(500).send({
 				status: 'error',
@@ -187,7 +180,7 @@ router.post('/getDate', async (req, res, next) => {
  */
 router.post('/getPoints', async (req, res, next) => {
 	// проверка на валидность токена
-  jwt.verify(req.body.token, requireProcessEnv('SECRET_KEY'), async (err, token) => {
+  jwt.verify(req.body.token, masterKey, async (err, token) => {
 		if (err) {
 			res.status(500).send({
 				status: 'error',
@@ -228,7 +221,7 @@ router.post('/getPoints', async (req, res, next) => {
  * @queryparam {String} token Токен от admin0
  */
 router.post('/all', async (req, res, next) => {
-  jwt.verify(req.body.token, requireProcessEnv('SECRET_KEY'), async (err, token) => {
+  jwt.verify(req.body.token, masterKey, async (err, token) => {
 		if (err) {
 			res.status(500).send({
 				status: 'error',
@@ -269,7 +262,7 @@ router.post('/all', async (req, res, next) => {
  */
 router.post('/changeAdmin', async (req, res, next) => {
 	// проверка на валидность токена
-  jwt.verify(req.body.token, requireProcessEnv('SECRET_KEY'), async (err, token) => {
+  jwt.verify(req.body.token, masterKey, async (err, token) => {
 		if (err) {
 			res.status(500).send({
 				status: 'error',

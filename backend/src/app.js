@@ -1,18 +1,10 @@
 import http from 'http'
-import { env, mongo, port, ip, apiRoot } from './config'
+import { env, mongo, port, ip, apiRoot, masterKey } from './config'
 import mongoose from './services/mongoose'
 import express from './services/express'
 import ejwt from 'express-jwt';
 import path from 'path';
 import api from './routes'
-
-/* istanbul ignore next */
-const requireProcessEnv = (name) => {
-  if (!process.env[name]) {
-    throw new Error('You must set the ' + name + ' environment variable')
-  }
-  return process.env[name]
-}
 
 const app = express(apiRoot, api)
 const server = http.createServer(app)
@@ -20,7 +12,7 @@ const server = http.createServer(app)
 mongoose.connect(mongo.uri)
 mongoose.Promise = Promise
 
-app.set('secret', requireProcessEnv('SECRET_KEY'));
+app.set('secret', masterKey);
 
 // app.use(ejwt({
 //   secret: app.get('secret')
