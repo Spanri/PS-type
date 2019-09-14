@@ -21,6 +21,7 @@ export default (apiRoot, routes) => {
   app.use(bodyParser.urlencoded({ extended: false }))
   app.use(bodyParser.json())
   app.use(apiRoot, routes)
+  app.use(express.static('../../../dist'))
   app.use(queryErrorHandler())
   app.use(bodyErrorHandler())
 
