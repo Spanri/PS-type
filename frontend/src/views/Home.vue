@@ -1,135 +1,119 @@
 <template>
-  <div class="home">
-    <nav class="navbar">
-      <div class="navbar__title">
-        <span class="i"></span>
-        <p style="display:inline-block">Панель управления</p>
-      </div>
-      <div class="navbar__menu">
-        <div class="navbar__menu-inner"
-            v-bind:class="{ colorNav: todo.component == 'page-doc2' ? todos[3].isActive : todo.isActive}"
-            v-bind:style="todo.component == 'page-doc2' ? todos[3] : todo"
-            v-bind:key="todo.id"
-            v-for='(todo, id) of todos'
-            @click="nav(id)">
-          {{ todo.text }}
-        </div>
-      </div>
-    </nav>
-    <div class="content-block">
-      <div :is="goToComponent()"></div>
-    </div>
-  </div>
+	<div class="home">
+		<nav class="navbar">
+			<div class="navbar__title">
+				<span class="navbar__icon_logo"></span>
+				<p class="navbar__text_logo">Панель управления</p>
+			</div>
+			<div class="navbar__menu">
+				<router-link class="navbar__menu-link"
+						v-bind:class="{ navbar__icon_menu: todo.component == 'page-doc2' ? todos[3].isActive : todo.isActive}"
+						v-bind:style="todo.component == 'page-doc2' ? todos[3] : todo"
+						v-bind:key="todo.id"
+						:to='todo.component'
+						v-for='(todo) of todos'>
+					{{ todo.text }}
+				</router-link>
+			</div>
+		</nav>
+		<div class="content-block">
+			<router-view></router-view>
+		</div>
+	</div>
 </template>
 
 <script lang="ts">
-import axios from 'axios'
+import axios from 'axios';
 import { Component, Vue, Provide } from 'vue-property-decorator';
 import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
 
 @Component({
-  
 })
+
 export default class Home extends Vue {
-  // data
-  displayError: any = 'none';
-  displaySuccess: any = 'none';
-  componentName: any = null;
-  todos: any = [
-    {
-      text: "Все юзеры",
-      component: "page-all",
-      "--before": "'\\f007'",
-      "--colorNav": "#41cadc",
-      isActive: false
-    },
-    {
-      text: "Карты",
-      component: "page-map",
-      "--before": "'\\f041'",
-      "--colorNav": "#41cadc",
-      isActive: false
-    },
-    {
-      text: "Заметки",
-      component: "page-doc",
-      "--before": "'\\f040'",
-      "--colorNav": "#41cadc",
-      isActive: false
-    },
-    {
-      text: "Документация",
-      component: "page-doc2",
-      "--before": "'\\f15c'",
-      "--colorNav": "#41cadc",
-      isActive: false
-    }
-  ];
-  
-	async created() {
-    await axios
-    .post("api/v1/data/", {
-      token: sessionStorage.getItem("token")
-    })
-    // ответ на запрос
-    .then(async response => {
-      this.displaySuccess = "grid";
-      await axios
-        .post("api/v1/data/all", {
-          token: sessionStorage.getItem("token")
-        })
-        // ответ на запрос
-        .then(response => {
-          this.$store.commit("all", response.data.all);
-          var doc = response.data.all.filter(function(row: any) {
-            return Object.keys(row).some(function(key: any) {
-              return (
-                String(row[key])
-                  .toLowerCase()
-                  .indexOf("admin0") > -1
-              );
-            });
-          });
-          this.$store.commit("doc", doc["0"].name);
-        });
+	// data
+	public component: any = '';
+	public displayError: any = 'none';
+	public displaySuccess: any = 'none';
+	public componentName: any = null;
+	public todos: any = [
+		{
+			'text': 'Все юзеры',
+			'component': 'page-all',
+			'--before': '"\\f007"',
+			'isActive': false,
+		},
+		{
+			'text': 'Карты',
+			'component': 'page-map',
+			'--before': '"\\f041"',
+			'isActive': false,
+		},
+		{
+			'text': 'Заметки',
+			'component': 'page-doc',
+			'--before': '\'\\f040\'',
+		},
+		{
+			'text': 'Документация',
+			'component': 'page-doc2',
+			'--before': '"\\f15c"',
+		},
+		{
+			'text': 'Привет мир',
+			'component': '/hello',
+			'--before': '"\\f15c"',
+		},
+	];
+	public async created() {
+		await axios
+		.post('api/v1/data/', {
+			token: sessionStorage.getItem('token'),
+		})
+		// ответ на запрос
+		.then(async (response) => {
+			this.displaySuccess = 'grid';
+			await axios
+				.post('api/v1/data/all', {
+					token: sessionStorage.getItem('token'),
+				})
+				// ответ на запрос
+				.then((response) => {
+					this.$store.commit('all', response.data.all);
+					const doc = response.data.all.filter(function(row: any) {
+						return Object.keys(row).some(function(key: any) {
+							return (
+								String(row[key])
+									.toLowerCase()
+									.indexOf('admin0') > -1
+							);
+						});
+					});
+					this.$store.commit('doc', doc['0'].name);
+				});
 			})
 			// обработка ошибок
-			.catch(e => {
+			.catch((e) => {
 				console.log(e);
-				this.displayError = "block";
+				this.displayError = 'block';
 			});
-		let self = this;
-		self.nav(0);
-  }
-  
-  nav(id: any) {
-    for (let todo of this.todos) {
-      todo.isActive = false;
-      todo["--colorNav"] = "#41cadc";
-    }
-    let todo = this.todos[id];
-    if (todo.component == "page-doc2") {
-      this.$store.commit("component", "page-all");
-      this.todos[0].isActive = true;
-      this.todos[0]["--colorNav"] = "white";
-      window.open("./doc/index.html");
-    }
-    else {
-      this.$store.commit("component", todo.component);
-      todo.isActive = true;
-      todo["--colorNav"] = "white";
-    }
-  }
-  
-  goToComponent() {
-    return this.$store.getters.component;
-  }
+		this.nav(0);
+	}
+	public nav(id: any) {
+		const todo = this.todos[id];
+		if (todo.component === 'page-doc2') {
+			this.$store.commit('component', 'page-all');
+			this.todos[0].isActive = true;
+			this.todos[0]['--colorNav'] = 'white';
+			window.open('./doc/index.html');
+		}
+	}
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
-// @import "../assets/css/font-awesome.min.css";
+@import "../assets/css/font-awesome.min.css";
 
 .home {
 	margin: 0;
@@ -137,83 +121,90 @@ export default class Home extends Vue {
 	min-height: 100vh;
 	color: rgb(37, 73, 121);
 	font-size: 18px;
+	display: flex;
 }
 
 .navbar {
 	background: #c7e7e2;
-	min-height: 100vh;
-	min-width: 250px;
 	text-align: left;
+	min-width: 250px;
+	min-height: 100vh;
+	
+	&__title {
+		margin: 15px;
+		margin-left: 0px;
+		margin-right: 0px;
+		background-color: #41cadc;
+	}
 
-  p {
-    margin: 0;
-    padding: 10px;
-    background-color: #41cadc;
-    color: #ffffff;
-    position: relative;
-    left: 60px;
-  }
+	&__icon_logo {
+		background-image: url(../assets/home.svg);
+		width: 50px;
+		height: 50px;
+		position: absolute;
+		top: 10px;
+		left: 10px;
+		display: inline-block;
+		vertical-align: middle;
+		z-index: 2;
+	}
 
-  &__title {
-    margin: 15px;
-    margin-left: 0px;
-    margin-right: 0px;
-    background-color: #41cadc;
+	&__text_logo {
+		display: inline-block;
+		margin: 0;
+		padding: 10px;
+		background-color: #41cadc;
+		color: #ffffff;
+		position: relative;
+		left: 60px;
+	}
 
-    .i {
-      background-image: url(../assets/home.svg);
-      width: 50px;
-      height: 50px;
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      display: inline-block;
-      vertical-align: middle;
-      z-index: 2;
-    }
-  }
+	.router-link-exact-active {
+		background-color: #8ecbd3;
+		color: #ffffff;
+		cursor: pointer;
+	}
 
-  &__menu {
-    display: grid;
-	  grid-template-rows: repeat(2, auto);
-  }
+	.router-link-exact-active::before {
+		color: #ffffff;
+	}
 
-  &__menu-inner {
-    /*margin: 3px;*/
-    margin-left: 0px;
-    margin-right: 0px;
-    padding: 10px;
-    padding-left: 20px;
-    text-decoration: none;
-    color: rgb(41, 59, 83);
+	&__menu {
+		display: grid;
+		grid-template-rows: repeat(2, auto);
+	}
 
-    &:hover {
-      background-color: #8ecbd3;
-      color: #ffffff;
-      cursor: pointer;
-    }
+	&__menu-link {
+		/*margin: 3px;*/
+		margin-left: 0px;
+		margin-right: 0px;
+		padding: 10px;
+		padding-left: 20px;
+		text-decoration: none;
+		color: rgb(41, 59, 83);
 
-    &:before {
-      content: var(--before); /* добавляем иконку дом */
-      font-family: FontAwesome;
-      color: var(--colorNav);
-      display: inline-block;
-      min-width: 30px;
-    }
+		&:hover {
+			background-color: #8ecbd3;
+			color: #ffffff;
+			cursor: pointer;
+		}
 
-    &:hover::before {
-      color: white;
-    }
-  } 
+		&::before {
+			content: var(--before); /* добавляем иконку дом */
+			font-family: FontAwesome;
+			color: #41cadc;
+			display: inline-block;
+			min-width: 30px;
+		}
+
+		&:hover::before {
+			color: white;
+		}
+	} 
 }
 
-.colorNav {
-	background-color: #8ecbd3;
-	color: #ffffff;
-	cursor: pointer;
-}
-
-.right-block {
+.content-block {
 	overflow-x: hidden;
+	flex: 100%;
 }
 </style>

@@ -9,7 +9,9 @@
     ]
   },
   "rules": {
-    "indent": [true, "spaces", 2],
+    "indent": [true, "tabs", 2],
+    "no-shadowed-variable": false,
+    "only-arrow-functions": false,
     "no-console": false,
     "interface-name": false,
     "no-consecutive-blank-lines": false,
