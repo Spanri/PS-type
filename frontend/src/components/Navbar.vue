@@ -42,7 +42,7 @@ export default class Navbar extends Vue {
 		{
 			'text': 'Заметки',
 			'component': '/notes',
-			'--before': '\'\\f040\'',
+			'--before': '"\\f040"',
 		},
 		{
 			'text': 'Документация',
