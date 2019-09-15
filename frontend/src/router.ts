@@ -2,9 +2,9 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
 import HelloWorld from './components/HelloWorld.vue';
+import Maps from './views/Maps.vue';
 import Notes from './views/Notes.vue';
 import Auth from './views/Auth.vue';
-import About from './views/About.vue';
 import NotFound from './views/NotFound.vue';
 import store from './store';
 
@@ -47,7 +47,7 @@ export default new Router({
 				{
 					path: '/maps',
 					name: 'maps',
-					component: HelloWorld,
+					component: Maps,
 				},
 				{
 					path: '/notes',
@@ -72,16 +72,10 @@ export default new Router({
 			beforeEnter: ifNotAuthenticated,
 		},
 		{
-			path: '/about',
-			name: 'about',
-			component: About,
-			// beforeEnter: ifAuthenticated,
-		},
-		{
 			path: '*',
 			name: 'notFound',
 			component: NotFound,
-			// beforeEnter: ifAuthenticated,
+			beforeEnter: ifAuthenticated,
 		},
 	],
 });

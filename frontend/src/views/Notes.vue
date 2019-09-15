@@ -10,20 +10,16 @@
 				<button class="button notes__button_confirm" @click="clickButton()">ПОДТВЕРДИТЬ</button>
 			</div>
 		</div>
-		<div>
-			<p v-if="!edit" class="doc">{{data}}</p>
-			<!-- v-html="data" -->
-			<textarea v-else wrap="hard" class="tooltip" v-on:click.stop v-model="data2"></textarea>
+		<div class="notes__content">
+			<p v-if="!edit" class="notes__content_view" v-html="data"></p>
+			<textarea v-else wrap="hard" class="notes__content_edit" v-on:click.stop v-model="data2"></textarea>
 		</div>
 	</div>
 </template>
 
 <script lang="ts">
 import axios from 'axios';
-import { Component, Vue, Provide } from 'vue-property-decorator';
-
-@Component({
-})
+import { Vue } from 'vue-property-decorator';
 
 export default class Notes extends Vue {
 	// data
@@ -32,6 +28,10 @@ export default class Notes extends Vue {
 	public data2: string = '';
 	public grid: any = '1fr auto';
 	public change: any = 'РЕДАИРОВАТЬ';
+	// life hooks
+	public created() {
+		this.data = this.data2 = 'this.$store.getters.doc';
+	}
 	// methods
 	public clickButton() {
 		this.edit = true;
@@ -45,9 +45,6 @@ export default class Notes extends Vue {
 			this.change = 'Редактировать';
 		}
 	}
-	public created() {
-		this.data = this.data2 = 'this.$store.getters.doc';
-	}
 	public cancel() {
 		this.edit = false;
 	}
@@ -57,11 +54,9 @@ export default class Notes extends Vue {
 			token: sessionStorage.getItem('token'),
 			name: this.data,
 		})
-		// ответ на запрос
 		.then((response) => {
 			console.log('Изменили документацию');
 		})
-		// обработка ошибок
 		.catch((e) => {
 			console.log(e);
 			console.log('Что-то не то введено');
@@ -77,16 +72,18 @@ export default class Notes extends Vue {
 	text-align: left;
 	padding: 0;
 	height: 100vh;
+	display: flex;
+	flex-direction: column;
 
 	&__title {
 		padding: 30px;
 		font-size: 25px;
 		display: flex;
 		justify-content: space-between;
+		flex-wrap: wrap;
 
 		&-text {
 			margin: 0px;
-			flex: 100%;
 		}
 	}
 
@@ -96,6 +93,17 @@ export default class Notes extends Vue {
 
 	&__button_cancel {
 		margin-right: 15px;
+	}
+
+	&__content {
+		margin: 30px;
+		margin-top: 10px;
+		height: calc(100% - 140px);
+
+		&_edit {
+			width: 100%;
+			height: 100%;
+		}
 	}
 }
 
@@ -109,10 +117,5 @@ export default class Notes extends Vue {
 		cursor: pointer;
 		background: #5191b4;
 	}
-}
-
-.tooltip, .doc {
-	margin: 30px;
-	margin-top: 10px;
 }
 </style>
