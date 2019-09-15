@@ -2,18 +2,28 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
 import HelloWorld from './components/HelloWorld.vue';
+import Notes from './views/Notes.vue';
 import Auth from './views/Auth.vue';
 import About from './views/About.vue';
+import NotFound from './views/NotFound.vue';
 import store from './store';
 
 Vue.use(Router);
 
 const ifAuthenticated = (to: any, from: any, next: any) => {
 	if (store.getters.isAuthenticated) {
+		next('/auth');
+		return;
+	}
+	next();
+};
+
+const ifNotAuthenticated = (to: any, from: any, next: any) => {
+	if (!store.getters.isAuthenticated) {
 		next();
 		return;
 	}
-	next('/auth');
+	next('/');
 };
 
 export default new Router({
@@ -21,37 +31,57 @@ export default new Router({
 	base: process.env.BASE_URL,
 	routes: [
 		{
-			path: '/',
-			name: 'home',
+			path: '',
 			component: Home,
-			// beforeEnter: ifAuthenticated,
+			beforeEnter: ifAuthenticated,
 			children: [
 				{
 					path: '',
-					redirect: '/hello',
+					redirect: '/all-users',
 				},
 				{
-					path: 'hello',
-					name: 'hello',
+					path: '/all-users',
+					name: 'allUsers',
 					component: HelloWorld,
-					// beforeEnter: ifAuthenticated,
 				},
 				{
-					path: 'doc',
-					redirect: './doc/index.html',
+					path: '/maps',
+					name: 'maps',
+					component: HelloWorld,
 				},
+				{
+					path: '/notes',
+					name: 'notes',
+					component: Notes,
+				},
+				{
+					path: '/docs',
+					redirect: '/doc/index.html',
+				},
+				// {
+				// 	path: '*',
+				// 	name: 'notFound',
+				// 	component: NotFound,
+				// },
 			],
 		},
 		{
 			path: '/auth',
 			name: 'auth',
 			component: Auth,
+			beforeEnter: ifNotAuthenticated,
 		},
 		{
 			path: '/about',
 			name: 'about',
 			component: About,
-			beforeEnter: ifAuthenticated,
+			// beforeEnter: ifAuthenticated,
+		},
+		{
+			path: '*',
+			name: 'notFound',
+			component: NotFound,
+			// beforeEnter: ifAuthenticated,
 		},
 	],
 });

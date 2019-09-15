@@ -19,31 +19,29 @@
 	</div>
 </template>
 
-<script>
-import Auth from './views/Auth';
+<script lang="ts">
 import axios from 'axios';
+import { Component, Vue } from 'vue-property-decorator';
+import Auth from '@/views/Auth.vue';
 
-export default {
-	name: 'App',
+@Component({
 	components: {
 		Auth,
 	},
-	data() {
-		return {
+})
 
-		};
-	},
-	created() {
+export default class App extends Vue {
+	public created() {
 		axios.interceptors.response.use(undefined, function(err) {
 			return new Promise(function(resolve, reject) {
 				if (err.status === 401 && err.config && !err.config.__isRetryRequest) {
-					this.$store.dispatch(AUTH_LOGOUT);
+					// this.$store.dispatch(AUTH_LOGOUT);
 				}
 				throw err;
 			});
-		});
-	},
-};
+		 });
+	}
+}
 </script>
 
 <style lang="scss">
@@ -55,24 +53,6 @@ export default {
 	color: #2c3e50;
 	height: 100vh;
 	width: 100vw;
-}
-#nav {
-	padding: 30px;
-	a {
-		font-weight: bold;
-		color: #2c3e50;
-		&.router-link-exact-active {
-			color: #42b983;
-		}
-	}
-}
-
-/* Окно, если авторизация успешна */
-.authenticated {
-	height: 100vh;
-	width: calc(100vw-15px);
-	display: grid;
-	grid-template-rows: max-content auto max-content;
 }
 
 /* Окошко "Система загружается" после успешной авторизации*/
@@ -105,9 +85,9 @@ export default {
 	animation: spin 3s linear infinite;
 
 	@keyframes spin {
-	100% {
-			transform: rotate(360deg); 
+		100% {
+				transform: rotate(360deg); 
+		}
 	}
-}
 }
 </style>
