@@ -94,6 +94,7 @@ export default class Navbar extends Vue {
 	text-align: left;
 	min-width: 250px;
 	min-height: 100vh;
+	font-size: 18px;
 	
 	&__title {
 		margin: 15px;

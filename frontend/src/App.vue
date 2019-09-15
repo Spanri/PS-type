@@ -55,6 +55,10 @@ export default class App extends Vue {
 	width: 100vw;
 }
 
+h1 {
+	font-size: 140%;
+}
+
 /* Окошко "Система загружается" после успешной авторизации*/
 .load{
 	height: 100vh;

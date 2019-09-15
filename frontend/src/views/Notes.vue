@@ -1,7 +1,7 @@
 <template>
 	<div class="notes">
 		<div class="notes__title" v-bind:style="{ gridTemplateColumns: grid }">
-			<h3 class="notes__title-text">Заметки от разработчика</h3>
+			<h1 class="notes__title-text">Заметки от разработчика</h1>
 			<div v-if="!edit" class="notes__edit_false">
 				<button class="button" @click="clickButton()">РЕДАКТИРОВАТЬ</button>
 			</div>
@@ -65,19 +65,17 @@ export default class Notes extends Vue {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-
 .notes{
 	text-align: left;
 	padding: 0;
 	height: 100vh;
 	display: flex;
 	flex-direction: column;
+	font-size: 100%;
 
 	&__title {
 		padding: 30px;
-		font-size: 25px;
 		display: flex;
 		justify-content: space-between;
 		flex-wrap: wrap;

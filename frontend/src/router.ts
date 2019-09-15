@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
-import HelloWorld from './components/HelloWorld.vue';
-import Maps from './views/Maps.vue';
+import AllUsers from './views/AllUsers.vue';
+import Maps from './views/Map.vue';
 import Notes from './views/Notes.vue';
 import Auth from './views/Auth.vue';
 import NotFound from './views/NotFound.vue';
@@ -42,7 +42,7 @@ export default new Router({
 				{
 					path: '/all-users',
 					name: 'allUsers',
-					component: HelloWorld,
+					component: AllUsers,
 				},
 				{
 					path: '/maps',
@@ -56,13 +56,10 @@ export default new Router({
 				},
 				{
 					path: '/docs',
-					redirect: '/doc/index.html',
+					beforeEnter() {
+						location.href = './doc/index.html';
+					},
 				},
-				// {
-				// 	path: '*',
-				// 	name: 'notFound',
-				// 	component: NotFound,
-				// },
 			],
 		},
 		{

@@ -28,7 +28,6 @@ export default class App extends Vue {
 	width: 100%;
 	min-height: 100vh;
 	color: rgb(37, 73, 121);
-	font-size: 18px;
 	display: flex;
 }
 
