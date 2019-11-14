@@ -47,7 +47,7 @@ export default new Router({
 				{
 					path: '/maps',
 					name: 'maps',
-					component: Maps,
+					component: AllUsers,
 				},
 				{
 					path: '/notes',
@@ -57,7 +57,7 @@ export default new Router({
 				{
 					path: '/docs',
 					beforeEnter() {
-						location.href = './doc/index.html';
+						window.open('./doc/index.html', '_blank');
 					},
 				},
 			],

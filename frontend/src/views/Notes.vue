@@ -2,16 +2,16 @@
 	<div class="notes">
 		<div class="notes__title" v-bind:style="{ gridTemplateColumns: grid }">
 			<h1 class="notes__title-text">Заметки от разработчика</h1>
-			<div v-if="!edit" class="notes__edit_false">
-				<button class="button" @click="clickButton()">РЕДАКТИРОВАТЬ</button>
+			<div v-if="edit == false" class="notes__edit_false">
+				<button class="button" @click="editC()">РЕДАКТИРОВАТЬ</button>
 			</div>
 			<div v-else class="notes__edit_true">
 				<button class="button notes__button_cancel" @click="cancel()">ОТМЕНИТЬ</button>
-				<button class="button notes__button_confirm" @click="clickButton()">ПОДТВЕРДИТЬ</button>
+				<button class="button notes__button_confirm" @click="confirm()">ПОДТВЕРДИТЬ</button>
 			</div>
 		</div>
 		<div class="notes__content">
-			<p v-if="!edit" class="notes__content_view" v-html="data"></p>
+			<p v-if="edit == false" class="notes__content_view" v-html="data"></p>
 			<textarea v-else wrap="hard" class="notes__content_edit" v-on:click.stop v-model="data2"></textarea>
 		</div>
 	</div>
@@ -33,34 +33,27 @@ export default class Notes extends Vue {
 		this.data = this.data2 = 'this.$store.getters.doc';
 	}
 	// methods
-	public clickButton() {
+	public editC() {
 		this.edit = true;
-		if (this.change === 'Редактировать') {
-			this.grid = '1fr auto auto';
-			this.change = 'Подтвердить';
-			this.data2 = this.data2.replace(/<br\/>/g, '\n');
-		} else {
-			this.grid = '1fr auto';
-			this.confirmButton();
-			this.change = 'Редактировать';
-		}
+		console.log(this.edit);
 	}
-	public cancel() {
-		this.edit = false;
-	}
-	public async confirmButton() {
-		this.data = this.data2.replace(/\n/g, '<br/>');
-		await axios.post('api/v1/data/change', {
+	public confirm() {
+		axios.post('api/v1/data/change', {
 			token: sessionStorage.getItem('token'),
-			name: this.data,
+			name: this.data2.replace(/<br\/>/g, '\n'),
 		})
 		.then((response) => {
 			console.log('Изменили документацию');
+			this.data = this.data2.replace(/<br\/>/g, '\n');
+			this.edit = false;
 		})
 		.catch((e) => {
 			console.log(e);
 			console.log('Что-то не то введено');
 		});
+	}
+	public cancel() {
+		this.edit = false;
 	}
 }
 </script>
